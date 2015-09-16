@@ -1,4 +1,27 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of Rpi.SenseHat.Demo
+//
+//  Copyright (c) 2015, Mattias Larsson
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of 
+//  this software and associated documentation files (the "Software"), to deal in 
+//  the Software without restriction, including without limitation the rights to use, 
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
+//  Software, and to permit persons to whom the Software is furnished to do so, 
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all 
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using RichardsTech.Sensors;
@@ -7,27 +30,32 @@ namespace RPi.SenseHat.Demo.Demos
 {
 	public sealed class GravityBlob : SenseHatDemo
 	{
-		public GravityBlob(ISenseHat senseHat):base(senseHat)
+		public GravityBlob(ISenseHat senseHat) : base(senseHat)
 		{
 		}
 
-		public override void Update()
+		public override void Run()
 		{
-			if (!SenseHat.Sensors.ImuSensor.Update())
+			while (true)
 			{
-				return;
+				Sleep(TimeSpan.FromMilliseconds(50));
+
+				if (!SenseHat.Sensors.ImuSensor.Update())
+				{
+					return;
+				}
+
+				if (!SenseHat.Sensors.Acceleration.HasValue)
+				{
+					return;
+				}
+
+				Color[,] colors = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
+
+				SenseHat.Display.CopyColorsToScreen(colors);
+
+				SenseHat.Display.Update();
 			}
-
-			if (!SenseHat.Sensors.Acceleration.HasValue)
-			{
-				return;
-			}
-
-			Color[,] colors = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
-
-			SenseHat.Display.CopyColorsToScreen(colors);
-
-			SenseHat.Display.Update();
 		}
 
 		private static Color[,] CreateGravityBlobScreen(Vector3 vector)

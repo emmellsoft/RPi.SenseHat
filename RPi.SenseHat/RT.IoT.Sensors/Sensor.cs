@@ -29,9 +29,13 @@ namespace RichardsTech.Sensors
 	/// <summary>
 	/// A generic sensor.
 	/// </summary>
-	public abstract class Sensor
+	public abstract class Sensor : IDisposable
 	{
 		protected Sensor()
+		{
+		}
+
+		public virtual void Dispose()
 		{
 		}
 

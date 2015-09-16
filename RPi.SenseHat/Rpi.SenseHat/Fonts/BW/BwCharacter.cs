@@ -21,68 +21,30 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-using RichardsTech.Sensors;
-
-namespace Emmellsoft.IoT.Rpi.SenseHat
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 {
 	/// <summary>
-	/// Interface to the Sense HAT sensors.
+	/// A one-color font character.
 	/// </summary>
-	public interface ISenseHatSensors
+	public class BwCharacter : Character
 	{
 		/// <summary>
-		/// The current reading of the gyro (in radians/sec).
+		/// Constructor.
 		/// </summary>
-		Vector3? Gyro
-		{ get; }
+		/// <param name="symbol">The unicode character.</param>
+		/// <param name="columns">The pixel columns. One column=one byte where each bit represents a pixel (on=1 or off=0) where the LSB is the topmost pixel.</param>
+		public BwCharacter(char symbol, byte[] columns)
+			: base(symbol, columns.Length)
+		{
+			Columns = columns;
+		}
 
 		/// <summary>
-		/// The current reading of the acceleration (in g).
+		/// The pixel columns.
+		/// One column=one byte where each bit represents a pixel (on=1 or off=0)
+		/// where the LSB is the topmost pixel.
 		/// </summary>
-		Vector3? Acceleration
-		{ get; }
-
-		/// <summary>
-		/// The current reading of the magnetic field (in µT).
-		/// </summary>
-		Vector3? MagneticField
-		{ get; }
-
-		/// <summary>
-		/// The current reading of the [atmospheric] pressure (in hPa).
-		/// </summary>
-		double? Pressure
-		{ get; }
-
-		/// <summary>
-		/// The current reading of the temperature (in °C).
-		/// </summary>
-		double? Temperature
-		{ get; }
-
-		/// <summary>
-		/// The current reading of the relative humidity (in %RH).
-		/// </summary>
-		double? Humidity
-		{ get; }
-
-		/// <summary>
-		/// The IMU sensor (measures Gyro, Acceleration and MagneticField).
-		/// </summary>
-		ImuSensor ImuSensor
-		{ get; }
-
-		/// <summary>
-		/// The Pressure sensor (measures Pressure).
-		/// </summary>
-		PressureSensor PressureSensor
-		{ get; }
-
-		/// <summary>
-		/// The Humidity sensor (measures Temperature and Humidity).
-		/// </summary>
-		HumiditySensor HumiditySensor
+		public byte[] Columns
 		{ get; }
 	}
 }

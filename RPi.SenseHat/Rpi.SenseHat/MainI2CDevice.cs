@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Tools
+//  This file is part of Rpi.SenseHat
 //
 //  Copyright (c) 2015, Mattias Larsson
 //
@@ -21,48 +21,53 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
+using System;
+using Windows.Devices.I2c;
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer
+namespace Emmellsoft.IoT.Rpi.SenseHat
 {
-	public static class FindBestGammaMatch
+	internal sealed class MainI2CDevice : IDisposable
 	{
-		public static double Best5BitGammaMatch(byte[] wantedGammaTable, double start, double stop, double step)
+		private readonly I2cDevice _device;
+
+		public MainI2CDevice(I2cDevice device)
 		{
-			var gammaValue = start;
+			_device = device;
+		}
 
-			double bestMatchGammaValue = 0;
-			int bestMatchGammaFailCount = int.MaxValue;
+		public void Dispose()
+		{
+			_device.Dispose();
+		}
 
-			do
-			{
-				byte[] myGamma = GammaCalc.Get5BitGamma(gammaValue).ToArray();
+		internal byte ReadByte(byte address)
+		{
+			byte[] buffer = { address };
+			byte[] value = new byte[1];
 
-				int failCount = 0;
-				for (int i = 0; i < myGamma.Length; i++)
-				{
-					if (myGamma[i] != wantedGammaTable[i])
-					{
-						failCount++;
-					}
-				}
-				
-				if (failCount < bestMatchGammaFailCount)
-				{
-					bestMatchGammaValue = gammaValue;
-					bestMatchGammaFailCount = failCount;
+			_device.WriteRead(buffer, value);
 
-					if (failCount == 0)
-					{
-						break;
-					}
-				}
+			return value[0];
+		}
 
-				gammaValue += step;
-			}
-			while (gammaValue < stop);
+		internal byte[] ReadBytes(byte address, int length)
+		{
+			byte[] values = new byte[length];
+			byte[] buffer = new byte[1];
+			buffer[0] = address;
 
-			return bestMatchGammaValue;
+			_device.WriteRead(buffer, values);
+
+			return values;
+		}
+
+		internal void WriteBytes(byte address, byte[] values)
+		{
+			byte[] buffer = new byte[1 + values.Length];
+			buffer[0] = address;
+			Array.Copy(values, 0, buffer, 1, values.Length);
+
+			_device.Write(buffer);
 		}
 	}
 }

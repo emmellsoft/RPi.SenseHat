@@ -45,6 +45,12 @@ namespace RichardsTech.Sensors.Devices.HTS221
 			_i2CAddress = i2CAddress;
 		}
 
+		public override void Dispose()
+		{
+			base.Dispose();
+			_i2CDevice.Dispose();
+        }
+
 		protected override async Task<bool> InitDeviceAsync()
 		{
 			await ConnectToI2CDevices();

@@ -1,11 +1,35 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of Rpi.SenseHat
+//
+//  Copyright (c) 2015, Mattias Larsson
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of 
+//  this software and associated documentation files (the "Software"), to deal in 
+//  the Software without restriction, including without limitation the rights to use, 
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
+//  Software, and to permit persons to whom the Software is furnished to do so, 
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all 
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
+using System.Linq;
 using Windows.UI;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
 	internal sealed class SenseHatDisplay : ISenseHatDisplay
 	{
-		private readonly SenseHat _senseHat;
+		private readonly MainI2CDevice _mainI2CDevice;
 		private DisplayDirection _direction;
 		private bool _flipHorizontal;
 		private bool _flipVertical;
@@ -51,9 +75,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			{ Color.FromArgb(0xff, 0x00, 0xfb, 0xb4), Color.FromArgb(0xff, 0x00, 0xdb, 0xfb), Color.FromArgb(0xff, 0x00, 0x6c, 0xfb), Color.FromArgb(0xff, 0x00, 0x00, 0xfb), Color.FromArgb(0xff, 0x6c, 0x00, 0xfb), Color.FromArgb(0xff, 0xdb, 0x00, 0xfb), Color.FromArgb(0xff, 0xfb, 0x00, 0xb4), Color.FromArgb(0xff, 0xfb, 0x00, 0x47) },
 		};
 
-		public SenseHatDisplay(SenseHat senseHat)
+		public SenseHatDisplay(MainI2CDevice mainI2CDevice)
 		{
-			_senseHat = senseHat;
+			_mainI2CDevice = mainI2CDevice;
 
 			Screen = new Color[8, 8];
 
@@ -116,7 +140,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			}
 		}
 
-		public void CopyColorsToScreen(Color[,] colors)
+		public void CopyColorsToScreen(Color[,] colors, int offsetX, int offsetY)
 		{
 			if ((colors.GetLength(0) != 8) || (colors.GetLength(1) != 8))
 			{
@@ -129,16 +153,26 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				throw new ArgumentException("My pixel matrix must be 8x8.");
 			}
 
+			if (offsetX < 0)
+			{
+				offsetX = 8 + (offsetX % 8);
+			}
+
+			if (offsetY < 0)
+			{
+				offsetY = 8 + (offsetY % 8);
+			}
+
 			for (int y = 0; y < 8; y++)
 			{
 				for (int x = 0; x < 8; x++)
 				{
-					Screen[x, y] = colors[x, y];
+					Screen[(x + offsetX) % 8, (y + offsetY) % 8] = colors[x, y];
 				}
 			}
 		}
 
-		public void CopyColorsToScreen(Color[] colors)
+		public void CopyColorsToScreen(Color[] colors, int offsetX, int offsetY)
 		{
 			if (colors.Length != 64)
 			{
@@ -151,12 +185,22 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				throw new ArgumentException("My pixel matrix must be 8x8.");
 			}
 
+			if (offsetX < 0)
+			{
+				offsetX = 8 + (offsetX % 8);
+			}
+
+			if (offsetY < 0)
+			{
+				offsetY = 8 + (offsetY % 8);
+			}
+
 			int i = 0;
 			for (int y = 0; y < 8; y++)
 			{
 				for (int x = 0; x < 8; x++)
 				{
-					Screen[x, y] = colors[i++];
+					Screen[(x + offsetX) % 8, (y + offsetY) % 8] = colors[i++];
 				}
 			}
 		}
@@ -206,6 +250,21 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			}
 		}
 
+		public byte[] ReadRaw()
+		{
+			return _mainI2CDevice.ReadBytes(0, 192);
+		}
+
+		public void WriteRaw(byte[] rawBuffer)
+		{
+			if (rawBuffer.Length != 192)
+			{
+				throw new ArgumentException("The raw pixel array must be 192 bytes long (i.e. 8x8x3).", nameof(rawBuffer));
+			}
+
+			_mainI2CDevice.WriteBytes(0, rawBuffer);
+		}
+
 		public void Update()
 		{
 			if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
@@ -233,7 +292,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				index += 16; // Step to the next row.
 			}
 
-			_senseHat.WriteBytes(0, buffer);
+			_mainI2CDevice.WriteBytes(0, buffer);
 		}
 
 		private Color GetPixel(int x, int y)
@@ -256,42 +315,6 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			}
 
 			return _gammaTable[fiveBit];
-		}
-
-		public void Set(Color[,] pixels)
-		{
-		}
-
-		public void Set(Color[] pixels)
-		{
-			if (pixels.Length != 64)
-			{
-				throw new ArgumentException("The pixel matrix must contain 64 (8x8) pixels.", nameof(pixels));
-			}
-
-			byte[] buffer = new byte[8 * 8 * 3]; // (3 for R,G,B)
-
-			int index = 0;
-
-			int pixelIndex = 0;
-
-			for (int y = 0; y < 8; y++)
-			{
-				for (int x = 0; x < 8; x++)
-				{
-					Color color = pixels[pixelIndex++];
-
-					buffer[index] = _gammaTable[color.R >> 3];
-					buffer[index + 8] = _gammaTable[color.G >> 3];
-					buffer[index + 16] = _gammaTable[color.B >> 3];
-
-					index++;
-				}
-
-				index += 16; // Step to the next row.
-			}
-
-			_senseHat.WriteBytes(0, buffer);
 		}
 
 		private void UpdateDirectionParameters()

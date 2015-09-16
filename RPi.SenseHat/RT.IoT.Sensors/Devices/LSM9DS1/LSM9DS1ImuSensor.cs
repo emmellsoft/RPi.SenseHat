@@ -50,6 +50,13 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
 			SampleRate = 100;
 		}
 
+		public override void Dispose()
+		{
+			base.Dispose();
+			_accelGyroI2CDevice.Dispose();
+			_magI2CDevice.Dispose();
+		}
+
 		protected override async Task<bool> InitDeviceAsync()
 		{
 			await ConnectToI2CDevices();

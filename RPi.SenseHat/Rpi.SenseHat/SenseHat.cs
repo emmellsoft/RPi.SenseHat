@@ -1,24 +1,46 @@
-﻿using System;
-using Windows.Devices.I2c;
+﻿////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of Rpi.SenseHat
+//
+//  Copyright (c) 2015, Mattias Larsson
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of 
+//  this software and associated documentation files (the "Software"), to deal in 
+//  the Software without restriction, including without limitation the rights to use, 
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
+//  Software, and to permit persons to whom the Software is furnished to do so, 
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all 
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using RichardsTech.Sensors;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
 	internal sealed class SenseHat : ISenseHat
 	{
-		private readonly I2cDevice _device;
+		private readonly MainI2CDevice _mainI2CDevice;
 		private bool _isDisposed;
 
 		public SenseHat(
-			I2cDevice device,
+			MainI2CDevice mainI2CDevice,
 			ImuSensor imuSensor,
 			PressureSensor pressureSensor,
 			HumiditySensor humiditySensor)
 		{
-			_device = device;
+			_mainI2CDevice = mainI2CDevice;
 
-			Display = new SenseHatDisplay(this);
-			Joystick = new SenseHatJoystick(this);
+			Display = new SenseHatDisplay(_mainI2CDevice);
+			Joystick = new SenseHatJoystick(_mainI2CDevice);
 			Sensors = new SenseHatSensors(imuSensor, pressureSensor, humiditySensor);
 		}
 
@@ -29,11 +51,12 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				return;
 			}
 
-			_device.Dispose();
+			_mainI2CDevice.Dispose();
+			((IDisposable)Sensors).Dispose();
 			_isDisposed = true;
 		}
 
-		public byte FirmwareVersion => ReadByte(0xf1);
+		public byte FirmwareVersion => _mainI2CDevice.ReadByte(0xf1);
 
 		public ISenseHatDisplay Display
 		{ get; }
@@ -43,44 +66,5 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
 		public ISenseHatSensors Sensors
 		{ get; }
-
-		internal byte ReadByte(byte regAddr)
-		{
-			byte[] buffer = { regAddr };
-			byte[] value = new byte[1];
-
-			_device.WriteRead(buffer, value);
-
-			return value[0];
-		}
-
-		internal byte[] ReadBytes(byte regAddr, int length)
-		{
-			byte[] values = new byte[length];
-			byte[] buffer = new byte[1];
-			buffer[0] = regAddr;
-
-			_device.WriteRead(buffer, values);
-
-			return values;
-		}
-
-		internal void WriteByte(byte regAddr, byte data)
-		{
-			byte[] buffer = new byte[2];
-			buffer[0] = regAddr;
-			buffer[1] = data;
-
-			_device.Write(buffer);
-		}
-
-		internal void WriteBytes(byte regAddr, byte[] values)
-		{
-			byte[] buffer = new byte[1 + values.Length];
-			buffer[0] = regAddr;
-			Array.Copy(values, 0, buffer, 1, values.Length);
-
-			_device.Write(buffer);
-		}
 	}
 }

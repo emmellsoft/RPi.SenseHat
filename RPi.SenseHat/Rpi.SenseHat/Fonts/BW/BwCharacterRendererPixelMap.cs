@@ -21,68 +21,46 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-using RichardsTech.Sensors;
-
-namespace Emmellsoft.IoT.Rpi.SenseHat
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 {
 	/// <summary>
-	/// Interface to the Sense HAT sensors.
+	/// Information regarding a certain pixel of a BwCharacter to be rendered.
 	/// </summary>
-	public interface ISenseHatSensors
+	public struct BwCharacterRendererPixelMap
 	{
 		/// <summary>
-		/// The current reading of the gyro (in radians/sec).
+		/// The character to render.
 		/// </summary>
-		Vector3? Gyro
-		{ get; }
+		public BwCharacter Character;
 
 		/// <summary>
-		/// The current reading of the acceleration (in g).
+		/// The X-coordinate of the pixel in regards to the character (0 .. character width-1).
 		/// </summary>
-		Vector3? Acceleration
-		{ get; }
+		public int CharPixelX;
 
 		/// <summary>
-		/// The current reading of the magnetic field (in µT).
+		/// The Y-coordinate of the pixel in regards to the character (0 .. 7).
 		/// </summary>
-		Vector3? MagneticField
-		{ get; }
+		public int CharPixelY;
 
 		/// <summary>
-		/// The current reading of the [atmospheric] pressure (in hPa).
+		/// The X-coordinate of the display of where to draw the pixel (0 .. 7).
 		/// </summary>
-		double? Pressure
-		{ get; }
+		public int DisplayPixelX;
 
 		/// <summary>
-		/// The current reading of the temperature (in °C).
+		/// The Y-coordinate of the display of where to draw the pixel (0 .. 7).
 		/// </summary>
-		double? Temperature
-		{ get; }
+		public int DisplayPixelY;
 
 		/// <summary>
-		/// The current reading of the relative humidity (in %RH).
+		/// The horizontal offset of the character compared to the left edge of the screen.
 		/// </summary>
-		double? Humidity
-		{ get; }
+		public int DisplayOffsetX;
 
 		/// <summary>
-		/// The IMU sensor (measures Gyro, Acceleration and MagneticField).
+		/// The vertical offset of the character compared to the upper edge of the screen.
 		/// </summary>
-		ImuSensor ImuSensor
-		{ get; }
-
-		/// <summary>
-		/// The Pressure sensor (measures Pressure).
-		/// </summary>
-		PressureSensor PressureSensor
-		{ get; }
-
-		/// <summary>
-		/// The Humidity sensor (measures Temperature and Humidity).
-		/// </summary>
-		HumiditySensor HumiditySensor
-		{ get; }
+		public int DisplayOffsetY;
 	}
 }

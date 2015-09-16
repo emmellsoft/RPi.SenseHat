@@ -111,7 +111,7 @@ namespace RichardsTech.Sensors
 		public bool HumidityValid;
 
 		/// <summary>
-		/// Humidity in %RH
+		/// Relative humidity in %RH
 		/// </summary>
 		public double Humidity;
 	}

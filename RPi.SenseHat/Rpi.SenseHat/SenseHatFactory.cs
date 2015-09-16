@@ -1,4 +1,27 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of Rpi.SenseHat
+//
+//  Copyright (c) 2015, Mattias Larsson
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of 
+//  this software and associated documentation files (the "Software"), to deal in 
+//  the Software without restriction, including without limitation the rights to use, 
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
+//  Software, and to permit persons to whom the Software is furnished to do so, 
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all 
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
@@ -9,8 +32,14 @@ using RichardsTech.Sensors.Devices.LSM9DS1;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
+	/// <summary>
+	/// Factory for creating the ISenseHat object.
+	/// </summary>
 	public sealed class SenseHatFactory
 	{
+		/// <summary>
+		/// Singleton of the factory.
+		/// </summary>
 		public static readonly SenseHatFactory Singleton = new SenseHatFactory();
 
 		private const byte DeviceAddress = 0x46;
@@ -21,6 +50,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		{
 		}
 
+		/// <summary>
+		/// Creates the SenseHat object.
+		/// </summary>
 		public async Task<ISenseHat> Create()
 		{
 			if (_senseHat != null)
@@ -28,7 +60,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				return _senseHat;
 			}
 
-			I2cDevice device = await CreateI2CDevice();
+			MainI2CDevice mainI2CDevice = await CreateDisplayJoystickI2CDevice();
 
 			ImuSensor imuSensor = await CreateImuSensor();
 
@@ -36,12 +68,12 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
 			HumiditySensor humiditySensor = await CreateHumiditySensor();
 
-			_senseHat = new SenseHat(device, imuSensor, pressureSensor, humiditySensor);
+			_senseHat = new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
 
 			return _senseHat;
 		}
 
-		private static async Task<I2cDevice> CreateI2CDevice()
+		private static async Task<MainI2CDevice> CreateDisplayJoystickI2CDevice()
 		{
 			string aqsFilter = I2cDevice.GetDeviceSelector();
 
@@ -53,7 +85,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				SharingMode = I2cSharingMode.Exclusive
 			};
 
-			return await I2cDevice.FromIdAsync(collection[0].Id, settings);
+			I2cDevice i2CDevice = await I2cDevice.FromIdAsync(collection[0].Id, settings);
+
+			return new MainI2CDevice(i2CDevice);
 		}
 
 		private static async Task<ImuSensor> CreateImuSensor()

@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Demos\BwScrollText.cs" />
     <Compile Include="Demos\GravityBlob.cs" />
     <Compile Include="SenseHatDemo.cs" />
     <Compile Include="MainPage.xaml.cs">
