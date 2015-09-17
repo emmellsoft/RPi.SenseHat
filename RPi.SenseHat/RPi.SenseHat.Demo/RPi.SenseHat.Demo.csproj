@@ -97,7 +97,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Demos\BwScrollText.cs" />
+    <Compile Include="Demos\DiscoLights.cs" />
     <Compile Include="Demos\GravityBlob.cs" />
+    <Compile Include="Demos\JoystickPixel.cs" />
+    <Compile Include="Demos\WriteTemperature.cs" />
     <Compile Include="SenseHatDemo.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

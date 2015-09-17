@@ -39,6 +39,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 			LedBufferWork();
 
 			BwFontWork();
+			BwTinyFontWork();
 		}
 
 		private static void BwFontWork()
@@ -52,6 +53,16 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 
 			Tuple<string, Bitmap> tuple = BwFontBuilder.GetFontBitmap(fontBytes);
 			tuple.Item2.Save(@"Font\BWFont_recreated.png");
+		}
+
+		private static void BwTinyFontWork()
+		{
+			var bitmap = new Bitmap(@"Font\TinyBWFont.png");
+			const string chars = " 0123456789ABCDEF+-%*=.:!?/\\'";
+
+			BwFont tinyFont = BwFontBuilder.GetBwFont(bitmap, chars);
+			byte[] fontBytes = tinyFont.Serialize().ToArray();
+			var fontBytesAsCode = ToCSharp(fontBytes);
 		}
 
 		private static void LedBufferWork()

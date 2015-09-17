@@ -118,6 +118,7 @@
     <Compile Include="Fonts\BW\BwCharacterRenderer.cs" />
     <Compile Include="Fonts\BW\BwCharacterRendererPixelMap.cs" />
     <Compile Include="Fonts\BW\BwFont.cs" />
+    <Compile Include="Fonts\BW\TinyFont.cs" />
     <Compile Include="Fonts\Character.cs" />
     <Compile Include="Fonts\CharacterRenderer.cs" />
     <Compile Include="Fonts\Font.cs" />

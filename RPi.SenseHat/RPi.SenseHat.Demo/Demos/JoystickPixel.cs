@@ -21,40 +21,78 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+using System;
+using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
-using RPi.SenseHat.Demo.Demos;
 
-namespace RPi.SenseHat.Demo
+namespace RPi.SenseHat.Demo.Demos
 {
-	public sealed partial class MainPage : Page
+	public class JoystickPixel : SenseHatDemo
 	{
-		public MainPage()
+		public JoystickPixel(ISenseHat senseHat)
+			: base(senseHat)
 		{
-			InitializeComponent();
-
-			Task.Run(() => MainLoop());
 		}
 
-		private void MainLoop()
+		public override void Run()
 		{
-			ISenseHat senseHat = SenseHatFactory.Singleton.Create().Result;
+			// The initial position of the pixel.
+			int x = 3;
+			int y = 3;
 
-			//--------------------------------------------------------------------
-			// Activate the demo you want to run down here below!
-			// NOTE that they will each run forever, so only the first demo will run!
-			//--------------------------------------------------------------------
+			SenseHat.Display.Clear();
 
-			//new DiscoLights(senseHat).Run();
+			while (true)
+			{
+				SenseHat.Joystick.Update(); // Get the current state of the joystick.
 
-			//new JoystickPixel(senseHat).Run();
+				if (SenseHat.Joystick.HasChanged) // Has it changed since the last Update-call?
+				{
+					UpdatePosition(ref x, ref y); // Move the pixel.
 
-			new WriteTemperature(senseHat).Run(); // Is it only me or does it show some unusual high temperature? :-S
+					SenseHat.Display.Clear(); // Clear the screen.
 
-			//new GravityBlob(senseHat).Run();
+					SenseHat.Display.Screen[x, y] = Colors.Yellow; // Draw the pixel.
 
-			//new BwScrollText(senseHat, "Hello Raspberry Pi Sense HAT!").Run();
+					SenseHat.Display.Update(); // Update the physical display.
+				}
+
+				// Take a short nap.
+				Sleep(TimeSpan.FromMilliseconds(2));
+			}
+		}
+
+		private void UpdatePosition(ref int x, ref int y)
+		{
+			if (SenseHat.Joystick.LeftKey == KeyState.Pressed)
+			{
+				if (x > 0)
+				{
+					x--;
+				}
+			}
+			else if (SenseHat.Joystick.RightKey == KeyState.Pressed)
+			{
+				if (x < 7)
+				{
+					x++;
+				}
+			}
+
+			if (SenseHat.Joystick.UpKey == KeyState.Pressed)
+			{
+				if (y > 0)
+				{
+					y--;
+				}
+			}
+			else if (SenseHat.Joystick.DownKey == KeyState.Pressed)
+			{
+				if (y < 7)
+				{
+					y++;
+				}
+			}
 		}
 	}
 }

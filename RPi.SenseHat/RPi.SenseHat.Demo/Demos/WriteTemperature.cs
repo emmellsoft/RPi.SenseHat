@@ -21,40 +21,54 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+using System;
+using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
-using RPi.SenseHat.Demo.Demos;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
 
-namespace RPi.SenseHat.Demo
+namespace RPi.SenseHat.Demo.Demos
 {
-	public sealed partial class MainPage : Page
+	public class WriteTemperature : SenseHatDemo
 	{
-		public MainPage()
+		public WriteTemperature(ISenseHat senseHat)
+			: base(senseHat)
 		{
-			InitializeComponent();
-
-			Task.Run(() => MainLoop());
 		}
 
-		private void MainLoop()
+		public override void Run()
 		{
-			ISenseHat senseHat = SenseHatFactory.Singleton.Create().Result;
+			var tinyFont = new TinyFont();
 
-			//--------------------------------------------------------------------
-			// Activate the demo you want to run down here below!
-			// NOTE that they will each run forever, so only the first demo will run!
-			//--------------------------------------------------------------------
+			ISenseHatDisplay display = SenseHat.Display;
 
-			//new DiscoLights(senseHat).Run();
+			while (true)
+			{
+				SenseHat.Sensors.HumiditySensor.Update();
 
-			//new JoystickPixel(senseHat).Run();
+				if (SenseHat.Sensors.Temperature.HasValue)
+				{
+					int temperature = (int)Math.Round(SenseHat.Sensors.Temperature.Value);
+					string text = temperature.ToString();
 
-			new WriteTemperature(senseHat).Run(); // Is it only me or does it show some unusual high temperature? :-S
+					if (text.Length > 2)
+					{
+						// Too long to fit the display!
+						text = "**";
+					}
 
-			//new GravityBlob(senseHat).Run();
+					display.Clear();
+					tinyFont.Write(display, text, Colors.White);
+					display.Update();
 
-			//new BwScrollText(senseHat, "Hello Raspberry Pi Sense HAT!").Run();
+					// Sleep quite some time; the temperature usually change quite slowly...
+					Sleep(TimeSpan.FromSeconds(0.5));
+				}
+				else
+				{
+					// Rapid update until there is a temperature reading.
+					Sleep(TimeSpan.FromSeconds(0.5));
+				}
+			}
 		}
 	}
 }

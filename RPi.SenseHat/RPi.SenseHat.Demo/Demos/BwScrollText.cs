@@ -74,8 +74,6 @@ namespace RPi.SenseHat.Demo.Demos
 
 			while (true)
 			{
-				Sleep(TimeSpan.FromMilliseconds(50));
-
 				// Step the scroller.
 				if (!textScroller.Step())
 				{
@@ -98,6 +96,9 @@ namespace RPi.SenseHat.Demo.Demos
 				{
 					SwitchToNextScrollMode();
 				}
+
+				// Pause for a short while.
+				Sleep(TimeSpan.FromMilliseconds(50));
 			}
 		}
 

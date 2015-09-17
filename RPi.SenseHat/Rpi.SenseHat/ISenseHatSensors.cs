@@ -33,36 +33,42 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 	{
 		/// <summary>
 		/// The current reading of the gyro (in radians/sec).
+		/// Updates by the ImuSensor.
 		/// </summary>
 		Vector3? Gyro
 		{ get; }
 
 		/// <summary>
 		/// The current reading of the acceleration (in g).
+		/// Updates by the ImuSensor.
 		/// </summary>
 		Vector3? Acceleration
 		{ get; }
 
 		/// <summary>
 		/// The current reading of the magnetic field (in µT).
+		/// Updates by the ImuSensor.
 		/// </summary>
 		Vector3? MagneticField
 		{ get; }
 
 		/// <summary>
 		/// The current reading of the [atmospheric] pressure (in hPa).
+		/// Updates by the PressureSensor.
 		/// </summary>
 		double? Pressure
 		{ get; }
 
 		/// <summary>
 		/// The current reading of the temperature (in °C).
+		/// Updates by the HumiditySensor.
 		/// </summary>
 		double? Temperature
 		{ get; }
 
 		/// <summary>
 		/// The current reading of the relative humidity (in %RH).
+		/// Updates by the HumiditySensor.
 		/// </summary>
 		double? Humidity
 		{ get; }

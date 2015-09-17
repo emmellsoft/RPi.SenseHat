@@ -41,7 +41,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		private int _yStep;
 		private Func<int, int, Color> _getPixel;
 
-		// Layout of the LED buffer:
+		// The layout of the LED buffer:
 		// Row 1: R R R R R R R R G G G G G G G G B B B B B B B B
 		// Row 2: R R R R R R R R G G G G G G G G B B B B B B B B
 		// ...
@@ -315,6 +315,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			}
 
 			return _gammaTable[fiveBit];
+			//return (byte)fiveBit;
 		}
 
 		private void UpdateDirectionParameters()
