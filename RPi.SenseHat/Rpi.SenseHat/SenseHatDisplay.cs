@@ -22,6 +22,7 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI;
 
@@ -40,28 +41,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		private int _yStop;
 		private int _yStep;
 		private Func<int, int, Color> _getPixel;
-
-		// The layout of the LED buffer:
-		// Row 1: R R R R R R R R G G G G G G G G B B B B B B B B
-		// Row 2: R R R R R R R R G G G G G G G G B B B B B B B B
-		// ...
-		// Row 8: R R R R R R R R G G G G G G G G B B B B B B B B
-
-		private readonly byte[] _gammaTable =
-		{
-			0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01,
-			0x02, 0x02, 0x03, 0x03, 0x04, 0x05, 0x06, 0x07,
-			0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0e, 0x0f, 0x11,
-			0x12, 0x14, 0x16, 0x18, 0x19, 0x1b, 0x1d, 0x1f
-		};
-
-		private readonly byte[] _ledValueTo8BitTable =
-		{
-			0x00, 0x34, 0x47, 0x56, 0x62, 0x6c, 0x76, 0x7f,
-			0x87, 0x8e, 0x95, 0x9c, 0xa2, 0xa8, 0xae, 0xb4,
-			0xb9, 0xbf, 0xc4, 0xc9, 0xcd, 0xd2, 0xd7, 0xdb,
-			0xdf, 0xe4, 0xe8, 0xec, 0xf0, 0xf4, 0xf8, 0xfb
-		};
+		private byte[] _redGammaTable;
+		private byte[] _greenGammaTable;
+		private byte[] _blueGammaTable;
 
 		private readonly Color[,] _initialColors =
 		{
@@ -75,11 +57,23 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			{ Color.FromArgb(0xff, 0x00, 0xfb, 0xb4), Color.FromArgb(0xff, 0x00, 0xdb, 0xfb), Color.FromArgb(0xff, 0x00, 0x6c, 0xfb), Color.FromArgb(0xff, 0x00, 0x00, 0xfb), Color.FromArgb(0xff, 0x6c, 0x00, 0xfb), Color.FromArgb(0xff, 0xdb, 0x00, 0xfb), Color.FromArgb(0xff, 0xfb, 0x00, 0xb4), Color.FromArgb(0xff, 0xfb, 0x00, 0x47) },
 		};
 
+		private double _redGamma;
+		private double _greenGamma;
+		private double _blueGamma;
+
 		public SenseHatDisplay(MainI2CDevice mainI2CDevice)
 		{
 			_mainI2CDevice = mainI2CDevice;
 
 			Screen = new Color[8, 8];
+
+			RedGamma = 1.8;
+			GreenGamma = 2.0;
+			BlueGamma = 1.8;
+
+			//RedGamma = 2.8;
+			//GreenGamma = 2.8;
+			//BlueGamma = 2.8;
 
 			Reset();
 
@@ -116,6 +110,36 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			{
 				_flipVertical = value;
 				UpdateDirectionParameters();
+			}
+		}
+
+		public double RedGamma
+		{
+			get { return _redGamma; }
+			set
+			{
+				_redGamma = value;
+				_redGammaTable = Get5BitGammaTable(_redGamma).ToArray();
+			}
+		}
+
+		public double GreenGamma
+		{
+			get { return _greenGamma; }
+			set
+			{
+				_greenGamma = value;
+				_greenGammaTable = Get5BitGammaTable(_greenGamma).ToArray();
+			}
+		}
+
+		public double BlueGamma
+		{
+			get { return _blueGamma; }
+			set
+			{
+				_blueGamma = value;
+				_blueGammaTable = Get5BitGammaTable(_blueGamma).ToArray();
 			}
 		}
 
@@ -265,6 +289,13 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			_mainI2CDevice.WriteBytes(0, rawBuffer);
 		}
 
+		/// <summary>
+		/// The layout of the LED buffer:
+		/// Row 1: R R R R R R R R G G G G G G G G B B B B B B B B
+		/// Row 2: R R R R R R R R G G G G G G G G B B B B B B B B
+		/// ...
+		/// Row 8: R R R R R R R R G G G G G G G G B B B B B B B B
+		/// </summary>
 		public void Update()
 		{
 			if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
@@ -282,9 +313,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				{
 					Color color = _getPixel(x, y);
 
-					buffer[index] = ScaleAndGammaCorrect(color.R);
-					buffer[index + 8] = ScaleAndGammaCorrect(color.G);
-					buffer[index + 16] = ScaleAndGammaCorrect(color.B);
+					buffer[index] = _redGammaTable[ScaleTo5Bit(color.R)];
+					buffer[index + 8] = _greenGammaTable[ScaleTo5Bit(color.G)];
+					buffer[index + 16] = _blueGammaTable[ScaleTo5Bit(color.B)];
 
 					index++;
 				}
@@ -305,7 +336,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			return Screen[y, x];
 		}
 
-		private byte ScaleAndGammaCorrect(byte byteValue)
+		private static byte ScaleTo5Bit(byte byteValue)
 		{
 			int fiveBit = byteValue >> 3;
 
@@ -314,8 +345,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				fiveBit++; // Round up.
 			}
 
-			return _gammaTable[fiveBit];
-			//return (byte)fiveBit;
+			return (byte)fiveBit;
 		}
 
 		private void UpdateDirectionParameters()
@@ -459,6 +489,22 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			_getPixel = flipAxis
 				? (Func<int, int, Color>)GetPixelFlipAxis
 				: GetPixel;
+		}
+
+		private static IEnumerable<byte> Get5BitGammaTable(double gamma)
+		{
+			const double step = 255.0 / 31; // 8 bits -> 5 bits
+
+			for (int i = 0; i <= 31; i++)
+			{
+				byte index = (byte)(i * step);
+
+				double gammaFactor = Math.Pow(index / 255.0, gamma);
+
+				byte gammaByte = (byte)Math.Min((int)Math.Round(gammaFactor * 255.0 / 8.0), 31);
+
+				yield return gammaByte;
+			}
 		}
 	}
 }

@@ -46,15 +46,17 @@ namespace RPi.SenseHat.Demo
 			// NOTE that they will each run forever, so only the first demo will run!
 			//--------------------------------------------------------------------
 
-			//new DiscoLights(senseHat).Run();
+			new DiscoLights(senseHat).Run();
 
 			//new JoystickPixel(senseHat).Run();
 
-			new WriteTemperature(senseHat).Run(); // Is it only me or does it show some unusual high temperature? :-S
+			//new WriteTemperature(senseHat).Run(); // Is it only me or does it show some unusual high temperature? :-S
 
 			//new GravityBlob(senseHat).Run();
 
 			//new BwScrollText(senseHat, "Hello Raspberry Pi Sense HAT!").Run();
+
+			//new GammaTest(senseHat).Run();
 		}
 	}
 }

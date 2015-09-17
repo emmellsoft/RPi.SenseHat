@@ -60,6 +60,24 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		{ get; set; }
 
 		/// <summary>
+		/// The gamma of the red color component. 
+		/// </summary>
+		double RedGamma
+		{ get; set; }
+
+		/// <summary>
+		/// The gamma of the green color component. 
+		/// </summary>
+		double GreenGamma
+		{ get; set; }
+
+		/// <summary>
+		/// The gamma of the blue color component. 
+		/// </summary>
+		double BlueGamma
+		{ get; set; }
+
+		/// <summary>
 		/// Resets the screen with the start-up rainbow colors.
 		/// Note: Requires a call to Update() to affect the physical screen.
 		/// </summary>

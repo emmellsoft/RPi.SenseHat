@@ -55,8 +55,24 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer
 
 			return (byte)rounded;
 		}
-
+		
 		public static IEnumerable<byte> Get5BitGamma(double gamma = DefaultGamma)
+		{
+			const double step = 255.0 / 31; // 8 bits -> 5 bits
+
+			for (int i = 0; i < 32; i++)
+			{
+				byte index = (byte)(i * step);
+
+				double gammaFactor = Math.Pow((double)index / 255, gamma);
+
+				byte gammaByte = (byte)Math.Min((int)Math.Round(gammaFactor * 255 / 8), 31);
+
+				yield return gammaByte;
+			}
+		}
+
+		public static IEnumerable<byte> GetQuick5BitGamma(double gamma = DefaultGamma)
 		{
 			double[] gammaTable = GetGamma(gamma).ToArray();
 
@@ -66,7 +82,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer
 			{
 				byte index = (byte)(i * step);
 
-				double gammaFactor = gammaTable[index];
+				double gammaFactor = Math.Pow((double)index / 255, gamma);
 
 				byte gammaByte = (byte)Math.Min((int)ScaleToByte(gammaFactor / 8), 31);
 
@@ -91,7 +107,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer
 				double ceilDiff = ceil.HasValue ? Math.Abs(want - ceil.Value) : double.MaxValue;
 
 				if ((floorDiff <= ceilDiff) && floor.HasValue)
-                {
+				{
 					yield return (byte)gammaTable.IndexOf(floor.Value);
 				}
 				else if (ceil.HasValue)
