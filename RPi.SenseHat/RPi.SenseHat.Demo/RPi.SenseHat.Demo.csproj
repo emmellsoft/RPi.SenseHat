@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Demos\BwScrollText.cs" />
+    <Compile Include="Demos\Compass.cs" />
     <Compile Include="Demos\DiscoLights.cs" />
     <Compile Include="Demos\GammaTest.cs" />
     <Compile Include="Demos\GravityBlob.cs" />

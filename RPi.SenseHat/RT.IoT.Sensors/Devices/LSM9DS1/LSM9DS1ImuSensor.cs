@@ -42,7 +42,12 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
 		private double _accelerationScale;
 		private double _magneticFieldScale;
 
-		public LSM9DS1ImuSensor(byte accelGyroI2CAddress, byte magI2CAddress, LSM9DS1Config config)
+		public LSM9DS1ImuSensor(
+			byte accelGyroI2CAddress,
+			byte magI2CAddress,
+			LSM9DS1Config config,
+			SensorFusion fusion)
+			: base(fusion)
 		{
 			_accelGyroI2CAddress = accelGyroI2CAddress;
 			_magI2CAddress = magI2CAddress;

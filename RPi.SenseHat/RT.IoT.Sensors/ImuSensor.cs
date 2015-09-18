@@ -47,8 +47,10 @@ namespace RichardsTech.Sensors
 		protected int SampleRate;                                 // samples per second
 		protected long SampleInterval;                            // interval between samples in microseonds
 
-		protected ImuSensor()
+		protected ImuSensor(SensorFusion fusion)
 		{
+			Fusion = fusion;
+
 			AxisRotation = new AxisRotation();
 
 			for (int i = 0; i < 3; i++)
@@ -92,7 +94,13 @@ namespace RichardsTech.Sensors
 		/// The axis rotation
 		/// </summary>
 		public AxisRotation AxisRotation
-		{ get; private set; }
+		{ get; }
+
+		/// <summary>
+		/// The sensor fusion support.
+		/// </summary>
+		public SensorFusion Fusion
+		{ get; }
 
 		protected override void AfterInitDevice()
 		{
@@ -129,6 +137,8 @@ namespace RichardsTech.Sensors
 			HandleGyroBias(ref readings);
 
 			CalibrateAverageCompass(ref readings);
+
+			Fusion.ProcessNewImuReadings(ref readings);
 		}
 
 		private void PerformAxisRotation(ref SensorReadings readings)
@@ -272,6 +282,7 @@ namespace RichardsTech.Sensors
 			if (!MagCalValid)
 			{
 				MagCalValid = true;
+
 				for (int i = 0; i < 3; i++)
 				{
 					delta = _magMax[i] - _magMin[i];
@@ -290,7 +301,9 @@ namespace RichardsTech.Sensors
 				for (int i = 0; i < 3; i++)
 				{
 					if ((_magMax[i] - _magMin[i]) > _magMaxDelta)
+					{
 						_magMaxDelta = _magMax[i] - _magMin[i];
+					}
 				}
 
 				// adjust for + and - range

@@ -25,7 +25,7 @@ using System;
 
 namespace RichardsTech.Sensors
 {
-	public class SensorFusion
+	public abstract class SensorFusion
 	{
 		/// <summary>
 		/// The slerp power valule controls the influence of the measured state to correct the predicted state
@@ -80,7 +80,26 @@ namespace RichardsTech.Sensors
 
 		protected int SampleNumber;
 
-		public void CalculatePose(Vector3? acceleration, Vector3? magneticField, double magDeclination)
+		protected SensorFusion()
+		{
+		}
+
+		public virtual void Reset()
+		{
+			FirstTime = true;
+			FusionPose = new Vector3();
+			FusionQPose.FromEuler(FusionPose);
+			Gyro = new Vector3();
+			Acceleration = new Vector3();
+			MagneticField = new Vector3();
+			MeasuredPose = new Vector3();
+			MeasuredQPose.FromEuler(MeasuredPose);
+			SampleNumber = 0;
+		}
+
+		internal abstract void ProcessNewImuReadings(ref SensorReadings imuReadings);
+
+		protected void CalculatePose(Vector3? acceleration, Vector3? magneticField, double magDeclination)
 		{
 			if (acceleration.HasValue)
 			{
@@ -136,30 +155,36 @@ namespace RichardsTech.Sensors
 			}
 		}
 
-		public Vector3 GetAccelerationResiduals()
+		/// <summary>
+		/// Get acceleration residuals.
+		/// </summary>
+		public Vector3 AccelerationResiduals
 		{
-			if (!Acceleration.HasValue)
+			get
 			{
-				return new Vector3();
+				if (!Acceleration.HasValue)
+				{
+					return new Vector3();
+				}
+
+				// do gravity rotation and subtraction
+
+				// create the conjugate of the pose
+
+				Quaternion fusedConjugate = FusionQPose.Conjugate();
+
+				// now do the rotation - takes two steps with qTemp as the intermediate variable
+
+				Quaternion qTemp = Gravity * FusionQPose;
+				Quaternion rotatedGravity = fusedConjugate * qTemp;
+
+				// now adjust the measured accel and change the signs to make sense
+
+				return new Vector3(
+					-(Acceleration.Value.X - rotatedGravity.X),
+					-(Acceleration.Value.Y - rotatedGravity.Y),
+					-(Acceleration.Value.Z - rotatedGravity.Z));
 			}
-
-			//  do gravity rotation and subtraction
-
-			// create the conjugate of the pose
-
-			Quaternion fusedConjugate = FusionQPose.Conjugate();
-
-			// now do the rotation - takes two steps with qTemp as the intermediate variable
-
-			Quaternion qTemp = Gravity * FusionQPose;
-			Quaternion rotatedGravity = fusedConjugate * qTemp;
-
-			// now adjust the measured accel and change the signs to make sense
-
-			return new Vector3(
-				-(Acceleration.Value.X - rotatedGravity.X),
-				-(Acceleration.Value.Y - rotatedGravity.Y),
-				-(Acceleration.Value.Z - rotatedGravity.Z));
 		}
 	}
 }

@@ -46,13 +46,15 @@ namespace RPi.SenseHat.Demo
 			// NOTE that they will each run forever, so only the first demo will run!
 			//--------------------------------------------------------------------
 
-			new DiscoLights(senseHat).Run();
+			//new DiscoLights(senseHat).Run();
 
 			//new JoystickPixel(senseHat).Run();
 
 			//new WriteTemperature(senseHat).Run(); // Is it only me or does it show some unusual high temperature? :-S
 
 			//new GravityBlob(senseHat).Run();
+
+			//new Compass(senseHat).Run(); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
 
 			//new BwScrollText(senseHat, "Hello Raspberry Pi Sense HAT!").Run();
 

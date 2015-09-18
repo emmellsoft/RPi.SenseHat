@@ -22,53 +22,68 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using Windows.Foundation;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
 
 namespace RPi.SenseHat.Demo.Demos
 {
-	public class WriteTemperature : SenseHatDemo
+	public class Compass : SenseHatDemo
 	{
-		public WriteTemperature(ISenseHat senseHat)
+		public Compass(ISenseHat senseHat)
 			: base(senseHat)
 		{
 		}
 
 		public override void Run()
 		{
-			var tinyFont = new TinyFont();
+			SenseHat.Display.Clear();
+			SenseHat.Display.Update();
 
-			ISenseHatDisplay display = SenseHat.Display;
+			const double halfCircle = Math.PI;
+			const double fullCircle = Math.PI * 2;
+
+			Color northColor = Colors.Red;
+			Color southColor = Colors.White;
+			Color centerColor = Colors.DarkBlue;
 
 			while (true)
 			{
-				SenseHat.Sensors.HumiditySensor.Update();
+				SenseHat.Sensors.ImuSensor.Update();
 
-				if (SenseHat.Sensors.Temperature.HasValue)
+				if (SenseHat.Sensors.Pose.HasValue)
 				{
-					int temperature = (int)Math.Round(SenseHat.Sensors.Temperature.Value);
-					string text = temperature.ToString();
-
-					if (text.Length > 2)
+					double northAngle = SenseHat.Sensors.Pose.Value.Z;
+					if (northAngle < 0)
 					{
-						// Too long to fit the display!
-						text = "**";
+						northAngle += fullCircle;
 					}
 
-					display.Clear();
-					tinyFont.Write(display, text, Colors.White);
-					display.Update();
+					northAngle = fullCircle - northAngle;
+					double southAngle = northAngle + halfCircle;
 
-					// Sleep quite some time; the temperature usually change quite slowly...
-					Sleep(TimeSpan.FromSeconds(5));
+					Point northPoint = GetPixelCoordinate(northAngle);
+					Point southPoint = GetPixelCoordinate(southAngle);
+
+					SenseHat.Display.Clear();
+					SenseHat.Display.Screen[(int)northPoint.X, (int)northPoint.Y] = northColor;
+					SenseHat.Display.Screen[(int)southPoint.X, (int)southPoint.Y] = southColor;
+					SenseHat.Display.Screen[3, 3] = centerColor;
+					SenseHat.Display.Screen[4, 3] = centerColor;
+					SenseHat.Display.Screen[3, 4] = centerColor;
+					SenseHat.Display.Screen[4, 4] = centerColor;
+					SenseHat.Display.Update();
 				}
-				else
-				{
-					// Rapid update until there is a temperature reading.
-					Sleep(TimeSpan.FromSeconds(0.5));
-				}
+
+				Sleep(TimeSpan.FromMilliseconds(2));
 			}
+		}
+
+		private static Point GetPixelCoordinate(double angle)
+		{
+			return new Point(
+				Math.Round(Math.Cos(angle) * 3.5 + 3.5),
+				Math.Round(Math.Sin(angle) * 3.5 + 3.5));
 		}
 	}
 }

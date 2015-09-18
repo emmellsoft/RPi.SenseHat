@@ -118,6 +118,11 @@ namespace RichardsTech.Sensors
 			return Math.Sqrt(X * X + Y * Y + Z * Z);
 		}
 
+		public Vector3 AsDegrees => new Vector3(
+			X * MathSupport.RadToDegree,
+			Y * MathSupport.RadToDegree,
+			Z * MathSupport.RadToDegree);
+
 		public override string ToString()
 		{
 			return ToString(false);

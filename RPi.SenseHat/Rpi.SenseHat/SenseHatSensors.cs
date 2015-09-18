@@ -58,6 +58,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		public Vector3? MagneticField
 		{ get; private set; }
 
+		public Vector3? Pose
+		{ get; private set; }
+
 		public double? Pressure
 		{ get; private set; }
 
@@ -91,6 +94,11 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			if (ImuSensor.Readings.MagneticFieldValid)
 			{
 				MagneticField = ImuSensor.Readings.MagneticField;
+			}
+
+			if (ImuSensor.Readings.FusionPoseValid)
+			{
+				Pose = ImuSensor.Readings.FusionPose;
 			}
 		}
 

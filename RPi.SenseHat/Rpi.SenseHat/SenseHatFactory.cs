@@ -93,7 +93,13 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		private static async Task<ImuSensor> CreateImuSensor()
 		{
 			var lsm9Ds1Config = new LSM9DS1Config();
-			var imuSensor = new LSM9DS1ImuSensor(LSM9DS1Defines.ADDRESS0, LSM9DS1Defines.MAG_ADDRESS0, lsm9Ds1Config);
+
+			var imuSensor = new LSM9DS1ImuSensor(
+				LSM9DS1Defines.ADDRESS0,
+				LSM9DS1Defines.MAG_ADDRESS0,
+				lsm9Ds1Config,
+				new SensorFusionRTQF());
+
 			await imuSensor.InitAsync();
 			return imuSensor;
 		}

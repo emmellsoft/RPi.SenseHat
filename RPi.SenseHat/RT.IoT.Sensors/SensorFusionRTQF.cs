@@ -29,20 +29,6 @@ namespace RichardsTech.Sensors
 	{
 		public SensorFusionRTQF()
 		{
-			Reset();
-		}
-
-		public void Reset()
-		{
-			FirstTime = true;
-			FusionPose = new Vector3();
-			FusionQPose.FromEuler(FusionPose);
-			Gyro = new Vector3();
-			Acceleration = new Vector3();
-			MagneticField = new Vector3();
-			MeasuredPose = new Vector3();
-			MeasuredQPose.FromEuler(MeasuredPose);
-			SampleNumber = 0;
 		}
 
 		private void Predict()
@@ -107,7 +93,7 @@ namespace RichardsTech.Sensors
 			StateQ.Normalize();
 		}
 
-		public SensorReadings ProcessNewImuReadings(SensorReadings imuReadings)
+		internal override void ProcessNewImuReadings(ref SensorReadings imuReadings)
 		{
 			SampleNumber++;
 
@@ -154,8 +140,6 @@ namespace RichardsTech.Sensors
 			imuReadings.FusionQPoseValid = true;
 			imuReadings.FusionPose = FusionPose;
 			imuReadings.FusionQPose = FusionQPose;
-
-			return imuReadings;
-        }
+		}
 	}
 }

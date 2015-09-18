@@ -21,7 +21,6 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
 using RichardsTech.Sensors;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
@@ -50,6 +49,13 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		/// Updates by the ImuSensor.
 		/// </summary>
 		Vector3? MagneticField
+		{ get; }
+
+		/// <summary>
+		/// The pose; X=Roll, Y=Pitch, Z=Yaw (in radians)
+		/// Updates by the ImuSensor.
+		/// </summary>
+		Vector3? Pose
 		{ get; }
 
 		/// <summary>

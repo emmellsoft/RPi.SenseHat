@@ -49,7 +49,7 @@ namespace RichardsTech.Sensors.Devices.HTS221
 		{
 			base.Dispose();
 			_i2CDevice.Dispose();
-        }
+		}
 
 		protected override async Task<bool> InitDeviceAsync()
 		{
