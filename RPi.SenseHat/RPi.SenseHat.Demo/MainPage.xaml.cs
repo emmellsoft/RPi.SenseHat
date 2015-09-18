@@ -46,7 +46,7 @@ namespace RPi.SenseHat.Demo
 			// NOTE that they will each run forever, so only the first demo will run!
 			//--------------------------------------------------------------------
 
-			//new DiscoLights(senseHat).Run();
+			new DiscoLights(senseHat).Run();
 
 			//new JoystickPixel(senseHat).Run();
 
