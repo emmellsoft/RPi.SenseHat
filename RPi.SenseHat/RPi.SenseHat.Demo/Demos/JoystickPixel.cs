@@ -44,9 +44,7 @@ namespace RPi.SenseHat.Demo.Demos
 
 			while (true)
 			{
-				SenseHat.Joystick.Update(); // Get the current state of the joystick.
-
-				if (SenseHat.Joystick.HasChanged) // Has it changed since the last Update-call?
+				if (SenseHat.Joystick.Update()) // Has any of the buttons on the joystick changed?
 				{
 					UpdatePosition(ref x, ref y); // Move the pixel.
 

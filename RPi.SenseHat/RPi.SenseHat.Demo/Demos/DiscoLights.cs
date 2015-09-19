@@ -22,6 +22,7 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Linq;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 
@@ -38,6 +39,7 @@ namespace RPi.SenseHat.Demo.Demos
 			HardRandom,
 			Sparkling,
 			Blocks,
+			Unicolor
 		}
 
 		public DiscoLights(ISenseHat senseHat)
@@ -47,17 +49,16 @@ namespace RPi.SenseHat.Demo.Demos
 
 		public override void Run()
 		{
-			int count = 0;
-
 			while (true)
 			{
 				FillDisplay();
 
 				SenseHat.Display.Update();
 
-				count++;
-				if ((count % 50) == 0)
+				// Should the drawing mode change?
+				if (SenseHat.Joystick.Update() && (SenseHat.Joystick.EnterKey == KeyState.Pressing))
 				{
+					// The middle button is just pressed.
 					SwitchToNextColorMode();
 				}
 
@@ -69,7 +70,7 @@ namespace RPi.SenseHat.Demo.Demos
 		{
 			_currentMode++;
 
-			if (_currentMode > ColorMode.Blocks)
+			if (_currentMode > ColorMode.Unicolor)
 			{
 				_currentMode = ColorMode.SoftRandom;
 			}
@@ -95,6 +96,10 @@ namespace RPi.SenseHat.Demo.Demos
 
 				case ColorMode.Blocks:
 					FillDisplayBlocks();
+					break;
+
+				case ColorMode.Unicolor:
+					FillDisplayUnicolor();
 					break;
 
 				default:
@@ -132,26 +137,6 @@ namespace RPi.SenseHat.Demo.Demos
 						(byte)(Random.Next(2) * 255));
 
 					SenseHat.Display.Screen[x, y] = pixel;
-				}
-			}
-		}
-
-		private void FillDisplayBlocks()
-		{
-			for (int y = 0; y < 8; y += 2)
-			{
-				for (int x = 0; x < 8; x += 2)
-				{
-					Color pixel = Color.FromArgb(
-						255,
-						(byte)(Random.Next(2) * 255),
-						(byte)(Random.Next(2) * 255),
-						(byte)(Random.Next(2) * 255));
-
-					SenseHat.Display.Screen[x, y] = pixel;
-					SenseHat.Display.Screen[x + 1, y] = pixel;
-					SenseHat.Display.Screen[x, y + 1] = pixel;
-					SenseHat.Display.Screen[x + 1, y + 1] = pixel;
 				}
 			}
 		}
@@ -194,6 +179,35 @@ namespace RPi.SenseHat.Demo.Demos
 					SenseHat.Display.Screen[x, y] = pixel;
 				}
 			}
+		}
+
+		private void FillDisplayBlocks()
+		{
+			for (int y = 0; y < 8; y += 2)
+			{
+				for (int x = 0; x < 8; x += 2)
+				{
+					Color pixel = Color.FromArgb(
+						255,
+						(byte)(Random.Next(2) * 255),
+						(byte)(Random.Next(2) * 255),
+						(byte)(Random.Next(2) * 255));
+
+					SenseHat.Display.Screen[x, y] = pixel;
+					SenseHat.Display.Screen[x + 1, y] = pixel;
+					SenseHat.Display.Screen[x, y + 1] = pixel;
+					SenseHat.Display.Screen[x + 1, y + 1] = pixel;
+				}
+			}
+		}
+
+		private void FillDisplayUnicolor()
+		{
+			SenseHat.Display.Fill(Color.FromArgb(
+				255,
+				(byte)(Random.Next(2) * 255),
+				(byte)(Random.Next(2) * 255),
+				(byte)(Random.Next(2) * 255)));
 		}
 	}
 }

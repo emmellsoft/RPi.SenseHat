@@ -35,7 +35,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			_mainI2CDevice = mainI2CDevice;
 		}
 
-		public void Update()
+		public bool Update()
 		{
 			byte state = _mainI2CDevice.ReadByte(0xf2);
 
@@ -50,12 +50,10 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			if (_isFirstUpdate)
 			{
 				_isFirstUpdate = false;
-				HasChanged = true;
+				return true;
 			}
-			else
-			{
-				HasChanged = hasChanged;
-			}
+
+			return hasChanged;
 		}
 
 		private static KeyState GetKeyState(KeyState lastState, bool isKeyPressed, ref bool hasChanged)
@@ -90,9 +88,6 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 					throw new ArgumentOutOfRangeException(nameof(lastState), lastState, null);
 			}
 		}
-
-		public bool HasChanged
-		{ get; private set; }
 
 		public KeyState LeftKey
 		{ get; private set; }

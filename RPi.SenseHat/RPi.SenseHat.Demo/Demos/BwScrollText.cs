@@ -70,8 +70,6 @@ namespace RPi.SenseHat.Demo.Demos
 			// Create the text scroller.
 			TextScroller<BwCharacter> textScroller = new TextScroller<BwCharacter>(SenseHat.Display, characterRenderer, characters);
 
-			int count = 0;
-
 			while (true)
 			{
 				// Step the scroller.
@@ -90,10 +88,10 @@ namespace RPi.SenseHat.Demo.Demos
 				// Update the physical display.
 				SenseHat.Display.Update();
 
-				// Switch the render mode now and then (every 50 pixels scrolled).
-				count++;
-				if ((count % 50) == 0)
+				// Should the drawing mode change?
+                if (SenseHat.Joystick.Update() && (SenseHat.Joystick.EnterKey == KeyState.Pressing))
 				{
+					// The middle button is just pressed.
 					SwitchToNextScrollMode();
 				}
 

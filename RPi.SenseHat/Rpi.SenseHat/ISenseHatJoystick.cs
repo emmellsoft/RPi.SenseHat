@@ -30,14 +30,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 	{
 		/// <summary>
 		/// Reads the current status of the joystick and updates the properties of this interface.
+		/// Returns true if it was changed since the last time.
 		/// </summary>
-		void Update();
-
-		/// <summary>
-		/// Has anything changed since the last update?
-		/// </summary>
-		bool HasChanged
-		{ get; }
+		bool Update();
 
 		/// <summary>
 		/// The state of the LEFT joystick key.
