@@ -55,16 +55,12 @@ namespace RPi.SenseHat.Demo.Demos
 
 			ColorComponents colorComponents = ColorComponents.All;
 
-			bool firstRound = true;
-
 			while (true)
 			{
 				SenseHat.Joystick.Update(); // Get the current state of the joystick.
 
-				if (SenseHat.Joystick.HasChanged || firstRound) // Has it changed since the last Update-call?
+				if (SenseHat.Joystick.HasChanged) // Has it changed since the last Update-call?
 				{
-					firstRound = false;
-
 					if (SenseHat.Joystick.LeftKey == KeyState.Pressed)
 					{
 						GetPrevColorComponent(ref colorComponents);

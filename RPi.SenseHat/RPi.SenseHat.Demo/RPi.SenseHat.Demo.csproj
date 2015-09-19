@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DemoSelector.cs" />
     <Compile Include="Demos\BwScrollText.cs" />
     <Compile Include="Demos\Compass.cs" />
     <Compile Include="Demos\DiscoLights.cs" />

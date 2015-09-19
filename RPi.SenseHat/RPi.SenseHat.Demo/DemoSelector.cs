@@ -21,26 +21,28 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using Emmellsoft.IoT.Rpi.SenseHat;
+using RPi.SenseHat.Demo.Demos;
 
 namespace RPi.SenseHat.Demo
 {
-	public sealed partial class MainPage : Page
+	public static class DemoSelector
 	{
-		public MainPage()
+		public static SenseHatDemo GetDemo(ISenseHat senseHat)
 		{
-			InitializeComponent();
+			//return new DiscoLights(senseHat);
 
-			Task.Run(async () =>
-			{
-				ISenseHat senseHat = await SenseHatFactory.Singleton.Create();
+			//return new JoystickPixel(senseHat);
 
-				SenseHatDemo demo = DemoSelector.GetDemo(senseHat);
+			//return new WriteTemperature(senseHat); // Is it only me or does it show some unusual high temperature? :-S
 
-				demo.Run();
-			});
+			return new GravityBlob(senseHat);
+
+			//return new Compass(senseHat); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
+
+			//return new BwScrollText(senseHat, "Hello Raspberry Pi 2 Sense HAT!");
+
+			//return new GammaTest(senseHat);
 		}
 	}
 }

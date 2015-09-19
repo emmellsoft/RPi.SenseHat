@@ -28,6 +28,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 	internal sealed class SenseHatJoystick : ISenseHatJoystick
 	{
 		private readonly MainI2CDevice _mainI2CDevice;
+		private bool _isFirstUpdate = true;
 
 		public SenseHatJoystick(MainI2CDevice mainI2CDevice)
 		{
@@ -46,7 +47,15 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 			DownKey = GetKeyState(DownKey, (state & 0x01) > 0, ref hasChanged);
 			EnterKey = GetKeyState(EnterKey, (state & 0x08) > 0, ref hasChanged);
 
-			HasChanged = hasChanged;
+			if (_isFirstUpdate)
+			{
+				_isFirstUpdate = false;
+				HasChanged = true;
+			}
+			else
+			{
+				HasChanged = hasChanged;
+			}
 		}
 
 		private static KeyState GetKeyState(KeyState lastState, bool isKeyPressed, ref bool hasChanged)
