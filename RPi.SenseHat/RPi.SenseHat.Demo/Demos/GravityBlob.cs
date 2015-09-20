@@ -30,7 +30,8 @@ namespace RPi.SenseHat.Demo.Demos
 {
 	public sealed class GravityBlob : SenseHatDemo
 	{
-		public GravityBlob(ISenseHat senseHat) : base(senseHat)
+		public GravityBlob(ISenseHat senseHat)
+			: base(senseHat)
 		{
 		}
 

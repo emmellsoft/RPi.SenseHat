@@ -99,7 +99,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 			}
 
 			pixelMap.DisplayPixelX = 0;
-			for (int x = offsetX; x <= right; x++)
+			for (int screenX = offsetX; screenX <= right; screenX++)
 			{
 				int mask = maskInit;
 
@@ -108,11 +108,11 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 				pixelMap.CharPixelY = charPixelYInit;
 				pixelMap.DisplayPixelY = 0;
 
-				for (int y = offsetY; y <= bottom; y++)
+				for (int screenY = offsetY; screenY <= bottom; screenY++)
 				{
 					if ((column & mask) == mask)
 					{
-						display.Screen[x, y] = _getColor(pixelMap);
+						display.Screen[screenX, screenY] = _getColor(pixelMap);
 					}
 
 					mask <<= 1;

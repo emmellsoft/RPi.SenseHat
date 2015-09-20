@@ -23,6 +23,7 @@
 
 using System;
 using System.Threading;
+using Windows.UI.Core;
 using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo
@@ -37,6 +38,9 @@ namespace RPi.SenseHat.Demo
 		}
 
 		protected ISenseHat SenseHat
+		{ get; private set; }
+
+		public CoreDispatcher Dispatcher
 		{ get; private set; }
 
 		public abstract void Run();

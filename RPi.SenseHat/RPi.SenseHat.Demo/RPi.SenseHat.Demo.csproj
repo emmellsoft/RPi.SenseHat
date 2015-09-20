@@ -103,6 +103,7 @@
     <Compile Include="Demos\GammaTest.cs" />
     <Compile Include="Demos\GravityBlob.cs" />
     <Compile Include="Demos\JoystickPixel.cs" />
+    <Compile Include="Demos\SpriteAnimation.cs" />
     <Compile Include="Demos\WriteTemperature.cs" />
     <Compile Include="SenseHatDemo.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -117,6 +118,7 @@
     <None Include="RPi.SenseHat.Demo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\MiniMario.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

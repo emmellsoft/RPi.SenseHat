@@ -89,7 +89,7 @@ namespace RPi.SenseHat.Demo.Demos
 				SenseHat.Display.Update();
 
 				// Should the drawing mode change?
-                if (SenseHat.Joystick.Update() && (SenseHat.Joystick.EnterKey == KeyState.Pressing))
+				if (SenseHat.Joystick.Update() && (SenseHat.Joystick.EnterKey == KeyState.Pressing))
 				{
 					// The middle button is just pressed.
 					SwitchToNextScrollMode();

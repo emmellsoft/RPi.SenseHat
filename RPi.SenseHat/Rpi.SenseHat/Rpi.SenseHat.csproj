@@ -128,6 +128,7 @@
     <Compile Include="ISenseHatJoystick.cs" />
     <Compile Include="ISenseHatSensors.cs" />
     <Compile Include="KeyState.cs" />
+    <Compile Include="PixelSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainI2CDevice.cs" />
     <Compile Include="SenseHat.cs" />
@@ -135,6 +136,8 @@
     <Compile Include="SenseHatFactory.cs" />
     <Compile Include="SenseHatJoystick.cs" />
     <Compile Include="SenseHatSensors.cs" />
+    <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Sprites\SpriteMap.cs" />
     <Content Include="Properties\Rpi.SenseHat.rd.xml" />
   </ItemGroup>
   <ItemGroup>

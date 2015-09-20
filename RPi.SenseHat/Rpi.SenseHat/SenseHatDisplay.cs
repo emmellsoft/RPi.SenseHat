@@ -350,117 +350,19 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
 		private void UpdateDirectionParameters()
 		{
-			bool xForward;
-			bool yForward;
+			bool leftToRight;
+			bool topToBottom;
 			bool flipAxis;
 
-			switch (_direction)
-			{
-				case DisplayDirection.Deg0:
-					if (!_flipHorizontal && !_flipVertical)
-					{
-						xForward = true;
-						yForward = true;
-					}
-					else if (_flipHorizontal && !_flipVertical)
-					{
-						xForward = false;
-						yForward = true;
-					}
-					else if (!_flipHorizontal /* && flipVertical */)
-					{
-						xForward = true;
-						yForward = false;
-					}
-					else /* if (flipHorizontal && flipVertical) */
-					{
-						xForward = false;
-						yForward = false;
-					}
+			PixelSupport.ConvertDirectionParameters(
+				_direction,
+				_flipHorizontal,
+				_flipVertical,
+				out leftToRight,
+				out topToBottom,
+				out flipAxis);
 
-					flipAxis = false;
-					break;
-
-				case DisplayDirection.Deg90:
-					if (!_flipHorizontal && !_flipVertical)
-					{
-						xForward = false;
-						yForward = true;
-					}
-					else if (_flipHorizontal && !_flipVertical)
-					{
-						xForward = true;
-						yForward = true;
-					}
-					else if (!_flipHorizontal /* && flipVertical */)
-					{
-						xForward = false;
-						yForward = false;
-					}
-					else /* if (flipHorizontal && flipVertical) */
-					{
-						xForward = true;
-						yForward = false;
-					}
-
-					flipAxis = true;
-					break;
-
-				case DisplayDirection.Deg180:
-					if (!_flipHorizontal && !_flipVertical)
-					{
-						xForward = false;
-						yForward = false;
-					}
-					else if (_flipHorizontal && !_flipVertical)
-					{
-						xForward = true;
-						yForward = false;
-					}
-					else if (!_flipHorizontal /* && flipVertical */)
-					{
-						xForward = false;
-						yForward = true;
-					}
-					else /* if (flipHorizontal && flipVertical) */
-					{
-						xForward = true;
-						yForward = true;
-					}
-
-					flipAxis = false;
-					break;
-
-				case DisplayDirection.Deg270:
-					if (!_flipHorizontal && !_flipVertical)
-					{
-						xForward = true;
-						yForward = false;
-					}
-					else if (_flipHorizontal && !_flipVertical)
-					{
-						xForward = false;
-						yForward = false;
-					}
-					else if (!_flipHorizontal /* && flipVertical */)
-					{
-						xForward = true;
-						yForward = true;
-					}
-					else /* if (flipHorizontal && flipVertical) */
-					{
-						xForward = false;
-						yForward = true;
-					}
-
-					flipAxis = true;
-					break;
-
-				default:
-					throw new ArgumentOutOfRangeException(nameof(_direction), _direction, null);
-			}
-
-			if (xForward)
+			if (leftToRight)
 			{
 				_xStart = 0;
 				_xStop = 8;
@@ -473,7 +375,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				_xStep = -1;
 			}
 
-			if (yForward)
+			if (topToBottom)
 			{
 				_yStart = 0;
 				_yStop = 8;
