@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RT.IoT.Sensors")]
+[assembly: AssemblyTitle("RTIMULibCS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("richards-tech, LLC")]
-[assembly: AssemblyProduct("RT.IoT.Sensors")]
+[assembly: AssemblyProduct("RTIMULibCS")]
 [assembly: AssemblyCopyright("Copyright © richards-tech, LLC 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

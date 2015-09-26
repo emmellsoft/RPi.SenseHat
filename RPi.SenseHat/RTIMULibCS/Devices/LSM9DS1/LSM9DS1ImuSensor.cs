@@ -206,7 +206,7 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
 
 			switch (_config.GyroFullScaleRange)
 			{
-				case GyroFullScaleRange.Range250:
+				case GyroFullScaleRange.Range245:
 					ctrl1 |= 0x00;
 					_gyroScale = 0.00875 * MathSupport.DegreeToRad;
 					break;
@@ -247,7 +247,7 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
 		private void SetAccelCtrl6()
 		{
 			int accelSampleRateValue = (int)_config.AccelSampleRate;
-			if ((accelSampleRateValue < 0) || (accelSampleRateValue > 6)) // TODO: Isn't the lower bound 1 (not 0)?
+			if ((accelSampleRateValue < 1) || (accelSampleRateValue > 6))
 			{
 				throw new SensorException($"Illegal LSM9DS1 accel sample rate code {_config.AccelSampleRate}");
 			}
@@ -300,7 +300,7 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
 		{
 			int compassSampleRateValue = (int)_config.CompassSampleRate;
 
-			if ((compassSampleRateValue < 0) || (compassSampleRateValue > 5)) // TODO: Only 5?
+			if ((compassSampleRateValue < 0) || (compassSampleRateValue > 7)) 
 			{
 				throw new SensorException($"Illegal LSM9DS1 compass sample rate code {_config.CompassSampleRate}");
 			}

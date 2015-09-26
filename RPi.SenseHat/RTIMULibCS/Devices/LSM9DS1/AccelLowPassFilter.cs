@@ -1,8 +1,8 @@
-﻿////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Tools
+//  This file is part of RTIMULibCS
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2015, richards-tech, LLC
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -21,9 +21,13 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Emmellsoft.IoT.Rpi.SenseHat
+namespace RichardsTech.Sensors.Devices.LSM9DS1
 {
-	public interface ISenseHatSensors
+	public enum AccelLowPassFilter
 	{
+		Freq408Hz = 0,
+		Freq211Hz = 1,
+		Freq105Hz = 2,
+		Freq50Hz = 3
 	}
 }

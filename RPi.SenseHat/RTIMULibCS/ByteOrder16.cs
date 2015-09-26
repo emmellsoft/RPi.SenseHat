@@ -1,8 +1,8 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Tools
+//  This file is part of RTIMULibCS
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2015, richards-tech, LLC
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -21,9 +21,26 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Emmellsoft.IoT.Rpi.SenseHat
+namespace RichardsTech.Sensors
+
 {
-	public interface ISenseHatSensors
+	/// <summary>
+	/// The byte order.
+	/// </summary>
+	public enum ByteOrder
 	{
+		/// <summary>
+		/// Byte order of 0x1234: 0x12, 0x34.
+		/// Byte order of 0x123456: 0x12, 0x34, 0x56.
+		/// Byte order of 0x12345678: 0x12, 0x34, 0x56, 0x78.
+		/// </summary>
+		BigEndian,
+
+		/// <summary>
+		/// Byte order of 0x1234: 0x34, 0x12.
+		/// Byte order of 0x123456: 0x56, 0x34, 0x12.
+		/// Byte order of 0x12345678: 0x78, 0x56, 0x34, 0x12.
+		/// </summary>
+		LittleEndian
 	}
 }

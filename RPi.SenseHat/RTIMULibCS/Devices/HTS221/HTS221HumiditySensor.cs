@@ -40,6 +40,11 @@ namespace RichardsTech.Sensors.Devices.HTS221
 		private Func<Int16, double> _temperatureConversionFunc;
 		private Func<Int16, double> _humidityConversionFunc;
 
+        private bool _humidityValid = false;
+        private double _humidity = 0;
+        private bool _temperatureValid = false;
+        private double _temperature = 0;
+
 		public HTS221HumiditySensor(byte i2CAddress)
 		{
 			_i2CAddress = i2CAddress;
@@ -51,7 +56,7 @@ namespace RichardsTech.Sensors.Devices.HTS221
 			_i2CDevice.Dispose();
 		}
 
-		protected override async Task<bool> InitDeviceAsync()
+        protected override async Task<bool> InitDeviceAsync()
 		{
 			await ConnectToI2CDevices();
 
@@ -146,6 +151,8 @@ namespace RichardsTech.Sensors.Devices.HTS221
 		/// </summary>
 		public override bool Update()
 		{
+            bool newReadings = false;
+
 			var readings = new SensorReadings
 			{
 				Timestamp = DateTime.Now
@@ -156,19 +163,25 @@ namespace RichardsTech.Sensors.Devices.HTS221
 			if ((status & 0x02) == 0x02)
 			{
 				Int16 rawHumidity = (Int16)I2CSupport.Read16Bits(_i2CDevice, HTS221Defines.HUMIDITY_OUT_L + 0x80, ByteOrder.LittleEndian, "Failed to read HTS221 humidity");
-				readings.Humidity = _humidityConversionFunc(rawHumidity);
-				readings.HumidityValid = true;
+				_humidity = _humidityConversionFunc(rawHumidity);
+				_humidityValid = true;
+                newReadings = true;
 			}
 
 			if ((status & 0x01) == 0x01)
 			{
 				Int16 rawTemperature = (Int16)I2CSupport.Read16Bits(_i2CDevice, HTS221Defines.TEMP_OUT_L + 0x80, ByteOrder.LittleEndian, "Failed to read HTS221 temperature");
-				readings.Temperature = _temperatureConversionFunc(rawTemperature);
-				readings.TemperatureValid = true;
+				_temperature = _temperatureConversionFunc(rawTemperature);
+				_temperatureValid = true;
+                newReadings = true;
 			}
 
-			if (readings.HumidityValid || readings.TemperatureValid)
+			if (newReadings)
 			{
+                readings.Humidity = _humidity;
+                readings.HumidityValid = _humidityValid;
+                readings.Temperature = _temperature;
+                readings.TemperatureValid = _temperatureValid;
 				AssignNewReadings(readings);
 				return true;
 			}

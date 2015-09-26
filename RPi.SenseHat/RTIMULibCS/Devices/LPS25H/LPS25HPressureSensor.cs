@@ -36,7 +36,12 @@ namespace RichardsTech.Sensors.Devices.LPS25H
 		private readonly byte _i2CAddress;
 		private I2cDevice _i2CDevice;
 
-		public LPS25HPressureSensor(byte i2CAddress)
+        private bool _pressureValid = false;
+        private double _pressure = 0;
+        private bool _temperatureValid = false;
+        private double _temperature = 0;
+
+        public LPS25HPressureSensor(byte i2CAddress)
 		{
 			_i2CAddress = i2CAddress;
 		}
@@ -94,6 +99,8 @@ namespace RichardsTech.Sensors.Devices.LPS25H
 		/// </summary>
 		public override bool Update()
 		{
+            bool newReadings = false;
+
 			byte status = I2CSupport.Read8Bits(_i2CDevice, LPS25HDefines.STATUS_REG, "Failed to read LPS25H status");
 
 			var readings = new SensorReadings
@@ -105,21 +112,27 @@ namespace RichardsTech.Sensors.Devices.LPS25H
 			{
 				Int32 rawPressure = (Int32)I2CSupport.Read24Bits(_i2CDevice, LPS25HDefines.PRESS_OUT_XL + 0x80, ByteOrder.LittleEndian, "Failed to read LPS25H pressure");
 
-				readings.Pressure = rawPressure / 4096.0;
-				readings.PressureValid = true;
+				_pressure = rawPressure / 4096.0;
+				_pressureValid = true;
+                newReadings = true;
 			}
 
 			if ((status & 0x01) == 0x01)
 			{
 				Int16 rawTemperature = (Int16)I2CSupport.Read16Bits(_i2CDevice, LPS25HDefines.TEMP_OUT_L + 0x80, ByteOrder.LittleEndian, "Failed to read LPS25H temperature");
 
-				readings.Temperature = rawTemperature / 480.0 + 42.5;
-				readings.TemperatureValid = true;
+				_temperature = rawTemperature / 480.0 + 42.5;
+				_temperatureValid = true;
+                newReadings = true;
 			}
 
-			if (readings.PressureValid || readings.TemperatureValid)
+			if (newReadings)
 			{
-				AssignNewReadings(readings);
+                readings.Pressure = _pressure;
+                readings.PressureValid = _pressureValid;
+                readings.Temperature = _temperature;
+                readings.TemperatureValid = _temperatureValid;
+                AssignNewReadings(readings);
 				return true;
 			}
 

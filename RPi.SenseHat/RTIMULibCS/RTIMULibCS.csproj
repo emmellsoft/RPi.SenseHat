@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F3038107-BCA7-4D11-9433-79BB4CB5AB30}</ProjectGuid>
+    <ProjectGuid>{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RichardsTech.Sensors</RootNamespace>
-    <AssemblyName>RT.IoT.Sensors</AssemblyName>
+    <AssemblyName>RTIMULibCS</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
