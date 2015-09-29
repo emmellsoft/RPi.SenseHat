@@ -65,6 +65,15 @@
     <Compile Include="..\Rpi.SenseHat\Fonts\CharacterRenderer.cs">
       <Link>Linked\Font\CharacterRenderer.cs</Link>
     </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorCharacter.cs">
+      <Link>Font\Col\ColorCharacter.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorCharacterRenderer.cs">
+      <Link>Font\Col\ColorCharacterRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorFont.cs">
+      <Link>Font\Col\ColorFont.cs</Link>
+    </Compile>
     <Compile Include="..\Rpi.SenseHat\Fonts\Font.cs">
       <Link>Linked\Font\Font.cs</Link>
     </Compile>
@@ -81,6 +90,7 @@
       <Link>Linked\KeyState.cs</Link>
     </Compile>
     <Compile Include="Dummies\ISenseHatSensors.cs" />
+    <Compile Include="Dummies\PixelSupport.cs" />
     <Compile Include="Font\BWFontBuilder.cs" />
     <Compile Include="LedBuffer\FindBestGammaMatch.cs" />
     <Compile Include="LedBuffer\GammaCalc.cs" />

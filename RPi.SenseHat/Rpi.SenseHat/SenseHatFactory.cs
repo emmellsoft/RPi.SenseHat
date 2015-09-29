@@ -81,8 +81,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
 			I2cConnectionSettings settings = new I2cConnectionSettings(DeviceAddress)
 			{
-				BusSpeed = I2cBusSpeed.StandardMode,
-				SharingMode = I2cSharingMode.Exclusive
+				BusSpeed = I2cBusSpeed.StandardMode
 			};
 
 			I2cDevice i2CDevice = await I2cDevice.FromIdAsync(collection[0].Id, settings);

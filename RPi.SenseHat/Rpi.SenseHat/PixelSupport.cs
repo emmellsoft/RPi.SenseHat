@@ -202,5 +202,26 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 					throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
 			}
 		}
+
+		public static Color[,] Convert1DTo2D(Color[] pixels)
+		{
+			if (pixels.Length != 64)
+			{
+				throw new ArgumentException("The pixel array must be 64 bytes long (i.e. 8x8).", nameof(pixels));
+			}
+
+			var pixels2D = new Color[8, 8];
+
+			int i = 0;
+			for (int y = 0; y < 8; y++)
+			{
+				for (int x = 0; x < 8; x++)
+				{
+					pixels2D[x, y] = pixels[i++];
+				}
+			}
+
+			return pixels2D;
+		}
 	}
 }

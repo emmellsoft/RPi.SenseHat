@@ -121,6 +121,9 @@
     <Compile Include="Fonts\BW\TinyFont.cs" />
     <Compile Include="Fonts\Character.cs" />
     <Compile Include="Fonts\CharacterRenderer.cs" />
+    <Compile Include="Fonts\Col\ColorCharacter.cs" />
+    <Compile Include="Fonts\Col\ColorCharacterRenderer.cs" />
+    <Compile Include="Fonts\Col\ColorFont.cs" />
     <Compile Include="Fonts\Font.cs" />
     <Compile Include="Fonts\TextScroller.cs" />
     <Compile Include="ISenseHatDisplay.cs" />

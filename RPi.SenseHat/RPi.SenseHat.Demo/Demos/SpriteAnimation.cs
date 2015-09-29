@@ -22,6 +22,7 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Linq;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Sprites;
@@ -53,7 +54,7 @@ namespace RPi.SenseHat.Demo.Demos
 			Sprite sprite = spriteMap.GetSprite(animationIndex);
 
 			// ...and when it's time to update it.
-			TimeSpan frameDuration = TimeSpan.FromMilliseconds(100);
+			TimeSpan frameDuration = TimeSpan.FromMilliseconds(70);
 			DateTime nextAnimationUpdateTime = DateTime.Now.Add(frameDuration);
 
 			// Keep track of the location and orientation of the sprite.

@@ -24,9 +24,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.Font;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer;
 
@@ -36,10 +38,24 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 	{
 		static void Main(string[] args)
 		{
+			ColorFontWork();
 			LedBufferWork();
-
 			BwFontWork();
 			BwTinyFontWork();
+		}
+
+		private static void ColorFontWork()
+		{
+			const string symbols = " ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÉÜabcdefghijklmnopqrstuvwxyzåäöéü0123456789.,?!\"#$%&-+*:;/\\<>()'`=";
+			const string relativeImagePath = @"..\..\..\RPi.SenseHat.Demo\Assets\ColorFont.png";
+
+			var dir = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+			var path = Path.GetFullPath(Path.Combine(dir ?? string.Empty, relativeImagePath));
+			var fontImageUri = new Uri(path);
+
+			ColorFont font = ColorFont.LoadFromImage(fontImageUri, symbols, Color.Transparent).Result;
+			var chars = font.GetChars().ToArray();
+			var widths = chars.Select(c => c.Width).ToArray();
 		}
 
 		private static void BwFontWork()
@@ -104,39 +120,71 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 			//return String.Join("  ", bytes.Select(g => g.ToString("x2")));
 		}
 
-		private static string ToCSharp(Color[,] pixels)
+		private static string ToCSharp(Color[,] pixels, bool compact = true)
 		{
 			var text = new StringBuilder();
-			text.AppendLine("Color[,] colors = new Color[,]");
-			text.AppendLine("{");
 
-			for (int y = 0; y < 8; y++)
+			if (compact)
 			{
-				text.Append("\t{ ");
-				for (int x = 0; x < 8; x++)
-				{
-					Color color = pixels[x, y];
+				text.AppendLine("Color[] colors = new[]");
+				text.AppendLine("{");
 
-					if (x > 0)
+				for (int y = 0; y < 8; y++)
+				{
+					text.Append("\t");
+
+					for (int x = 0; x < 8; x++)
 					{
-						text.Append(", ");
+						int argb = pixels[x, y].ToArgb();
+						int rgb = argb & 0x00FFFFFF;
+						text.Append("0x" + rgb.ToString("X6"));
+
+						if ((x < 7) || (y < 7))
+						{
+							text.Append(", ");
+						}
 					}
 
-					text.Append("Color.FromArgb(0xff, ");
-					text.Append(string.Join(", ", new[] { color.R, color.G, color.B }.Select(ByteToCSharp)));
-					text.Append(")");
+					text.AppendLine();
 				}
-				text.AppendLine(" },");
-			}
 
-			text.AppendLine("};");
+				text.AppendLine("}");
+				text.AppendLine(".Select(rgb => Color.FromArgb(0xFF, (byte)((rgb >> 16) & 0xFF), (byte)((rgb >> 8) & 0xFF), (byte)(rgb & 0xFF)))");
+				text.AppendLine(".ToArray();");
+			}
+			else
+			{
+				text.AppendLine("Color[,] colors = new Color[,]");
+				text.AppendLine("{");
+
+				for (int y = 0; y < 8; y++)
+				{
+					text.Append("\t{ ");
+					for (int x = 0; x < 8; x++)
+					{
+						Color color = pixels[x, y];
+
+						if (x > 0)
+						{
+							text.Append(", ");
+						}
+
+						text.Append("Color.FromArgb(0xff, ");
+						text.Append(string.Join(", ", new[] { color.R, color.G, color.B }.Select(ByteToCSharp)));
+						text.Append(")");
+					}
+					text.AppendLine(" },");
+				}
+
+				text.AppendLine("};");
+			}
 
 			return text.ToString();
 		}
 
 		private static string ByteToCSharp(byte value)
 		{
-			return "0x" + value.ToString("x2");
+			return "0x" + value.ToString("X2");
 		}
 	}
 }

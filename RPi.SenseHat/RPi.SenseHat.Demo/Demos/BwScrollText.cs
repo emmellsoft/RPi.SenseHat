@@ -68,7 +68,10 @@ namespace RPi.SenseHat.Demo.Demos
 			BwCharacterRenderer characterRenderer = new BwCharacterRenderer(GetCharacterColor);
 
 			// Create the text scroller.
-			TextScroller<BwCharacter> textScroller = new TextScroller<BwCharacter>(SenseHat.Display, characterRenderer, characters);
+			var textScroller = new TextScroller<BwCharacter>(
+				SenseHat.Display,
+				characterRenderer,
+				characters);
 
 			while (true)
 			{

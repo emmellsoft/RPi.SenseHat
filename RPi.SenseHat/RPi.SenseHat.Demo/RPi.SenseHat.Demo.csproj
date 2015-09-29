@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="DemoSelector.cs" />
     <Compile Include="Demos\BwScrollText.cs" />
+    <Compile Include="Demos\ColorScrollText.cs" />
     <Compile Include="Demos\Compass.cs" />
     <Compile Include="Demos\DiscoLights.cs" />
     <Compile Include="Demos\GammaTest.cs" />
@@ -118,6 +119,7 @@
     <None Include="RPi.SenseHat.Demo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ColorFont.png" />
     <Content Include="Assets\MiniMario.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
