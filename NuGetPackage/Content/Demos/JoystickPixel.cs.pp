@@ -21,16 +21,76 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Windows.UI.Xaml.Controls;
+using System;
+using Windows.UI;
+using Emmellsoft.IoT.Rpi.SenseHat;
 
-namespace RPi.SenseHat.Demo
+namespace $rootnamespace$.Demos
 {
-	public sealed partial class MainPage : Page
+	public class JoystickPixel : SenseHatDemo
 	{
-		public MainPage()
+		public JoystickPixel(ISenseHat senseHat)
+			: base(senseHat)
 		{
-			InitializeComponent();
-			DemoRunner.Run(DemoSelector.GetDemo);
+		}
+
+		public override void Run()
+		{
+			// The initial position of the pixel.
+			int x = 3;
+			int y = 3;
+
+			SenseHat.Display.Clear();
+
+			while (true)
+			{
+				if (SenseHat.Joystick.Update()) // Has any of the buttons on the joystick changed?
+				{
+					UpdatePosition(ref x, ref y); // Move the pixel.
+
+					SenseHat.Display.Clear(); // Clear the screen.
+
+					SenseHat.Display.Screen[x, y] = Colors.Yellow; // Draw the pixel.
+
+					SenseHat.Display.Update(); // Update the physical display.
+				}
+
+				// Take a short nap.
+				Sleep(TimeSpan.FromMilliseconds(2));
+			}
+		}
+
+		private void UpdatePosition(ref int x, ref int y)
+		{
+			if (SenseHat.Joystick.LeftKey == KeyState.Pressed)
+			{
+				if (x > 0)
+				{
+					x--;
+				}
+			}
+			else if (SenseHat.Joystick.RightKey == KeyState.Pressed)
+			{
+				if (x < 7)
+				{
+					x++;
+				}
+			}
+
+			if (SenseHat.Joystick.UpKey == KeyState.Pressed)
+			{
+				if (y > 0)
+				{
+					y--;
+				}
+			}
+			else if (SenseHat.Joystick.DownKey == KeyState.Pressed)
+			{
+				if (y < 7)
+				{
+					y++;
+				}
+			}
 		}
 	}
 }

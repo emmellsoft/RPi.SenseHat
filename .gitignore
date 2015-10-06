@@ -175,6 +175,7 @@ FakesAssemblies/
 # NuGet Packages
 packages/
 *.nupkg
+nuget.exe
 
 
 # Mattias additions

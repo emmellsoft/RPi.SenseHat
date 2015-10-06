@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Emmellsoft.IoT.RPi.SenseHat</id>
+        <version>0.1.0.6</version>
+        <title>RPi.SenseHat</title>
+        <authors>Mattias Larsson</authors>
+        <owners>Mattias Larsson</owners>
+		<iconUrl>https://raw.githubusercontent.com/emmellsoft/RPi.SenseHat/master/NuGetPackage/PackageIcon.png</iconUrl>		
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://www.hackster.io/laserbrain/windows-iot-sense-hat</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This is a complete .NET API for the Raspberry Pi 2 "Sense HAT".
+Use it in a blank Universal App and remote debug it on a Raspberry Pi 2 running Windows IoT Core.
+
+The NuGet package comes with a couple of demos (including full source code) you can easily run yourself to get to know the device better.
+
+Read about the "Sense HAT" here: http://swag.raspberrypi.org/collections/frontpage/products/raspberry-pi-sense-hat
+
+The Sense HAT has the following hardware features:
+• Gyroscope
+• Accelerometer
+• Magnetometer
+• Temperature sensor
+• Barometric pressure sensor
+• Relative Humidity sensor
+• 8×8 RGB LED matrix display
+• 5 button joystick
+
+Have fun! :-)</description>
+        <summary>.NET API for the Raspberry Pi 2 "Sense HAT".</summary>
+        <copyright>Copyright 2015</copyright>
+        <tags>RaspberryPi RaspberryPi2 IoT SenseHat</tags>
+    </metadata>
+    <files>
+        <file src="..\..\NuGetPackage\Content\Demos\*.pp" target="Content\Demos\" />
+        <file src="..\..\NuGetPackage\Content\DemoRunner.cs.pp" target="Content\" />
+    </files>
+</package>

@@ -21,16 +21,33 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Windows.UI.Xaml.Controls;
+using System;
+using System.Threading.Tasks;
+using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo
 {
-	public sealed partial class MainPage : Page
+	/// <summary>
+	/// Runs a demo.
+	/// </summary>
+	public static class DemoRunner
 	{
-		public MainPage()
+		/// <summary>
+		/// Call this (for example) from the constructor of the MainPage.
+		/// Example:
+		/// <code>DemoRunner.Run(senseHat => new Demos.DiscoLights(senseHat));</code>
+		/// </summary>
+		/// <param name="createDemo">The demo to run.</param>
+		public static void Run(Func<ISenseHat, SenseHatDemo> createDemo)
 		{
-			InitializeComponent();
-			DemoRunner.Run(DemoSelector.GetDemo);
+			Task.Run(async () =>
+			{
+				ISenseHat senseHat = await SenseHatFactory.Singleton.Create();
+
+				SenseHatDemo demo = createDemo(senseHat);
+
+				demo.Run();
+			});
 		}
 	}
 }
