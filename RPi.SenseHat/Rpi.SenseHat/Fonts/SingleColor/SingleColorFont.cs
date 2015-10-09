@@ -26,31 +26,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor
 {
 	/// <summary>
 	/// A one-color font.
 	/// </summary>
-	public class BwFont : Font<BwCharacter>
+	public class SingleColorFont : Font<SingleColorCharacter>
 	{
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="chars">Set of characters.</param>
-		public BwFont(IEnumerable<BwCharacter> chars)
+		public SingleColorFont(IEnumerable<SingleColorCharacter> chars)
 			: base(chars)
 		{
 		}
 
 		/// <summary>
-		/// Deserializes an encoded byte-array into a BwFont.
+		/// Deserializes an encoded byte-array into a SingleColorFont.
 		/// </summary>
 		/// <param name="serializedChars">An encoded byte array.</param>
-		public static BwFont Deserialize(IEnumerable<byte> serializedChars)
+		public static SingleColorFont Deserialize(IEnumerable<byte> serializedChars)
 		{
 			byte[] bytesArray = serializedChars.ToArray();
 
-			var chars = new List<BwCharacter>();
+			var chars = new List<SingleColorCharacter>();
 			var charColumns = new List<byte>();
 
 			int index = 0;
@@ -65,7 +65,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 				{
 					if (index > 0)
 					{
-						var c = new BwCharacter(currentSymbol, charColumns.ToArray());
+						var c = new SingleColorCharacter(currentSymbol, charColumns.ToArray());
 						chars.Add(c);
 						charColumns.Clear();
 					}
@@ -123,11 +123,11 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 
 			if (index > 0)
 			{
-				var lastChar = new BwCharacter(currentSymbol, charColumns.ToArray());
+				var lastChar = new SingleColorCharacter(currentSymbol, charColumns.ToArray());
 				chars.Add(lastChar);
 			}
 
-			return new BwFont(chars);
+			return new SingleColorFont(chars);
 		}
 
 		/// <summary>
@@ -137,7 +137,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 		{
 			bool isFirstChar = true;
 
-			foreach (BwCharacter character in GetChars())
+			foreach (SingleColorCharacter character in GetChars())
 			{
 				if (isFirstChar)
 				{

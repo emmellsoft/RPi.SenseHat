@@ -24,10 +24,13 @@
 using System;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Is it only me or does it show some unusual high temperature? :-S
+	/// </summary>
 	public class WriteTemperature : SenseHatDemo
 	{
 		public WriteTemperature(ISenseHat senseHat)

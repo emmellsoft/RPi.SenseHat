@@ -23,9 +23,13 @@
 
 using System;
 using System.Linq;
+#if NETFX_CORE
 using Windows.UI;
+#else
+using System.Drawing;
+#endif
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor
 {
 	/// <summary>
 	/// Tiny 4-pixel wide font with the following characters:
@@ -33,12 +37,12 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 	/// </summary>
 	public class TinyFont
 	{
-		private static readonly BwFont Font;
+		private static readonly SingleColorFont Font;
 
 		static TinyFont()
 		{
 			// These bytes are calculated by the RPi.SenseHat.Tools.
-			// See the method "BwTinyFontWork"!
+			// See the method "SingleColorTinyFontWork"!
 			var fontBytes = new byte[]
 			{
 				0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0x30, 0x00, 0x00, 0x1f, 0x11, 0x1f, 0xff, 0x00, 0x31, 0x00, 0x00,
@@ -56,12 +60,12 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 				0x03, 0x00
 			};
 
-			Font = BwFont.Deserialize(fontBytes);
+			Font = SingleColorFont.Deserialize(fontBytes);
 		}
 
 		public void Write(ISenseHatDisplay display, string twoCharText, Color color, int offsetY = 0)
 		{
-			BwCharacter[] chars = Font.GetChars(twoCharText).ToArray();
+			SingleColorCharacter[] chars = Font.GetChars(twoCharText).ToArray();
 
 			if (chars.Length == 0)
 			{
@@ -73,10 +77,10 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 				throw new ArgumentException("Max two characters are allowed!", nameof(twoCharText));
 			}
 
-			var characterRenderer = new BwCharacterRenderer(pixelMap => color);
+			var characterRenderer = new SingleColorCharacterRenderer(pixelMap => color);
 
 			int x = 0;
-			foreach (BwCharacter character in chars)
+			foreach (SingleColorCharacter character in chars)
 			{
 				characterRenderer.Render(display, character, x, offsetY);
 

@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
 //  This file is part of Rpi.SenseHat
 //
@@ -21,47 +21,30 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-#if NETFX_CORE
-using Windows.UI;
-#else
-using System.Drawing;
-#endif
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor
 {
 	/// <summary>
-	/// A color font character.
+	/// A single color font character.
 	/// </summary>
-	public class ColorCharacter : Character
+	public class SingleColorCharacter : Character
 	{
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="symbol">The unicode character.</param>
-		/// <param name="pixels">The pixels array. Must not be larger than 8x8 pixels.</param>
-		/// <param name="transparencyColor">The color that represents transparency.</param>
-		public ColorCharacter(char symbol, Color[,] pixels, Color? transparencyColor = null)
-			: base(symbol, pixels.GetLength(0))
+		/// <param name="columns">The pixel columns. One column=one byte where each bit represents a pixel (on=1 or off=0) where the LSB is the topmost pixel.</param>
+		public SingleColorCharacter(char symbol, byte[] columns)
+			: base(symbol, columns.Length)
 		{
-			if (pixels.GetLength(1) > 8)
-			{
-				throw new ArgumentException("The pixels array must not be taller than 8 pixels!");
-			}
-
-			Pixels = pixels;
-			TransparencyColor = transparencyColor;
+			Columns = columns;
 		}
 
 		/// <summary>
-		/// The pixels array.
+		/// The pixel columns.
+		/// One column=one byte where each bit represents a pixel (on=1 or off=0)
+		/// where the LSB is the topmost pixel.
 		/// </summary>
-		public Color[,] Pixels
-		{ get; }
-
-		/// <summary>
-		/// The color that represents transparency.
-		/// </summary>
-		public Color? TransparencyColor
+		public byte[] Columns
 		{ get; }
 	}
 }

@@ -26,13 +26,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.Font
 {
-	public static class BwFontBuilder
+	public static class SingleColorFontBuilder
 	{
-		public static BwFont GetBwFont(Bitmap bitmap, string chars)
+		public static SingleColorFont GetSingleColorFont(Bitmap bitmap, string chars)
 		{
 			if (bitmap.Height != 9)
 			{
@@ -42,7 +42,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.Font
 			int x = 0;
 			int charIndex = -1;
 
-			var charList = new List<BwCharacter>();
+			var charList = new List<SingleColorCharacter>();
 			var charColumns = new List<byte>();
 
 			do
@@ -55,7 +55,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.Font
 					if (charIndex > -1)
 					{
 						// Handle the previous one!
-						BwCharacter c = new BwCharacter(chars[charIndex], charColumns.ToArray());
+						SingleColorCharacter c = new SingleColorCharacter(chars[charIndex], charColumns.ToArray());
 						charList.Add(c);
                     }
 
@@ -97,11 +97,11 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.Font
 
 			if (charIndex > -1)
 			{
-				BwCharacter c = new BwCharacter(chars[charIndex], charColumns.ToArray());
+				SingleColorCharacter c = new SingleColorCharacter(chars[charIndex], charColumns.ToArray());
 				charList.Add(c);
 			}
 
-			return new BwFont(charList);
+			return new SingleColorFont(charList);
 		}
 
 		public static Tuple<string, Bitmap> GetFontBitmap(IEnumerable<byte> fontBytes)

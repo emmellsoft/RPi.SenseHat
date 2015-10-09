@@ -27,8 +27,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.Font;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer;
 
@@ -40,8 +40,8 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 		{
 			ColorFontWork();
 			LedBufferWork();
-			BwFontWork();
-			BwTinyFontWork();
+			SingleColorFontWork();
+			SingleColorTinyFontWork();
 		}
 
 		private static void ColorFontWork()
@@ -53,30 +53,30 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 			var path = Path.GetFullPath(Path.Combine(dir ?? string.Empty, relativeImagePath));
 			var fontImageUri = new Uri(path);
 
-			ColorFont font = ColorFont.LoadFromImage(fontImageUri, symbols, Color.Transparent).Result;
+			MultiColorFont font = MultiColorFont.LoadFromImage(fontImageUri, symbols, Color.Transparent).Result;
 			var chars = font.GetChars().ToArray();
 			var widths = chars.Select(c => c.Width).ToArray();
 		}
 
-		private static void BwFontWork()
+		private static void SingleColorFontWork()
 		{
 			var bitmap = new Bitmap(@"Font\BWFont.png");
 			const string chars = " ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÉÜabcdefghijklmnopqrstuvwxyzåäöéü0123456789.,?!\"#$%&-+*:;/\\<>()'`=";
 
-			BwFont bwFont = BwFontBuilder.GetBwFont(bitmap, chars);
-			byte[] fontBytes = bwFont.Serialize().ToArray();
+			SingleColorFont singleColorFont = SingleColorFontBuilder.GetSingleColorFont(bitmap, chars);
+			byte[] fontBytes = singleColorFont.Serialize().ToArray();
 			var fontBytesAsCode = ToCSharp(fontBytes);
 
-			Tuple<string, Bitmap> tuple = BwFontBuilder.GetFontBitmap(fontBytes);
+			Tuple<string, Bitmap> tuple = SingleColorFontBuilder.GetFontBitmap(fontBytes);
 			tuple.Item2.Save(@"Font\BWFont_recreated.png");
 		}
 
-		private static void BwTinyFontWork()
+		private static void SingleColorTinyFontWork()
 		{
 			var bitmap = new Bitmap(@"Font\TinyBWFont.png");
 			const string chars = " 0123456789ABCDEF+-%*=.:!?/\\'";
 
-			BwFont tinyFont = BwFontBuilder.GetBwFont(bitmap, chars);
+			SingleColorFont tinyFont = SingleColorFontBuilder.GetSingleColorFont(bitmap, chars);
 			byte[] fontBytes = tinyFont.Serialize().ToArray();
 			var fontBytesAsCode = ToCSharp(fontBytes);
 		}

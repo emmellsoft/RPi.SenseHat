@@ -29,6 +29,9 @@ using Emmellsoft.IoT.Rpi.SenseHat.Sprites;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
+	/// </summary>
 	public class SpriteAnimation : SenseHatDemo
 	{
 		public SpriteAnimation(ISenseHat senseHat)

@@ -27,6 +27,9 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Click on the joystick to change drawing mode!
+	/// </summary>
 	public class DiscoLights : SenseHatDemo
 	{
 		private readonly static Random Random = new Random();

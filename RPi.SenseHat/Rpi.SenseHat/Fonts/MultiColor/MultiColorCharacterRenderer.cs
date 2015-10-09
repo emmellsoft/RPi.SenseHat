@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Demo
+//  This file is part of Rpi.SenseHat
 //
 //  Copyright (c) 2015, Mattias Larsson
 //
@@ -21,75 +21,77 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
+#if NETFX_CORE
 using Windows.UI;
-using Emmellsoft.IoT.Rpi.SenseHat;
+#else
+using System.Drawing;
+#endif
 
-namespace $rootnamespace$.Demos
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 {
-	public class JoystickPixel : SenseHatDemo
+	public class MultiColorCharacterRenderer : CharacterRenderer<MultiColorCharacter>
 	{
-		public JoystickPixel(ISenseHat senseHat)
-			: base(senseHat)
+		public override void Render(
+			ISenseHatDisplay display,
+			MultiColorCharacter character,
+			int offsetX,
+			int offsetY)
 		{
-		}
+			int charWidth = character.Pixels.GetLength(0);
+			int charHeight = character.Pixels.GetLength(1);
 
-		public override void Run()
-		{
-			// The initial position of the pixel.
-			int x = 3;
-			int y = 3;
+			int right = offsetX + charWidth - 1;
+			int bottom = offsetY + charHeight - 1;
 
-			SenseHat.Display.Clear();
-
-			while (true)
+			if ((offsetY > 7) || (bottom < 0) || (offsetX > 7) || (right < 0))
 			{
-				if (SenseHat.Joystick.Update()) // Has any of the buttons on the joystick changed?
-				{
-					UpdatePosition(ref x, ref y); // Move the pixel.
-
-					SenseHat.Display.Clear(); // Clear the screen.
-
-					SenseHat.Display.Screen[x, y] = Colors.Yellow; // Draw the pixel.
-
-					SenseHat.Display.Update(); // Update the physical display.
-				}
-
-				// Take a short nap.
-				Sleep(TimeSpan.FromMilliseconds(2));
-			}
-		}
-
-		private void UpdatePosition(ref int x, ref int y)
-		{
-			if (SenseHat.Joystick.LeftKey == KeyState.Pressed)
-			{
-				if (x > 0)
-				{
-					x--;
-				}
-			}
-			else if (SenseHat.Joystick.RightKey == KeyState.Pressed)
-			{
-				if (x < 7)
-				{
-					x++;
-				}
+				return;
 			}
 
-			if (SenseHat.Joystick.UpKey == KeyState.Pressed)
+			int charPixelXInit = 0;
+			int charPixelYInit = 0;
+
+			if (offsetX < 0)
 			{
-				if (y > 0)
-				{
-					y--;
-				}
+				charPixelXInit -= offsetX;
+				offsetX = 0;
 			}
-			else if (SenseHat.Joystick.DownKey == KeyState.Pressed)
+
+			if (offsetY < 0)
 			{
-				if (y < 7)
+				charPixelYInit -= offsetY;
+				offsetY = 0;
+			}
+
+			if (right > 7)
+			{
+				right = 7;
+			}
+
+			if (bottom > 7)
+			{
+				bottom = 7;
+			}
+
+			int charPixelY = charPixelYInit;
+
+			for (int screenY = offsetY; screenY <= bottom; screenY++)
+			{
+				int charPixelX = charPixelXInit;
+
+				for (int screenX = offsetX; screenX <= right; screenX++)
 				{
-					y++;
+					Color charColor = character.Pixels[charPixelX, charPixelY];
+
+					if (charColor != character.TransparencyColor)
+					{
+						display.Screen[screenX, screenY] = charColor;
+					}
+
+					charPixelX++;
 				}
+
+				charPixelY++;
 			}
 		}
 	}

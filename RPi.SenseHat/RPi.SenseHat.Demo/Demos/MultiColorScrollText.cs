@@ -26,15 +26,18 @@ using System.Collections.Generic;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor;
 
-namespace $rootnamespace$.Demos
+namespace RPi.SenseHat.Demo.Demos
 {
-	public class ColorScrollText : SenseHatDemo
+	/// <summary>
+	/// Multi-color scroll-text.
+	/// </summary>
+	public class MultiColorScrollText : SenseHatDemo
 	{
 		private readonly string _scrollText;
 
-		public ColorScrollText(ISenseHat senseHat, string scrollText)
+		public MultiColorScrollText(ISenseHat senseHat, string scrollText)
 			: base(senseHat)
 		{
 			_scrollText = scrollText;
@@ -43,22 +46,22 @@ namespace $rootnamespace$.Demos
 		public override void Run()
 		{
 			// Create the font from the image.
-			ColorFont font = ColorFont.LoadFromImage(
+			MultiColorFont font = MultiColorFont.LoadFromImage(
 				new Uri("ms-appx:///Assets/ColorFont.png"),
 				" ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÉÜabcdefghijklmnopqrstuvwxyzåäöéü0123456789.,?!\"#$%&-+*:;/\\<>()'`=",
 				Color.FromArgb(0xFF, 0xFF, 0x00, 0xFF)).Result;
 
 			// Get the characters to scroll.
-			IEnumerable<ColorCharacter> characters = font.GetChars(_scrollText);
+			IEnumerable<MultiColorCharacter> characters = font.GetChars(_scrollText);
 
 			// Choose a background color (or draw your own more complex background!)
 			Color backgroundColor = Color.FromArgb(0xFF, 0x00, 0x20, 0x00);
 
 			// Create the character renderer.
-			var characterRenderer = new ColorCharacterRenderer();
+			var characterRenderer = new MultiColorCharacterRenderer();
 
 			// Create the text scroller.
-			var textScroller = new TextScroller<ColorCharacter>(
+			var textScroller = new TextScroller<MultiColorCharacter>(
 				SenseHat.Display,
 				characterRenderer,
 				characters);

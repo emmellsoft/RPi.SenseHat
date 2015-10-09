@@ -28,6 +28,9 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
+	/// </summary>
 	public class Compass : SenseHatDemo
 	{
 		public Compass(ISenseHat senseHat)

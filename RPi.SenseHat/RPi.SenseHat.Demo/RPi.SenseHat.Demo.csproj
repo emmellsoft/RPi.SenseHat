@@ -98,8 +98,8 @@
     </Compile>
     <Compile Include="DemoRunner.cs" />
     <Compile Include="DemoSelector.cs" />
-    <Compile Include="Demos\BwScrollText.cs" />
-    <Compile Include="Demos\ColorScrollText.cs" />
+    <Compile Include="Demos\SingleColorScrollText.cs" />
+    <Compile Include="Demos\MultiColorScrollText.cs" />
     <Compile Include="Demos\Compass.cs" />
     <Compile Include="Demos\DiscoLights.cs" />
     <Compile Include="Demos\GammaTest.cs" />
@@ -147,9 +147,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rpi.SenseHat\Rpi.SenseHat.csproj">
+    <ProjectReference Include="..\Rpi.SenseHat\RPi.SenseHat.csproj">
       <Project>{f5c43428-288f-4696-93cd-1088e77db5bf}</Project>
-      <Name>Rpi.SenseHat</Name>
+      <Name>RPi.SenseHat</Name>
     </ProjectReference>
     <ProjectReference Include="..\RTIMULibCS\RTIMULibCS.csproj">
       <Project>{c91bbcdd-0775-43fd-ab8d-e46fc1b07e14}</Project>

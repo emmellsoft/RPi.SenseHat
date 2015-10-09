@@ -21,17 +21,17 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor
 {
 	/// <summary>
-	/// Information regarding a certain pixel of a BwCharacter to be rendered.
+	/// Information regarding a certain pixel of a SingleColorCharacter to be rendered.
 	/// </summary>
-	public struct BwCharacterRendererPixelMap
+	public struct SingleColorCharacterRendererPixelMap
 	{
 		/// <summary>
 		/// The character to render.
 		/// </summary>
-		public BwCharacter Character;
+		public SingleColorCharacter Character;
 
 		/// <summary>
 		/// The X-coordinate of the pixel in regards to the character (0 .. character width-1).

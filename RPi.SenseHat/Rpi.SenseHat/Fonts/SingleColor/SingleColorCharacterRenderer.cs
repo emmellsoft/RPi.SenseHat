@@ -28,20 +28,20 @@ using Windows.UI;
 using System.Drawing;
 #endif
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor
 {
 	/// <summary>
-	/// Renderer of a BwCharacter.
+	/// Renderer of a SingleColorCharacter.
 	/// </summary>
-	public class BwCharacterRenderer : CharacterRenderer<BwCharacter>
+	public class SingleColorCharacterRenderer : CharacterRenderer<SingleColorCharacter>
 	{
-		private readonly Func<BwCharacterRendererPixelMap, Color> _getColor;
+		private readonly Func<SingleColorCharacterRendererPixelMap, Color> _getColor;
 
 		/// <summary>
 		/// The constructor.
 		/// </summary>
 		/// <param name="getColor">Function that finds the color of a certain pixel to draw.</param>
-		public BwCharacterRenderer(Func<BwCharacterRendererPixelMap, Color> getColor)
+		public SingleColorCharacterRenderer(Func<SingleColorCharacterRendererPixelMap, Color> getColor)
 		{
 			_getColor = getColor;
 		}
@@ -53,7 +53,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 		/// <param name="character">The character to render.</param>
 		/// <param name="offsetX">The X-position of the left-most edge of the character.</param>
 		/// <param name="offsetY">The Y-position of the top-most edge of the character.</param>
-		public override void Render(ISenseHatDisplay display, BwCharacter character, int offsetX, int offsetY)
+		public override void Render(ISenseHatDisplay display, SingleColorCharacter character, int offsetX, int offsetY)
 		{
 			int right = offsetX + character.Columns.Length - 1;
 			int bottom = offsetY + 7;
@@ -65,7 +65,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW
 
 			int columnIndex = 0;
 			int maskInit = 1;
-			var pixelMap = new BwCharacterRendererPixelMap
+			var pixelMap = new SingleColorCharacterRendererPixelMap
 			{
 				Character = character,
 				DisplayOffsetX = offsetX,

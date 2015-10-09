@@ -29,16 +29,17 @@ using Windows.UI;
 #else
 using System.Drawing;
 #endif
-namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
+
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 {
-	public class ColorFont : Font<ColorCharacter>
+	public class MultiColorFont : Font<MultiColorCharacter>
 	{
-		public ColorFont(IEnumerable<ColorCharacter> chars)
+		public MultiColorFont(IEnumerable<MultiColorCharacter> chars)
 			: base(chars)
 		{
 		}
 
-		public static async Task<ColorFont> LoadFromImage(
+		public static async Task<MultiColorFont> LoadFromImage(
 			Uri fontImageUri,
 			string symbols,
 			Color? transparencyColor = null)
@@ -48,7 +49,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
 			return LoadFromImage(pixels, symbols, transparencyColor);
 		}
 
-		public static ColorFont LoadFromImage(
+		public static MultiColorFont LoadFromImage(
 			Color[,] pixels,
 			string symbols,
 			Color? transparencyColor = null)
@@ -61,7 +62,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
 				throw new ArgumentException("The image must not be taller than 9 pixels high!");
 			}
 
-			var chars = new List<ColorCharacter>();
+			var chars = new List<MultiColorCharacter>();
 
 			int symbolIndex = 0;
 
@@ -96,7 +97,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
 							}
 						}
 
-						var c = new ColorCharacter(currentSymbol, charPixels, transparencyColor);
+						var c = new MultiColorCharacter(currentSymbol, charPixels, transparencyColor);
 						chars.Add(c);
 					}
 
@@ -114,7 +115,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.Col
 				bitmapX++;
 			}
 
-			return new ColorFont(chars);
+			return new MultiColorFont(chars);
 		}
 	}
 }

@@ -28,6 +28,9 @@ using RichardsTech.Sensors;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
+	/// </summary>
 	public sealed class GravityBlob : SenseHatDemo
 	{
 		public GravityBlob(ISenseHat senseHat)

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Emmellsoft.IoT.RPi.SenseHat</id>
-        <version>0.1.0.6</version>
+        <version>0.1.0.7</version>
         <title>RPi.SenseHat</title>
         <authors>Mattias Larsson</authors>
         <owners>Mattias Larsson</owners>
@@ -13,7 +13,10 @@
         <description>This is a complete .NET API for the Raspberry Pi 2 "Sense HAT".
 Use it in a blank Universal App and remote debug it on a Raspberry Pi 2 running Windows IoT Core.
 
-The NuGet package comes with a couple of demos (including full source code) you can easily run yourself to get to know the device better.
+The NuGet package comes with a couple of demos (as source code) that you can easily run yourself to get to know the device better.
+See details of how to do this in the NuGet Package Manager output window when installing this package!
+
+Watch some videos of the demos on the project site!
 
 Read about the "Sense HAT" here: http://swag.raspberrypi.org/collections/frontpage/products/raspberry-pi-sense-hat
 
@@ -33,7 +36,9 @@ Have fun! :-)</description>
         <tags>RaspberryPi RaspberryPi2 IoT SenseHat</tags>
     </metadata>
     <files>
-        <file src="..\..\NuGetPackage\Content\Demos\*.pp" target="Content\Demos\" />
-        <file src="..\..\NuGetPackage\Content\DemoRunner.cs.pp" target="Content\" />
+        <file src="..\RPi.SenseHat.Demo\Demos\*.cs" target="Content\Demos\" />
+        <file src="..\RPi.SenseHat.Demo\DemoRunner.cs" target="Content\" />
+        <file src="..\RPi.SenseHat.Demo\SenseHatDemo.cs" target="Content\" />
+        <file src="..\..\NuGetPackage\Tools\Init.ps1" target="Tools\" />
     </files>
 </package>

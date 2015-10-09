@@ -27,6 +27,9 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Use the joystick to move the pixel around.
+	/// </summary>
 	public class JoystickPixel : SenseHatDemo
 	{
 		public JoystickPixel(ISenseHat senseHat)

@@ -47,35 +47,38 @@
     <Compile Include="..\Rpi.SenseHat\DisplayDirection.cs">
       <Link>Linked\DisplayDirection.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\BW\BwCharacter.cs">
-      <Link>Font\BW\BwCharacter.cs</Link>
-    </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\BW\BwCharacterRenderer.cs">
-      <Link>Font\BW\BwCharacterRenderer.cs</Link>
-    </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\BW\BwCharacterRendererPixelMap.cs">
-      <Link>Font\BW\BwCharacterRendererPixelMap.cs</Link>
-    </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\BW\BwFont.cs">
-      <Link>Font\BW\BwFont.cs</Link>
-    </Compile>
     <Compile Include="..\Rpi.SenseHat\Fonts\Character.cs">
       <Link>Linked\Font\Character.cs</Link>
     </Compile>
     <Compile Include="..\Rpi.SenseHat\Fonts\CharacterRenderer.cs">
       <Link>Linked\Font\CharacterRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorCharacter.cs">
-      <Link>Font\Col\ColorCharacter.cs</Link>
-    </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorCharacterRenderer.cs">
-      <Link>Font\Col\ColorCharacterRenderer.cs</Link>
-    </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\Col\ColorFont.cs">
-      <Link>Font\Col\ColorFont.cs</Link>
-    </Compile>
     <Compile Include="..\Rpi.SenseHat\Fonts\Font.cs">
       <Link>Linked\Font\Font.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorCharacter.cs">
+      <Link>Linked\Font\MultiColor\MultiColorCharacter.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorCharacterRenderer.cs">
+      <Link>Linked\Font\MultiColor\MultiColorCharacterRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorFont.cs">
+      <Link>Linked\Font\MultiColor\MultiColorFont.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacter.cs">
+      <Link>Linked\Font\SingleColor\SingleColorCharacter.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacterRenderer.cs">
+      <Link>Linked\Font\SingleColor\SingleColorCharacterRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacterRendererPixelMap.cs">
+      <Link>Linked\Font\SingleColor\SingleColorCharacterRendererPixelMap.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorFont.cs">
+      <Link>Linked\Font\SingleColor\SingleColorFont.cs</Link>
+    </Compile>
+    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\TinyFont.cs">
+      <Link>Linked\Font\SingleColor\TinyFont.cs</Link>
     </Compile>
     <Compile Include="..\Rpi.SenseHat\ISenseHat.cs">
       <Link>Linked\ISenseHat.cs</Link>
@@ -91,7 +94,7 @@
     </Compile>
     <Compile Include="Dummies\ISenseHatSensors.cs" />
     <Compile Include="Dummies\PixelSupport.cs" />
-    <Compile Include="Font\BWFontBuilder.cs" />
+    <Compile Include="Font\SingleColorFontBuilder.cs" />
     <Compile Include="LedBuffer\FindBestGammaMatch.cs" />
     <Compile Include="LedBuffer\GammaCalc.cs" />
     <Compile Include="LedBuffer\LedBufferSupport.cs" />

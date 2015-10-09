@@ -26,11 +26,15 @@ using System.Collections.Generic;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.BW;
+using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 
-namespace $rootnamespace$.Demos
+namespace RPi.SenseHat.Demo.Demos
 {
-	public class BwScrollText : SenseHatDemo
+	/// <summary>
+	/// Single color scroll-text.
+	/// Click on the joystick to change drawing mode!
+	/// </summary>
+	public class SingleColorScrollText : SenseHatDemo
 	{
 		private readonly string _scrollText;
 
@@ -46,7 +50,7 @@ namespace $rootnamespace$.Demos
 		private readonly Color[,] _rainbowColors = new Color[8, 8];
 		private RenderMode _currentMode;
 
-		public BwScrollText(ISenseHat senseHat, string scrollText)
+		public SingleColorScrollText(ISenseHat senseHat, string scrollText)
 			: base(senseHat)
 		{
 			_scrollText = scrollText;
@@ -59,16 +63,16 @@ namespace $rootnamespace$.Demos
 			SenseHat.Display.CopyScreenToColors(_rainbowColors);
 
 			// Recreate the font from the serialized bytes.
-			BwFont font = BwFont.Deserialize(FontBytes);
+			SingleColorFont font = SingleColorFont.Deserialize(FontBytes);
 
 			// Get the characters to scroll.
-			IEnumerable<BwCharacter> characters = font.GetChars(_scrollText);
+			IEnumerable<SingleColorCharacter> characters = font.GetChars(_scrollText);
 
 			// Create the character renderer.
-			BwCharacterRenderer characterRenderer = new BwCharacterRenderer(GetCharacterColor);
+			SingleColorCharacterRenderer characterRenderer = new SingleColorCharacterRenderer(GetCharacterColor);
 
 			// Create the text scroller.
-			var textScroller = new TextScroller<BwCharacter>(
+			var textScroller = new TextScroller<SingleColorCharacter>(
 				SenseHat.Display,
 				characterRenderer,
 				characters);
@@ -143,7 +147,7 @@ namespace $rootnamespace$.Demos
 			}
 		}
 
-		private Color GetCharacterColor(BwCharacterRendererPixelMap pixelMap)
+		private Color GetCharacterColor(SingleColorCharacterRendererPixelMap pixelMap)
 		{
 			switch (_currentMode)
 			{

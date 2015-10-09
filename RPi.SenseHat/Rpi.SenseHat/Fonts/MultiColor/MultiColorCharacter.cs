@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Demo
+//  This file is part of Rpi.SenseHat
 //
 //  Copyright (c) 2015, Mattias Larsson
 //
@@ -22,32 +22,47 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Threading.Tasks;
-using Emmellsoft.IoT.Rpi.SenseHat;
+#if NETFX_CORE
+using Windows.UI;
+#else
+using System.Drawing;
+#endif
 
-namespace $rootnamespace$
+namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 {
 	/// <summary>
-	/// Runs a demo.
+	/// A color font character.
 	/// </summary>
-	public static class DemoRunner
+	public class MultiColorCharacter : Character
 	{
 		/// <summary>
-		/// Call this (for example) from the constructor of the MainPage.
-		/// Example:
-		/// <code>DemoRunner.Run(senseHat => new Demos.DiscoLights(senseHat));</code>
+		/// Constructor.
 		/// </summary>
-		/// <param name="createDemo">The demo to run.</param>
-		public static void Run(Func<ISenseHat, SenseHatDemo> createDemo)
+		/// <param name="symbol">The unicode character.</param>
+		/// <param name="pixels">The pixels array. Must not be larger than 8x8 pixels.</param>
+		/// <param name="transparencyColor">The color that represents transparency.</param>
+		public MultiColorCharacter(char symbol, Color[,] pixels, Color? transparencyColor = null)
+			: base(symbol, pixels.GetLength(0))
 		{
-			Task.Run(async () =>
+			if (pixels.GetLength(1) > 8)
 			{
-				ISenseHat senseHat = await SenseHatFactory.Singleton.Create();
+				throw new ArgumentException("The pixels array must not be taller than 8 pixels!");
+			}
 
-				SenseHatDemo demo = createDemo(senseHat);
-
-				demo.Run();
-			});
+			Pixels = pixels;
+			TransparencyColor = transparencyColor;
 		}
+
+		/// <summary>
+		/// The pixels array.
+		/// </summary>
+		public Color[,] Pixels
+		{ get; }
+
+		/// <summary>
+		/// The color that represents transparency.
+		/// </summary>
+		public Color? TransparencyColor
+		{ get; }
 	}
 }

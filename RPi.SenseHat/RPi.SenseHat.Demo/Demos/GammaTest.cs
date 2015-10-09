@@ -28,6 +28,9 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo.Demos
 {
+	/// <summary>
+	/// Tries out different gamma settings for the LED display. Use the joystick to play around.
+	/// </summary>
 	public class GammaTest : SenseHatDemo
 	{
 		[Flags]
