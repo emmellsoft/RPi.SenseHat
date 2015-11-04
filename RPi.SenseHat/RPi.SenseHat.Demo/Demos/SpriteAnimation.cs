@@ -41,7 +41,7 @@ namespace RPi.SenseHat.Demo.Demos
 
 		public override void Run()
 		{
-			// A big thanks to Johan Vinet, pixel artist and animator for the Mario animation! :-)
+			// A big thanks to Johan Vinet, pixel artist and animator, for the Mario animation! :-)
 			// http://johanvinet.tumblr.com/
 			// Twitter handle: @johanvinet
 			var imageUri = new Uri("ms-appx:///Assets/MiniMario.png");

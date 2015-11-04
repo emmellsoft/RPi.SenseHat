@@ -42,12 +42,12 @@ namespace RPi.SenseHat.Demo
 		{
 			Task.Run(async () =>
 			{
-				ISenseHat senseHat = await SenseHatFactory.Singleton.Create();
+				ISenseHat senseHat = await SenseHatFactory.Singleton.GetSenseHat().ConfigureAwait(false);
 
 				SenseHatDemo demo = createDemo(senseHat);
 
 				demo.Run();
-			});
+			}).ConfigureAwait(false);
 		}
 	}
 }

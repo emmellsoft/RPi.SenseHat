@@ -44,7 +44,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
 		private const byte DeviceAddress = 0x46;
 
-		private SenseHat _senseHat;
+		private readonly Task<ISenseHat> _getSenseHatTask = GetSenseHatTask();
 
 		private SenseHatFactory()
 		{
@@ -53,24 +53,22 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 		/// <summary>
 		/// Creates the SenseHat object.
 		/// </summary>
-		public async Task<ISenseHat> Create()
+		public Task<ISenseHat> GetSenseHat()
 		{
-			if (_senseHat != null)
-			{
-				return _senseHat;
-			}
+			return _getSenseHatTask;
+		}
 
-			MainI2CDevice mainI2CDevice = await CreateDisplayJoystickI2CDevice();
+		private static async Task<ISenseHat> GetSenseHatTask()
+		{
+			MainI2CDevice mainI2CDevice = await CreateDisplayJoystickI2CDevice().ConfigureAwait(false);
 
-			ImuSensor imuSensor = await CreateImuSensor();
+			ImuSensor imuSensor = await CreateImuSensor().ConfigureAwait(false);
 
-			PressureSensor pressureSensor = await CreatePressureSensor();
+			PressureSensor pressureSensor = await CreatePressureSensor().ConfigureAwait(false);
 
-			HumiditySensor humiditySensor = await CreateHumiditySensor();
+			HumiditySensor humiditySensor = await CreateHumiditySensor().ConfigureAwait(false);
 
-			_senseHat = new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
-
-			return _senseHat;
+			return new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
 		}
 
 		private static async Task<MainI2CDevice> CreateDisplayJoystickI2CDevice()
@@ -99,21 +97,21 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 				lsm9Ds1Config,
 				new SensorFusionRTQF());
 
-			await imuSensor.InitAsync();
+			await imuSensor.InitAsync().ConfigureAwait(false);
 			return imuSensor;
 		}
 
 		private static async Task<PressureSensor> CreatePressureSensor()
 		{
 			var pressureSensor = new LPS25HPressureSensor(LPS25HDefines.ADDRESS0);
-			await pressureSensor.InitAsync();
+			await pressureSensor.InitAsync().ConfigureAwait(false);
 			return pressureSensor;
 		}
 
 		private static async Task<HumiditySensor> CreateHumiditySensor()
 		{
 			var humiditySensor = new HTS221HumiditySensor(HTS221Defines.ADDRESS);
-			await humiditySensor.InitAsync();
+			await humiditySensor.InitAsync().ConfigureAwait(false);
 			return humiditySensor;
 		}
 	}

@@ -42,14 +42,16 @@ namespace RPi.SenseHat.Demo.Demos
 		{
 			while (true)
 			{
+				Sleep(TimeSpan.FromMilliseconds(50));
+
 				if (!SenseHat.Sensors.ImuSensor.Update())
 				{
-					return;
+					continue;
 				}
 
 				if (!SenseHat.Sensors.Acceleration.HasValue)
 				{
-					return;
+					continue;
 				}
 
 				Color[,] colors = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
@@ -57,8 +59,6 @@ namespace RPi.SenseHat.Demo.Demos
 				SenseHat.Display.CopyColorsToScreen(colors);
 
 				SenseHat.Display.Update();
-
-				Sleep(TimeSpan.FromMilliseconds(50));
 			}
 		}
 

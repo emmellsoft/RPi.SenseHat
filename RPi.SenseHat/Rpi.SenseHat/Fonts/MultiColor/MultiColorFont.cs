@@ -44,7 +44,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 			string symbols,
 			Color? transparencyColor = null)
 		{
-			Color[,] pixels = await PixelSupport.GetPixels(fontImageUri);
+			Color[,] pixels = await PixelSupport.GetPixels(fontImageUri).ConfigureAwait(false);
 
 			return LoadFromImage(pixels, symbols, transparencyColor);
 		}
