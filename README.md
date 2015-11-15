@@ -33,3 +33,11 @@ To get started:
 *) Edit the DemoSelector class (in the root of the "RPi.SenseHat.Demo" project) to select which demo to run.
 
 *) Run!
+
+
+************************
+Regarding thread safety:
+
+The SenseHatFactory.Singleton.GetSenseHat() call is thread-safe, but the rest of the API is not.
+
+It's deliberately not thread-safe to maximize performance, so you should avoid calling (for instance) the Update method on the sensors simultaneously from different threads (but you *may* call it from any thread).
