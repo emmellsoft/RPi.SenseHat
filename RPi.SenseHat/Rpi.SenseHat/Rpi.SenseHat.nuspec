@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Emmellsoft.IoT.RPi.SenseHat</id>
-        <version>0.1.0.8</version>
+        <version>0.1.0.9</version>
         <title>RPi.SenseHat</title>
         <authors>Mattias Larsson</authors>
         <owners>Mattias Larsson</owners>
@@ -18,7 +18,7 @@ See details of how to do this in the NuGet Package Manager output window when in
 
 Watch some videos of the demos on the project site!
 
-Read about the "Sense HAT" here: http://swag.raspberrypi.org/collections/frontpage/products/raspberry-pi-sense-hat
+Read about the "Sense HAT" here: https://www.raspberrypi.org/products/sense-hat/
 
 The Sense HAT has the following hardware features:
 • Gyroscope
@@ -32,7 +32,7 @@ The Sense HAT has the following hardware features:
 
 Have fun! :-)</description>
         <summary>.NET API for the Raspberry Pi 2 "Sense HAT".</summary>
-        <copyright>Copyright 2015</copyright>
+        <copyright>Copyright 2016</copyright>
         <tags>RaspberryPi RaspberryPi2 IoT SenseHat</tags>
     </metadata>
     <files>
