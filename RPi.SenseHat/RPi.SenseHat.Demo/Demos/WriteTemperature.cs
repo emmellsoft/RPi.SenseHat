@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -33,9 +33,16 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class WriteTemperature : SenseHatDemo
 	{
-		public WriteTemperature(ISenseHat senseHat)
-			: base(senseHat)
+		public WriteTemperature(ISenseHat senseHat, MainPage mainPage)
+			: base(senseHat, mainPage)
 		{
+		}
+
+		private enum TemperatureUnit
+		{
+			Celcius,
+			Fahrenheit,
+			Kelvin
 		}
 
 		public override void Run()
@@ -44,13 +51,19 @@ namespace RPi.SenseHat.Demo.Demos
 
 			ISenseHatDisplay display = SenseHat.Display;
 
+			TemperatureUnit unit = TemperatureUnit.Celcius; // The wanted temperature unit.
+
+			string unitText = GetUnitText(unit); // Get the unit as a string.
+
 			while (true)
 			{
 				SenseHat.Sensors.HumiditySensor.Update();
 
 				if (SenseHat.Sensors.Temperature.HasValue)
 				{
-					int temperature = (int)Math.Round(SenseHat.Sensors.Temperature.Value);
+					double temperatureValue = ConvertTemperatureValue(unit, SenseHat.Sensors.Temperature.Value);
+
+					int temperature = (int)Math.Round(temperatureValue);
 					string text = temperature.ToString();
 
 					if (text.Length > 2)
@@ -63,6 +76,8 @@ namespace RPi.SenseHat.Demo.Demos
 					tinyFont.Write(display, text, Colors.White);
 					display.Update();
 
+					MainPage?.SetScreenText($"{temperatureValue:0.0} {unitText}"); // Update the MainPage (if it's utilized; i.e. not null).
+
 					// Sleep quite some time; the temperature usually change quite slowly...
 					Sleep(TimeSpan.FromSeconds(5));
 				}
@@ -71,6 +86,42 @@ namespace RPi.SenseHat.Demo.Demos
 					// Rapid update until there is a temperature reading.
 					Sleep(TimeSpan.FromSeconds(0.5));
 				}
+			}
+		}
+
+		private static double ConvertTemperatureValue(TemperatureUnit unit, double temperatureInCelcius)
+		{
+			switch (unit)
+			{
+				case TemperatureUnit.Celcius:
+					return temperatureInCelcius;
+
+				case TemperatureUnit.Fahrenheit:
+					return temperatureInCelcius * 9 / 5 + 32;
+
+				case TemperatureUnit.Kelvin:
+					return temperatureInCelcius + 273.15;
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private static string GetUnitText(TemperatureUnit unit)
+		{
+			switch (unit)
+			{
+				case TemperatureUnit.Celcius:
+					return "\u00B0C"; // Where "\u00B0" is the degree-symbol.
+
+				case TemperatureUnit.Fahrenheit:
+					return "\u00B0F"; // Where "\u00B0" is the degree-symbol.
+
+				case TemperatureUnit.Kelvin:
+					return "K";
+
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -43,8 +43,8 @@ namespace RPi.SenseHat.Demo.Demos
 			All = Red | Green | Blue
 		}
 
-		public GammaTest(ISenseHat senseHat)
-			: base(senseHat)
+		public GammaTest(ISenseHat senseHat, MainPage mainPage)
+			: base(senseHat, mainPage)
 		{
 		}
 
@@ -60,7 +60,7 @@ namespace RPi.SenseHat.Demo.Demos
 
 			while (true)
 			{
-				if (SenseHat.Joystick.Update()) // Has any of the buttons on the joystick changed?
+				if (SenseHat.Joystick.Update())
 				{
 					if (SenseHat.Joystick.LeftKey == KeyState.Pressed)
 					{

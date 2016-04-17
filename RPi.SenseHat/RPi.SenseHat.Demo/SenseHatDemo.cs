@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -23,7 +23,6 @@
 
 using System;
 using System.Threading;
-using Windows.UI.Core;
 using Emmellsoft.IoT.Rpi.SenseHat;
 
 namespace RPi.SenseHat.Demo
@@ -32,16 +31,15 @@ namespace RPi.SenseHat.Demo
 	{
 		private readonly ManualResetEventSlim _waitEvent = new ManualResetEventSlim(false);
 
-		protected SenseHatDemo(ISenseHat senseHat)
+		protected SenseHatDemo(ISenseHat senseHat, MainPage mainPage)
 		{
+			MainPage = mainPage;
 			SenseHat = senseHat;
 		}
 
-		protected ISenseHat SenseHat
-		{ get; private set; }
+		protected MainPage MainPage { get; }
 
-		public CoreDispatcher Dispatcher
-		{ get; private set; }
+		protected ISenseHat SenseHat { get; }
 
 		public abstract void Run();
 

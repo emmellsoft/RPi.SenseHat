@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -35,25 +35,16 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 	/// <summary>
 	/// Factory for creating the ISenseHat object.
 	/// </summary>
-	public sealed class SenseHatFactory
+	public static class SenseHatFactory
 	{
-		/// <summary>
-		/// Singleton of the factory.
-		/// </summary>
-		public static readonly SenseHatFactory Singleton = new SenseHatFactory();
-
 		private const byte DeviceAddress = 0x46;
 
-		private readonly Task<ISenseHat> _getSenseHatTask = GetSenseHatTask();
-
-		private SenseHatFactory()
-		{
-		}
+		private static readonly Task<ISenseHat> _getSenseHatTask = GetSenseHatTask();
 
 		/// <summary>
 		/// Creates the SenseHat object.
 		/// </summary>
-		public Task<ISenseHat> GetSenseHat()
+		public static Task<ISenseHat> GetSenseHat()
 		{
 			return _getSenseHatTask;
 		}

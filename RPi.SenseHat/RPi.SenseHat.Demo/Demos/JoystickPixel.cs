@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -32,8 +32,8 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class JoystickPixel : SenseHatDemo
 	{
-		public JoystickPixel(ISenseHat senseHat)
-			: base(senseHat)
+		public JoystickPixel(ISenseHat senseHat, MainPage mainPage)
+			: base(senseHat, mainPage)
 		{
 		}
 
@@ -56,6 +56,8 @@ namespace RPi.SenseHat.Demo.Demos
 					SenseHat.Display.Screen[x, y] = Colors.Yellow; // Draw the pixel.
 
 					SenseHat.Display.Update(); // Update the physical display.
+
+					MainPage?.SetScreenText($"{x}, {y}"); // Update the MainPage (if it's utilized; i.e. not null).
 				}
 
 				// Take a short nap.

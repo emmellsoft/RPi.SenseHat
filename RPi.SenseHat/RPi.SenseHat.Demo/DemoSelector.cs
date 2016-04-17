@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -28,25 +28,33 @@ namespace RPi.SenseHat.Demo
 {
 	public static class DemoSelector
 	{
-		public static SenseHatDemo GetDemo(ISenseHat senseHat)
+		private static bool AlsoUseHdmiOutput = false; // Set this to true/false whether you have a display connected to the HDMI port of the Raspberry Pi!
+
+		public static SenseHatDemo GetDemo(ISenseHat senseHat, MainPage mainPage)
 		{
-			return new DiscoLights(senseHat); // Click on the joystick to change drawing mode!
+			if (!AlsoUseHdmiOutput)
+			{
+				// If you don't utilize the HDMI output, set the mainPage parameter to null.
+				mainPage = null;
+			}
 
-			//return new JoystickPixel(senseHat); // Use the joystick to move the pixel around.
+			//return new DiscoLights(senseHat, mainPage); // Click on the joystick to change drawing mode!
 
-			//return new WriteTemperature(senseHat); // Is it only me or does it show some unusual high temperature? :-S
+			//return new JoystickPixel(senseHat, mainPage); // Use the joystick to move the pixel around.
 
-			//return new GravityBlob(senseHat); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
+			//return new WriteTemperature(senseHat, mainPage); // Is it only me or does it show some unusual high temperature? :-S
 
-			//return new Compass(senseHat); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
+			return new GravityBlob(senseHat, mainPage); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
 
-			//return new SingleColorScrollText(senseHat, "Hello Raspberry Pi 2 Sense HAT!"); // Click on the joystick to change drawing mode!
+			//return new Compass(senseHat, mainPage); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
 
-			//return new MultiColorScrollText(senseHat, "Hello Raspberry Pi 2 Sense HAT!");
+			//return new SingleColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 2 Sense HAT!"); // Click on the joystick to change drawing mode!
 
-			//return new SpriteAnimation(senseHat); // Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
+			//return new MultiColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 2 Sense HAT!");
 
-			//return new GammaTest(senseHat); // Tries out different gamma settings for the LED display. Use the joystick to play around.
+			//return new SpriteAnimation(senseHat, mainPage); // Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
+
+			//return new GammaTest(senseHat, mainPage); // Tries out different gamma settings for the LED display. Use the joystick to play around.
 		}
 	}
 }
