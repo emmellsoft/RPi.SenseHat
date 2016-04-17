@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -33,13 +33,16 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public sealed class GravityBlob : SenseHatDemo
 	{
-		public GravityBlob(ISenseHat senseHat)
-			: base(senseHat)
+		public GravityBlob(ISenseHat senseHat, MainPage mainPage)
+			: base(senseHat, mainPage)
 		{
 		}
 
 		public override void Run()
 		{
+			TimeSpan mainPageUpdateRate = TimeSpan.FromSeconds(0.5);
+			DateTime nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
+
 			while (true)
 			{
 				Sleep(TimeSpan.FromMilliseconds(50));
@@ -59,6 +62,12 @@ namespace RPi.SenseHat.Demo.Demos
 				SenseHat.Display.CopyColorsToScreen(colors);
 
 				SenseHat.Display.Update();
+
+				if ((MainPage != null) && nextMainPageUpdate <= DateTime.Now)
+				{
+					MainPage.SetScreenText($"{SenseHat.Sensors.Acceleration.Value.X:0.00}, {SenseHat.Sensors.Acceleration.Value.Y:0.00}, {SenseHat.Sensors.Acceleration.Value.Z:0.00}");
+					nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
+				}
 			}
 		}
 

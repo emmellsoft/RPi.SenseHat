@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -33,8 +33,8 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class Compass : SenseHatDemo
 	{
-		public Compass(ISenseHat senseHat)
-			: base(senseHat)
+		public Compass(ISenseHat senseHat, MainPage mainPage)
+			: base(senseHat, mainPage)
 		{
 		}
 
@@ -49,6 +49,9 @@ namespace RPi.SenseHat.Demo.Demos
 			Color northColor = Colors.Red;
 			Color southColor = Colors.White;
 			Color centerColor = Colors.DarkBlue;
+
+			TimeSpan mainPageUpdateRate = TimeSpan.FromSeconds(0.5);
+			DateTime nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
 
 			while (true)
 			{
@@ -76,6 +79,12 @@ namespace RPi.SenseHat.Demo.Demos
 					SenseHat.Display.Screen[3, 4] = centerColor;
 					SenseHat.Display.Screen[4, 4] = centerColor;
 					SenseHat.Display.Update();
+
+					if ((MainPage != null) && nextMainPageUpdate <= DateTime.Now)
+					{
+						MainPage.SetScreenText($"{northAngle / fullCircle * 360:0}");
+						nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
+					}
 				}
 
 				Sleep(TimeSpan.FromMilliseconds(2));

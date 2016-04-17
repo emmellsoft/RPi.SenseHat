@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -42,7 +42,7 @@ namespace RPi.SenseHat.Demo
 		{
 			Task.Run(async () =>
 			{
-				ISenseHat senseHat = await SenseHatFactory.Singleton.GetSenseHat().ConfigureAwait(false);
+				ISenseHat senseHat = await SenseHatFactory.GetSenseHat().ConfigureAwait(false);
 
 				SenseHatDemo demo = createDemo(senseHat);
 

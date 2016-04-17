@@ -2,7 +2,7 @@
 //
 //  This file is part of Rpi.SenseHat.Demo
 //
-//  Copyright (c) 2015, Mattias Larsson
+//  Copyright (c) 2016, Mattias Larsson
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of 
 //  this software and associated documentation files (the "Software"), to deal in 
@@ -37,8 +37,8 @@ namespace RPi.SenseHat.Demo.Demos
 	{
 		private readonly string _scrollText;
 
-		public MultiColorScrollText(ISenseHat senseHat, string scrollText)
-			: base(senseHat)
+		public MultiColorScrollText(ISenseHat senseHat, MainPage mainPage, string scrollText)
+			: base(senseHat, mainPage)
 		{
 			_scrollText = scrollText;
 		}
