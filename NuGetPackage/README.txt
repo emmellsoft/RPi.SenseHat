@@ -7,7 +7,7 @@
 4. Execute:
 nuget setApiKey {API KEY}
 
-Where the {API KEY} is gotten from https://www.nuget.org/account.
+Where the {API KEY} is gotten from https://www.nuget.org/account
 
 5. Execute:
 nuget push Emmellsoft.IoT.RPi.SenseHat.{#.#.#.#}.nupkg
