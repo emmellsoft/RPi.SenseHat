@@ -21,6 +21,7 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using RPi.SenseHat.Demo.Demos;
 
@@ -44,13 +45,13 @@ namespace RPi.SenseHat.Demo
 
 			//return new WriteTemperature(senseHat, mainPage); // Is it only me or does it show some unusual high temperature? :-S
 
-			return new GravityBlob(senseHat, mainPage); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
+			//return new GravityBlob(senseHat, mainPage); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
 
 			//return new Compass(senseHat, mainPage); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
 
-			//return new SingleColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 2 Sense HAT!"); // Click on the joystick to change drawing mode!
+			//return new SingleColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 3 Sense HAT!"); // Click on the joystick to change drawing mode!
 
-			//return new MultiColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 2 Sense HAT!");
+			return new MultiColorScrollText(senseHat, mainPage, "Hello Raspberry Pi 3 Sense HAT!");
 
 			//return new SpriteAnimation(senseHat, mainPage); // Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
 
