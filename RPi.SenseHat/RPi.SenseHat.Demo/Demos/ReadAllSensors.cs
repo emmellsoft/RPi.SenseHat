@@ -22,18 +22,15 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using Windows.UI;
+using System.Diagnostics;
+using System.Text;
 using Emmellsoft.IoT.Rpi.SenseHat;
-using RichardsTech.Sensors;
 
 namespace RPi.SenseHat.Demo.Demos
 {
-	/// <summary>
-	/// The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
-	/// </summary>
-	public sealed class GravityBlob : SenseHatDemo
+	public sealed class ReadAllSensors : SenseHatDemo
 	{
-		public GravityBlob(ISenseHat senseHat, Action<string> setScreenText)
+		public ReadAllSensors(ISenseHat senseHat, Action<string> setScreenText)
 			: base(senseHat, setScreenText)
 		{
 		}
@@ -43,71 +40,34 @@ namespace RPi.SenseHat.Demo.Demos
 			TimeSpan mainPageUpdateRate = TimeSpan.FromSeconds(0.5);
 			DateTime nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
 
+			var stringBuilder = new StringBuilder();
+
 			while (true)
 			{
 				Sleep(TimeSpan.FromMilliseconds(50));
 
-				if (!SenseHat.Sensors.ImuSensor.Update())
-				{
-					continue;
-				}
+				SenseHat.Sensors.ImuSensor.Update();      // Try get a new read-out for the Gyro, Acceleration, MagneticField and Pose.
+				SenseHat.Sensors.PressureSensor.Update(); // Try get a new read-out for the Pressure.
+				SenseHat.Sensors.HumiditySensor.Update(); // Try get a new read-out for the Temperature and Humidity.
 
-				if (!SenseHat.Sensors.Acceleration.HasValue)
-				{
-					continue;
-				}
-
-				Color[,] colors = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
-
-				SenseHat.Display.CopyColorsToScreen(colors);
-
-				SenseHat.Display.Update();
+				// Build up the string
+				stringBuilder.Clear();
+				stringBuilder.AppendLine($"Gyro: {SenseHat.Sensors.Gyro?.ToString(false) ?? "N/A"}");          // From the ImuSensor.
+				stringBuilder.AppendLine($"Accel: {SenseHat.Sensors.Acceleration?.ToString(false) ?? "N/A"}"); // From the ImuSensor.
+				stringBuilder.AppendLine($"Mag: {SenseHat.Sensors.MagneticField?.ToString(false) ?? "N/A"}");  // From the ImuSensor.
+				stringBuilder.AppendLine($"Pose: {SenseHat.Sensors.Pose?.ToString(false) ?? "N/A"}");          // From the ImuSensor.
+				stringBuilder.AppendLine($"Press: {SenseHat.Sensors.Pressure?.ToString() ?? "N/A"}");          // From the PressureSensor.
+				stringBuilder.AppendLine($"Temp: {SenseHat.Sensors.Temperature?.ToString() ?? "N/A"}");        // From the HumiditySensor.
+				stringBuilder.AppendLine($"Hum: {SenseHat.Sensors.Humidity?.ToString() ?? "N/A"}");            // From the HumiditySensor.
 
 				if ((SetScreenText != null) && nextMainPageUpdate <= DateTime.Now)
 				{
-					SetScreenText($"{SenseHat.Sensors.Acceleration.Value.X:0.00}, {SenseHat.Sensors.Acceleration.Value.Y:0.00}, {SenseHat.Sensors.Acceleration.Value.Z:0.00}");
+					SetScreenText(stringBuilder.ToString());
 					nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
 				}
+
+				Debug.WriteLine(stringBuilder.ToString());
 			}
-		}
-
-		private static Color[,] CreateGravityBlobScreen(Vector3 vector)
-		{
-			double x0 = (vector.X + 1) * 5.5 - 2;
-			double y0 = (vector.Y + 1) * 5.5 - 2;
-
-			double distScale = 4;
-
-			var colors = new Color[8, 8];
-
-			bool isUpsideDown = vector.Z < 0;
-
-			for (int y = 0; y < 8; y++)
-			{
-				for (int x = 0; x < 8; x++)
-				{
-					double dx = x0 - x;
-					double dy = y0 - y;
-
-					double dist = Math.Sqrt(dx * dx + dy * dy) / distScale;
-					if (dist > 1)
-					{
-						dist = 1;
-					}
-
-					int colorIntensity = (int)Math.Round(255 * (1 - dist));
-					if (colorIntensity > 255)
-					{
-						colorIntensity = 255;
-					}
-
-					colors[x, y] = isUpsideDown
-						? Color.FromArgb(255, (byte)colorIntensity, 0, 0)
-						: Color.FromArgb(255, 0, (byte)colorIntensity, 0);
-				}
-			}
-
-			return colors;
 		}
 	}
 }

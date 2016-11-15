@@ -32,7 +32,7 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class DiscoLights : SenseHatDemo
 	{
-		private readonly static Random Random = new Random();
+		private static readonly Random Random = new Random();
 		private ColorMode _currentMode;
 
 		private enum ColorMode
@@ -44,8 +44,8 @@ namespace RPi.SenseHat.Demo.Demos
 			Unicolor
 		}
 
-		public DiscoLights(ISenseHat senseHat, MainPage mainPage)
-			: base(senseHat, mainPage)
+		public DiscoLights(ISenseHat senseHat)
+			: base(senseHat)
 		{
 		}
 

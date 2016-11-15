@@ -33,8 +33,8 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class Compass : SenseHatDemo
 	{
-		public Compass(ISenseHat senseHat, MainPage mainPage)
-			: base(senseHat, mainPage)
+		public Compass(ISenseHat senseHat, Action<string> setScreenText)
+			: base(senseHat, setScreenText)
 		{
 		}
 
@@ -80,9 +80,9 @@ namespace RPi.SenseHat.Demo.Demos
 					SenseHat.Display.Screen[4, 4] = centerColor;
 					SenseHat.Display.Update();
 
-					if ((MainPage != null) && nextMainPageUpdate <= DateTime.Now)
+					if ((SetScreenText != null) && nextMainPageUpdate <= DateTime.Now)
 					{
-						MainPage.SetScreenText($"{northAngle / fullCircle * 360:0}");
+						SetScreenText($"{northAngle / fullCircle * 360:0}");
 						nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);
 					}
 				}

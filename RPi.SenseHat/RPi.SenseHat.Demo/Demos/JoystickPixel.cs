@@ -32,8 +32,8 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class JoystickPixel : SenseHatDemo
 	{
-		public JoystickPixel(ISenseHat senseHat, MainPage mainPage)
-			: base(senseHat, mainPage)
+		public JoystickPixel(ISenseHat senseHat, Action<string> setScreenText)
+			: base(senseHat, setScreenText)
 		{
 		}
 
@@ -57,7 +57,7 @@ namespace RPi.SenseHat.Demo.Demos
 
 					SenseHat.Display.Update(); // Update the physical display.
 
-					MainPage?.SetScreenText($"{x}, {y}"); // Update the MainPage (if it's utilized; i.e. not null).
+					SetScreenText?.Invoke($"{x}, {y}"); // Update the MainPage (if it's utilized; i.e. not null).
 				}
 
 				// Take a short nap.

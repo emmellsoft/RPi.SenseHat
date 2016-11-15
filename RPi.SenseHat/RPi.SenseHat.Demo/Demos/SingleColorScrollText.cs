@@ -50,8 +50,8 @@ namespace RPi.SenseHat.Demo.Demos
 		private readonly Color[,] _rainbowColors = new Color[8, 8];
 		private RenderMode _currentMode;
 
-		public SingleColorScrollText(ISenseHat senseHat, MainPage mainPage, string scrollText)
-			: base(senseHat, mainPage)
+		public SingleColorScrollText(ISenseHat senseHat, string scrollText)
+			: base(senseHat)
 		{
 			_scrollText = scrollText;
 		}
@@ -177,6 +177,8 @@ namespace RPi.SenseHat.Demo.Demos
 		{
 			get
 			{
+				// The following bytes are generated using the 'SingleColorFontBuilder' class found in the 'RPi.SenseHat.Tools' project!
+				// (In short it takes a bitmap of the font and generates a byte array that can be used like in this example.)
 				return new byte[]
 				{
 					0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0x41, 0x00, 0x00, 0x7c, 0x7e, 0x0b, 0x0b, 0x7e, 0x7c,

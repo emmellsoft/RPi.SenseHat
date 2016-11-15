@@ -22,7 +22,6 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Linq;
 using Windows.UI;
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Sprites;
@@ -34,8 +33,8 @@ namespace RPi.SenseHat.Demo.Demos
 	/// </summary>
 	public class SpriteAnimation : SenseHatDemo
 	{
-		public SpriteAnimation(ISenseHat senseHat, MainPage mainPage)
-			: base(senseHat, mainPage)
+		public SpriteAnimation(ISenseHat senseHat)
+			: base(senseHat)
 		{
 		}
 

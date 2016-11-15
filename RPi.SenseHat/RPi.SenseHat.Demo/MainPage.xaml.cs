@@ -33,10 +33,10 @@ namespace RPi.SenseHat.Demo
 		public MainPage()
 		{
 			InitializeComponent();
-			DemoRunner.Run(senseHat => DemoSelector.GetDemo(senseHat, this));
+			DemoRunner.Run(senseHat => DemoSelector.GetDemo(senseHat, SetScreenText));
 		}
 
-		public async void SetScreenText(string text)
+		private async void SetScreenText(string text)
 		{
 			await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
 				CoreDispatcherPriority.Normal,

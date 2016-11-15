@@ -31,13 +31,13 @@ namespace RPi.SenseHat.Demo
 	{
 		private readonly ManualResetEventSlim _waitEvent = new ManualResetEventSlim(false);
 
-		protected SenseHatDemo(ISenseHat senseHat, MainPage mainPage)
+		protected SenseHatDemo(ISenseHat senseHat, Action<string> setScreenText = null)
 		{
-			MainPage = mainPage;
+			SetScreenText = setScreenText;
 			SenseHat = senseHat;
 		}
 
-		protected MainPage MainPage { get; }
+		protected Action<string> SetScreenText { get; }
 
 		protected ISenseHat SenseHat { get; }
 

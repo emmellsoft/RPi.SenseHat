@@ -43,8 +43,8 @@ namespace RPi.SenseHat.Demo.Demos
 			All = Red | Green | Blue
 		}
 
-		public GammaTest(ISenseHat senseHat, MainPage mainPage)
-			: base(senseHat, mainPage)
+		public GammaTest(ISenseHat senseHat)
+			: base(senseHat)
 		{
 		}
 
