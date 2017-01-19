@@ -41,7 +41,7 @@ namespace RPi.SenseHat.Demo
 
 			//return new DiscoLights(senseHat); // Click on the joystick to change drawing mode!
 
-			//return new JoystickPixel(senseHat, setScreenText); // Use the joystick to move the pixel around.
+			return new JoystickPixel(senseHat, setScreenText); // Use the joystick to move the pixel around.
 
 			//return new WriteTemperature(senseHat, setScreenText); // Is it only me or does it show some unusual high temperature? :-S
 
@@ -57,7 +57,7 @@ namespace RPi.SenseHat.Demo
 
 			//return new GammaTest(senseHat); // Tries out different gamma settings for the LED display. Use the joystick to play around.
 
-			return new ReadAllSensors(senseHat, setScreenText); // Shows an example of how to read all the different sensors.
+			//return new ReadAllSensors(senseHat, setScreenText); // Shows an example of how to read all the different sensors.
 		}
 	}
 }
