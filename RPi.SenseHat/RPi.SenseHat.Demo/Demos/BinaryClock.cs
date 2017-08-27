@@ -10,40 +10,30 @@ namespace RPi.SenseHat.Demo.Demos
 {
     public class BinaryClock : SenseHatDemo
     {
-        private readonly Color[] _colors = { Colors.Red, Colors.Green, Colors.Blue, Colors.Cyan, Colors.Magenta, Colors.Yellow, Colors.White };
-        private int _colorIndex = 0;
+        private readonly Color _activeBitColor = Colors.Red;
+        private readonly Color _inctiveBitColor = Colors.DimGray;
 
-        public BinaryClock(ISenseHat senseHat, Action<string> setScreenText) 
+        public BinaryClock(ISenseHat senseHat, Action<string> setScreenText)
             : base(senseHat, setScreenText)
         {
         }
 
         public override void Run()
         {
-            DateTime dt;
-            int hours;
-            int minutes;
-            int seconds;
-
-            SenseHat.Display.Clear();
-
             while (true)
             {
                 SenseHat.Display.Clear();
-                SenseHat.Display.Screen[0, 0] = _colors[2];// find corner = top left
+                SenseHat.Display.Screen[0, 0] = _activeBitColor; // Place a dot to mark the top left corner.
 
-                dt = DateTime.Now;
-                hours = dt.Hour;
-                minutes = dt.Minute;
-                seconds = dt.Second;
+                DateTime now = DateTime.Now;
 
-                DrawBinary(0, hours);
-                DrawBinary(3, minutes);
-                DrawBinary(6,seconds);
+                DrawBinary(0, now.Hour);
+                DrawBinary(3, now.Minute);
+                DrawBinary(6, now.Second);
 
                 SenseHat.Display.Update(); // Update the physical display.
 
-                SetScreenText?.Invoke($"{hours}:{minutes}:{seconds}"); // Update the MainPage (if it's utilized; i.e. not null).
+                SetScreenText?.Invoke(now.ToString("HH':'mm':'ss")); // Update the MainPage (if it's utilized; i.e. not null).
 
                 // Take a short nap.
                 Sleep(TimeSpan.FromMilliseconds(200));
@@ -52,17 +42,17 @@ namespace RPi.SenseHat.Demo.Demos
 
         private void DrawBinary(int x, int value)
         {
-            for(int y=7; y>=0 && value!=0; y--)
+            for (int y = 7; y >= 0; y--)
             {
-                if (value % 2 == 1)
-                {
-                    SenseHat.Display.Screen[x,y] = _colors[_colorIndex];
-                    SenseHat.Display.Screen[x+1, y] = _colors[_colorIndex];
-                }
-                value=value >> 1;
+                Color bitColor = (value % 2 == 1)
+                    ? _activeBitColor
+                    : _inctiveBitColor;
+
+                SenseHat.Display.Screen[x, y] = bitColor;
+                SenseHat.Display.Screen[x + 1, y] = bitColor;
+
+                value = value >> 1;
             }
-
         }
-
     }
 }

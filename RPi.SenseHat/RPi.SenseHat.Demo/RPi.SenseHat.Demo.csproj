@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="DemoRunner.cs" />
     <Compile Include="DemoSelector.cs" />
+    <Compile Include="Demos\BinaryClock.cs" />
     <Compile Include="Demos\ReadAllSensors.cs" />
     <Compile Include="Demos\SingleColorScrollText.cs" />
     <Compile Include="Demos\MultiColorScrollText.cs" />
