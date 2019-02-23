@@ -1,8 +1,6 @@
 ﻿<Application
-    x:Class="RPi.SenseHat.Demo.App"
+    x:Class="Emmellsoft.IoT.RPi.SenseHat.Demo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RPi.SenseHat.Demo"
     RequestedTheme="Light">
-
 </Application>

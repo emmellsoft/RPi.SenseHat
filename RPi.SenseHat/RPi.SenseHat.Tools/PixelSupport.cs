@@ -21,12 +21,11 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using RPi.SenseHat.Tools;
 using System;
 using System.Drawing;
 using System.IO;
 
-namespace Emmellsoft.IoT.Rpi.SenseHat
+namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 {
     public static class PixelSupport
     {

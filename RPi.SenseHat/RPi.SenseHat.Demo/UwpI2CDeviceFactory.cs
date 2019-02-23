@@ -6,7 +6,7 @@ using Unosquare.RaspberryIO.Abstractions;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 
-namespace RPi.SenseHat.Demo
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 {
     public class UwpI2CDeviceFactory : I2CDeviceFactory
     {

@@ -22,12 +22,13 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //using Windows.UI;
+
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Use the joystick to move the pixel around.

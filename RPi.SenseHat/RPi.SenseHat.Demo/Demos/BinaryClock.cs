@@ -2,12 +2,13 @@
 // The binary clock demo is developed by Mark Muller using
 // the RPi.SenseHat Windows IoT class library for the Raspberry Pi
 ////////////////////////////////////////////////////////////////////////////
+
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     public class BinaryClock : SenseHatDemo
     {

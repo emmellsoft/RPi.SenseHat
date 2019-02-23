@@ -1,5 +1,4 @@
-﻿using Emmellsoft.IoT.Rpi.SenseHat;
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor;
+﻿using Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.Font;
 using Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer;
@@ -9,9 +8,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
-namespace RPi.SenseHat.Tools
+namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 {
     internal class Program
     {

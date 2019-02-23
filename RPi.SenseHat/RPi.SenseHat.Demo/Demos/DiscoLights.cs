@@ -26,7 +26,7 @@ using System;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Click on the joystick to change drawing mode!

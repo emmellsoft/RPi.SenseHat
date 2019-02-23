@@ -98,7 +98,7 @@
     </Compile>
     <Compile Include="ColorExtension.cs" />
     <Compile Include="Dummies\ISenseHatSensors.cs" />
-    <Compile Include="Dummies\PixelSupport.cs" />
+    <Compile Include="PixelSupport.cs" />
     <Compile Include="Font\SingleColorFontBuilder.cs" />
     <Compile Include="LedBuffer\FindBestGammaMatch.cs" />
     <Compile Include="LedBuffer\GammaCalc.cs" />

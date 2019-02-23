@@ -30,7 +30,7 @@ using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Core;
 
-namespace RPi.SenseHat.Demo
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 {
     public static class PixelSupport
     {

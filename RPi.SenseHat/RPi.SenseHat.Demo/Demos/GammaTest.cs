@@ -26,7 +26,7 @@ using System;
 using System.Linq;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Tries out different gamma settings for the LED display. Use the joystick to play around.

@@ -27,7 +27,7 @@ using Windows.Foundation;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!

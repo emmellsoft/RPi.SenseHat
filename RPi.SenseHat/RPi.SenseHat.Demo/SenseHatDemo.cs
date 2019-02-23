@@ -25,7 +25,7 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
 using System.Threading;
 
-namespace RPi.SenseHat.Demo
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 {
     public abstract class SenseHatDemo
     {

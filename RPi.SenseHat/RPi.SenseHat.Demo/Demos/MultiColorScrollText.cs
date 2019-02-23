@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Multi-color scroll-text.

@@ -26,7 +26,7 @@ using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 using System;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Is it only me or does it show some unusual high temperature? :-S

@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 using Colors = Windows.UI.Colors;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// Single color scroll-text.

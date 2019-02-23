@@ -25,7 +25,7 @@ using Emmellsoft.IoT.Rpi.SenseHat;
 using RichardsTech.Sensors;
 using System;
 
-namespace RPi.SenseHat.Demo.Demos
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
     /// <summary>
     /// The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O

@@ -1,6 +1,4 @@
-﻿using Emmellsoft.IoT.Rpi.SenseHat;
-
-namespace RPi.SenseHat.Tools
+﻿namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 {
     public static class ColorExtension
     {
