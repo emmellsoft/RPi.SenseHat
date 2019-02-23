@@ -27,20 +27,20 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Sprites
 {
     public class SpriteMap
     {
-        public SpriteMap(Color[,] pixels)
+        public SpriteMap(Image image)
         {
-            if (((pixels.GetLength(0) % 8) != 0) || ((pixels.GetLength(1) % 8) != 0))
+            if (((image.Width % 8) != 0) || ((image.Height % 8) != 0))
             {
-                throw new ArgumentException("Expecting an image with sides of mutiple of 8 pixels");
+                throw new ArgumentException("Expecting an image with sides of multiple of 8 pixels");
             }
 
-            Pixels = pixels;
+            Image = image;
 
-            SpriteCountHorizontal = Pixels.GetLength(0) / 8;
-            SpriteCountVertical = Pixels.GetLength(1) / 8;
+            SpriteCountHorizontal = Image.Width / 8;
+            SpriteCountVertical = Image.Height / 8;
         }
 
-        internal Color[,] Pixels { get; }
+        internal Image Image { get; }
 
         public int SpriteCountHorizontal { get; }
 

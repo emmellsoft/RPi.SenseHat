@@ -46,7 +46,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             MovingRainbowOnBlack,
         }
 
-        private readonly Color[,] _rainbowColors = new Color[8, 8];
+        private readonly Image _rainbowColors = new Image(8, 8);
         private RenderMode _currentMode;
 
         public SingleColorScrollText(ISenseHat senseHat, string scrollText)

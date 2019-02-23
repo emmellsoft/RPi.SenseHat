@@ -44,11 +44,11 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 
         public override void Run()
         {
-            Color[,] pixels = PixelSupport.GetPixels(new Uri("ms-appx:///Assets/ColorFont.png"));
+            Image image = ImageSupport.GetImage(new Uri("ms-appx:///Assets/ColorFont.png"));
 
             // Create the font from the image.
             MultiColorFont font = MultiColorFont.LoadFromImage(
-                pixels,
+                image,
                 " ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÉÜabcdefghijklmnopqrstuvwxyzåäöéü0123456789.,?!\"#$%&-+*:;/\\<>()'`=",
                 Color.FromArgb(0xFF, 0xFF, 0x00, 0xFF));
 

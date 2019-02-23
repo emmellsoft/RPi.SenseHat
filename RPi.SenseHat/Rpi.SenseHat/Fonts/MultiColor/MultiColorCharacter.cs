@@ -34,24 +34,24 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
         /// Constructor.
         /// </summary>
         /// <param name="symbol">The unicode character.</param>
-        /// <param name="pixels">The pixels array. Must not be larger than 8x8 pixels.</param>
+        /// <param name="image">The pixels array. Must not be larger than 8x8 pixels.</param>
         /// <param name="transparencyColor">The color that represents transparency.</param>
-        public MultiColorCharacter(char symbol, Color[,] pixels, Color? transparencyColor = null)
-            : base(symbol, pixels.GetLength(0))
+        public MultiColorCharacter(char symbol, Image image, Color? transparencyColor = null)
+            : base(symbol, image.Width)
         {
-            if (pixels.GetLength(1) > 8)
+            if (image.Height > 8)
             {
                 throw new ArgumentException("The pixels array must not be taller than 8 pixels!");
             }
 
-            Pixels = pixels;
+            Image = image;
             TransparencyColor = transparencyColor;
         }
 
         /// <summary>
         /// The pixels array.
         /// </summary>
-        public Color[,] Pixels { get; }
+        public Image Image { get; }
 
         /// <summary>
         /// The color that represents transparency.

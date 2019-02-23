@@ -32,15 +32,15 @@ using Windows.UI.Core;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 {
-    public static class PixelSupport
+    public static class ImageSupport
     {
         /// <summary>
         /// Gets a 2-dimensional pixel array from an image.
         /// </summary>
         /// <param name="imageUri">The URI to the image.</param>
-        public static Color[,] GetPixels(Uri imageUri)
+        public static Image GetImage(Uri imageUri)
         {
-            Color[,] pixels = null;
+            Image image = null;
 
             var pixelsLoadedEvent = new ManualResetEvent(false);
 
@@ -52,7 +52,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
                 {
                     BitmapDecoder bitmapDecoder = await BitmapDecoder.CreateAsync(imageContent);
 
-                    pixels = new Color[bitmapDecoder.PixelWidth, bitmapDecoder.PixelHeight];
+                    image = new Image((int)bitmapDecoder.PixelWidth, (int)bitmapDecoder.PixelHeight);
 
                     PixelDataProvider pixelDataProvider = await bitmapDecoder.GetPixelDataAsync(
                         BitmapPixelFormat.Bgra8,
@@ -73,7 +73,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
                             byte r = pixelData[pixelDataIndex + 2];
                             byte a = pixelData[pixelDataIndex + 3];
 
-                            pixels[x, y] = Color.FromArgb(a, r, g, b);
+                            image[x, y] = Color.FromArgb(a, r, g, b);
 
                             pixelDataIndex += 4;
                         }
@@ -85,7 +85,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 
             pixelsLoadedEvent.WaitOne();
 
-            return pixels;
+            return image;
         }
     }
 }

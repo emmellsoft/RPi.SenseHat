@@ -66,11 +66,30 @@
 
         public static Color FromRgb(byte r, byte g, byte b)
         {
-            return new Color(255, r, g, b);
+            return new Color(0xFF, r, g, b);
+        }
+
+        public static Color FromRgb(int rgb)
+        {
+            byte r = (byte)((rgb >> 16) & 0xFF);
+            byte g = (byte)((rgb >> 8) & 0xFF);
+            byte b = (byte)(rgb & 0xFF);
+
+            return new Color(0xFF, r, g, b);
         }
 
         public static Color FromArgb(byte a, byte r, byte g, byte b)
         {
+            return new Color(a, r, g, b);
+        }
+
+        public static Color FromArgb(int argb)
+        {
+            byte a = (byte)((argb >> 24) & 0xFF);
+            byte r = (byte)((argb >> 16) & 0xFF);
+            byte g = (byte)((argb >> 8) & 0xFF);
+            byte b = (byte)(argb & 0xFF);
+
             return new Color(a, r, g, b);
         }
 

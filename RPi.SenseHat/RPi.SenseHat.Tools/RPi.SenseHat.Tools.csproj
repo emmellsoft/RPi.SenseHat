@@ -84,6 +84,9 @@
     <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\TinyFont.cs">
       <Link>Linked\Font\SingleColor\TinyFont.cs</Link>
     </Compile>
+    <Compile Include="..\Rpi.SenseHat\Image.cs">
+      <Link>Linked\Image.cs</Link>
+    </Compile>
     <Compile Include="..\Rpi.SenseHat\ISenseHat.cs">
       <Link>Linked\ISenseHat.cs</Link>
     </Compile>
@@ -98,7 +101,7 @@
     </Compile>
     <Compile Include="ColorExtension.cs" />
     <Compile Include="Dummies\ISenseHatSensors.cs" />
-    <Compile Include="PixelSupport.cs" />
+    <Compile Include="ImageSupport.cs" />
     <Compile Include="Font\SingleColorFontBuilder.cs" />
     <Compile Include="LedBuffer\FindBestGammaMatch.cs" />
     <Compile Include="LedBuffer\GammaCalc.cs" />

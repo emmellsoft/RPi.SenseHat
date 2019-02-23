@@ -27,32 +27,27 @@ using System.IO;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 {
-    public static class PixelSupport
+    public static class ImageSupport
     {
-        public static Color[,] GetPixels(Uri imageUri)
+        public static Image GetImage(string path)
         {
-            if (imageUri.IsFile)
+            if (!File.Exists(path))
             {
-                if (!File.Exists(imageUri.LocalPath))
-                {
-                    throw new ArgumentException("File Missing: " + imageUri.LocalPath);
-                }
-
-                Bitmap bitmap = new Bitmap(imageUri.LocalPath);
-
-                Color[,] pixels = new Color[bitmap.Width, bitmap.Height];
-                for (int y = 0; y < bitmap.Height; y++)
-                {
-                    for (int x = 0; x < bitmap.Width; x++)
-                    {
-                        pixels[x, y] = bitmap.GetPixel(x, y).ToSenseColor();
-                    }
-                }
-
-                return pixels;
+                throw new ArgumentException("File Missing: " + path);
             }
 
-            throw new NotImplementedException();
+            Bitmap bitmap = new Bitmap(path);
+
+            Image image = new Image(bitmap.Width, bitmap.Height);
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    image[x, y] = bitmap.GetPixel(x, y).ToSenseColor();
+                }
+            }
+
+            return image;
         }
     }
 }

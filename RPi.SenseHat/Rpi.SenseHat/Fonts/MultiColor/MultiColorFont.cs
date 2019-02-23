@@ -34,14 +34,11 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
         }
 
         public static MultiColorFont LoadFromImage(
-            Color[,] pixels,
+            Image image,
             string symbols,
             Color? transparencyColor = null)
         {
-            int bitmapWidth = pixels.GetLength(0);
-            int bitmapHeight = pixels.GetLength(1);
-
-            if (bitmapHeight > 9)
+            if (image.Height > 9)
             {
                 throw new ArgumentException("The image must not be taller than 9 pixels high!");
             }
@@ -54,12 +51,12 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
             char currentSymbol = ' ';
             int charStartX = 0;
 
-            int charHeight = bitmapHeight - 1;
+            int charHeight = image.Height - 1;
 
-            while (bitmapX < bitmapWidth)
+            while (bitmapX < image.Width)
             {
-                bool isBeginningOfChar = (pixels[bitmapX, 0].A > 128);
-                bool isLastX = (bitmapX == bitmapWidth - 1);
+                bool isBeginningOfChar = (image[bitmapX, 0].A > 128);
+                bool isLastX = (bitmapX == image.Width - 1);
 
                 if (isBeginningOfChar || isLastX)
                 {
@@ -72,16 +69,16 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
                             charWidth++;
                         }
 
-                        Color[,] charPixels = new Color[charWidth, charHeight];
+                        var charImage = new Image(charWidth, charHeight);
                         for (int y = 0; y < charHeight; y++)
                         {
                             for (int x = 0; x < charWidth; x++)
                             {
-                                charPixels[x, y] = pixels[charStartX + x, 1 + y];
+                                charImage[x, y] = image[charStartX + x, 1 + y];
                             }
                         }
 
-                        var c = new MultiColorCharacter(currentSymbol, charPixels, transparencyColor);
+                        var c = new MultiColorCharacter(currentSymbol, charImage, transparencyColor);
                         chars.Add(c);
                     }
 
@@ -90,7 +87,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
                         currentSymbol = symbols[symbolIndex++];
                         charStartX = bitmapX;
                     }
-                    else if (bitmapX < bitmapWidth - 1)
+                    else if (bitmapX < image.Width - 1)
                     {
                         throw new ArgumentException("Too few chars in the symbols-string!");
                     }

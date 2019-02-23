@@ -144,8 +144,8 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Sprites
                         : spritePixelYOffset + spritePixelY;
 
                     Color spriteColor = flipAxis
-                        ? _spriteMap.Pixels[spritePixelX0 + dY, spritePixelY0 + dX]
-                        : _spriteMap.Pixels[spritePixelX0 + dX, spritePixelY0 + dY];
+                        ? _spriteMap.Image[spritePixelX0 + dY, spritePixelY0 + dX]
+                        : _spriteMap.Image[spritePixelX0 + dX, spritePixelY0 + dY];
 
                     if (transparent)
                     {
@@ -234,8 +234,8 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Sprites
                     int dY = (8 + spritePixelY - offsetY) % 8;
 
                     Color spriteColor = flipAxis
-                        ? _spriteMap.Pixels[spritePixelX0 + dY, spritePixelY0 + dX]
-                        : _spriteMap.Pixels[spritePixelX0 + dX, spritePixelY0 + dY];
+                        ? _spriteMap.Image[spritePixelX0 + dY, spritePixelY0 + dX]
+                        : _spriteMap.Image[spritePixelX0 + dX, spritePixelY0 + dY];
 
                     if (transparent)
                     {

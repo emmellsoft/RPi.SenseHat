@@ -64,7 +64,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
         {
             _mainI2CDevice = mainI2CDevice;
 
-            Screen = new Color[8, 8];
+            Screen = new Image(8, 8);
 
             RedGamma = 1.8;
             GreenGamma = 2.0;
@@ -75,8 +75,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
             UpdateDirectionParameters();
         }
 
-        public Color[,] Screen
-        { get; }
+        public Image Screen { get; }
 
         public DisplayDirection Direction
         {
@@ -140,37 +139,23 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
         public void Reset()
         {
-            Array.Copy(InitialColors, Screen, Screen.Length);
+            Array.Copy(InitialColors, Screen.Pixels, Screen.Length);
         }
 
         public void Clear()
         {
-            Fill(Color.FromRgb(0, 0, 0));
+            Screen.Fill(Color.FromRgb(0, 0, 0));
         }
 
         public void Fill(Color color)
         {
-            for (int y = 0; y < 8; y++)
-            {
-                for (int x = 0; x < 8; x++)
-                {
-                    Screen[x, y] = color;
-                }
-            }
+            Screen.Fill(color);
         }
 
-        public void CopyColorsToScreen(Color[,] colors, int offsetX, int offsetY)
+        public void CopyColorsToScreen(Image image, int offsetX, int offsetY)
         {
-            if ((colors.GetLength(0) != 8) || (colors.GetLength(1) != 8))
-            {
-                throw new ArgumentException("The pixel matrix must be 8x8.", nameof(colors));
-            }
-
-            if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
-            {
-                // Hm. Someone has messed with the pixels array...
-                throw new ArgumentException("My pixel matrix must be 8x8.");
-            }
+            AssertImageSize(image);
+            AssertScreenSize();
 
             if (offsetX < 0)
             {
@@ -186,8 +171,25 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
             {
                 for (int x = 0; x < 8; x++)
                 {
-                    Screen[(x + offsetX) % 8, (y + offsetY) % 8] = colors[x, y];
+                    Screen[(x + offsetX) % 8, (y + offsetY) % 8] = image[x, y];
                 }
+            }
+        }
+
+        private void AssertScreenSize()
+        {
+            if ((Screen.Width != 8) || (Screen.Height != 8))
+            {
+                // Hm. Someone has messed with the pixels array...
+                throw new ArgumentException("My image must be 8x8.");
+            }
+        }
+
+        private static void AssertImageSize(Image image)
+        {
+            if ((image.Width != 8) || (image.Height != 8))
+            {
+                throw new ArgumentException("The image must be 8x8.", nameof(image));
             }
         }
 
@@ -198,11 +200,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
                 throw new ArgumentException("The pixel array must be 64 'pixels' long (i.e. 8x8).", nameof(colors));
             }
 
-            if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
-            {
-                // Hm. Someone has messed with the pixels array...
-                throw new ArgumentException("My pixel matrix must be 8x8.");
-            }
+            AssertScreenSize();
 
             if (offsetX < 0)
             {
@@ -224,24 +222,16 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
             }
         }
 
-        public void CopyScreenToColors(Color[,] colors)
+        public void CopyScreenToColors(Image image)
         {
-            if ((colors.GetLength(0) != 8) || (colors.GetLength(1) != 8))
-            {
-                throw new ArgumentException("The pixel matrix must be 8x8.", nameof(colors));
-            }
-
-            if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
-            {
-                // Hm. Someone has messed with the pixels array...
-                throw new ArgumentException("My pixel matrix must be 8x8.");
-            }
+            AssertImageSize(image);
+            AssertScreenSize();
 
             for (int y = 0; y < 8; y++)
             {
                 for (int x = 0; x < 8; x++)
                 {
-                    colors[x, y] = Screen[x, y];
+                    image[x, y] = Screen[x, y];
                 }
             }
         }
@@ -252,12 +242,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
             {
                 throw new ArgumentException("The pixel array must be 64 'pixels' long (i.e. 8x8).", nameof(colors));
             }
-
-            if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
-            {
-                // Hm. Someone has messed with the pixels array...
-                throw new ArgumentException("My pixel matrix must be 8x8.");
-            }
+            AssertScreenSize();
 
             int i = 0;
             for (int y = 0; y < 8; y++)
@@ -293,11 +278,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
         /// </summary>
         public void Update()
         {
-            if ((Screen.GetLength(0) != 8) || (Screen.GetLength(1) != 8))
-            {
-                // Hm. Someone has messed with the pixels array...
-                throw new ArgumentException("My pixel matrix must be 8x8.");
-            }
+            AssertScreenSize();
 
             byte[] buffer = new byte[8 * 8 * 3];
 

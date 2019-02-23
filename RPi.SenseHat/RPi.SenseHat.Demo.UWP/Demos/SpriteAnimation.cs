@@ -45,7 +45,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             var imageUri = new Uri("ms-appx:///Assets/MiniMario.png");
 
             // Get the pixels of the animation frames.
-            Color[,] pixels = PixelSupport.GetPixels(imageUri);
+            Image pixels = ImageSupport.GetImage(imageUri);
 
             // Create a sprite map from the pixels.
             var spriteMap = new SpriteMap(pixels);

@@ -56,9 +56,9 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                     continue;
                 }
 
-                Color[,] colors = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
+                Image screen = CreateGravityBlobScreen(SenseHat.Sensors.Acceleration.Value);
 
-                SenseHat.Display.CopyColorsToScreen(colors);
+                SenseHat.Display.CopyColorsToScreen(screen);
 
                 SenseHat.Display.Update();
 
@@ -70,14 +70,14 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             }
         }
 
-        private static Color[,] CreateGravityBlobScreen(Vector3 vector)
+        private static Image CreateGravityBlobScreen(Vector3 vector)
         {
             double x0 = (vector.X + 1) * 5.5 - 2;
             double y0 = (vector.Y + 1) * 5.5 - 2;
 
             double distScale = 4;
 
-            var colors = new Color[8, 8];
+            var screen = new Image(8, 8);
 
             bool isUpsideDown = vector.Z < 0;
 
@@ -100,13 +100,13 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                         colorIntensity = 255;
                     }
 
-                    colors[x, y] = isUpsideDown
+                    screen[x, y] = isUpsideDown
                         ? Color.FromArgb(255, (byte)colorIntensity, 0, 0)
                         : Color.FromArgb(255, 0, (byte)colorIntensity, 0);
                 }
             }
 
-            return colors;
+            return screen;
         }
     }
 }

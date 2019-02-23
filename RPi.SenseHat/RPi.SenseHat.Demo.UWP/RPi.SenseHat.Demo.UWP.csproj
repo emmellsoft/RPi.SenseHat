@@ -112,7 +112,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PixelSupport.cs" />
+    <Compile Include="ImageSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenseHatDemo.cs" />
     <Compile Include="UwpI2CDeviceFactory.cs" />

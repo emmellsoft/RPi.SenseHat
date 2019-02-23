@@ -31,11 +31,8 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
             int offsetX,
             int offsetY)
         {
-            int charWidth = character.Pixels.GetLength(0);
-            int charHeight = character.Pixels.GetLength(1);
-
-            int right = offsetX + charWidth - 1;
-            int bottom = offsetY + charHeight - 1;
+            int right = offsetX + character.Image.Width - 1;
+            int bottom = offsetY + character.Image.Height - 1;
 
             if ((offsetY > 7) || (bottom < 0) || (offsetX > 7) || (right < 0))
             {
@@ -75,7 +72,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 
                 for (int screenX = offsetX; screenX <= right; screenX++)
                 {
-                    Color charColor = character.Pixels[charPixelX, charPixelY];
+                    Color charColor = character.Image[charPixelX, charPixelY];
 
                     if (charColor != character.TransparencyColor)
                     {

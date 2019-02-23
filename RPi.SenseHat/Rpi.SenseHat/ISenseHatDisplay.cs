@@ -32,7 +32,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
         /// The virtual screen array.
         /// Note: Changes to this property requires a call to Update() to affect the physical screen.
         /// </summary>
-        Color[,] Screen { get; }
+        Image Screen { get; }
 
         /// <summary>
         /// The direction of the screen.
@@ -94,7 +94,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
         /// <param name="colors">2D array of colors. Must have the dimensions 8 x 8.</param>
         /// <param name="offsetX">The screen horizontal offset.</param>
         /// <param name="offsetY">The screen vertical offset.</param>
-        void CopyColorsToScreen(Color[,] colors, int offsetX = 0, int offsetY = 0);
+        void CopyColorsToScreen(Image image, int offsetX = 0, int offsetY = 0);
 
         /// <summary>
         /// Copies the given array of colors to the Screen property array.
@@ -109,7 +109,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
         /// Copies the current Screen property array to the given array of colors.
         /// </summary>
         /// <param name="colors">2D array of colors. Must have the dimensions 8 x 8.</param>
-        void CopyScreenToColors(Color[,] colors);
+        void CopyScreenToColors(Image image);
 
         /// <summary>
         /// Copies the given array of colors to the Screen property array.

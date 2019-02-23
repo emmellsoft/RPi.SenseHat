@@ -19,21 +19,32 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
             LedBufferWork();
             SingleColorFontWork();
             SingleColorTinyFontWork();
+            ConvertImagesToCode();
+        }
+
+        private static void ConvertImagesToCode()
+        {
+            Image colorFontImage = LoadUwpAssetImage("ColorFont.png");
         }
 
         private static void ColorFontWork()
         {
             const string symbols = " ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÉÜabcdefghijklmnopqrstuvwxyzåäöéü0123456789.,?!\"#$%&-+*:;/\\<>()'`=";
-            const string relativeImagePath = @"..\..\..\RPi.SenseHat.Demo\Assets\ColorFont.png";
 
-            var dir = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
-            var path = Path.GetFullPath(Path.Combine(dir ?? string.Empty, relativeImagePath));
-            var fontImageUri = new Uri(path);
-
-            var pixels = PixelSupport.GetPixels(fontImageUri);
-            MultiColorFont font = MultiColorFont.LoadFromImage(pixels, symbols, System.Drawing.Color.Transparent.ToSenseColor());
+            Image image = LoadUwpAssetImage("ColorFont.png");
+            MultiColorFont font = MultiColorFont.LoadFromImage(image, symbols, System.Drawing.Color.Transparent.ToSenseColor());
             var chars = font.GetChars().ToArray();
             var widths = chars.Select(c => c.Width).ToArray();
+        }
+
+        private static Image LoadUwpAssetImage(string fileName)
+        {
+            const string relativeAssetPath = @"..\..\..\RPi.SenseHat.Demo.UWP\Assets";
+
+            var dir = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            var path = Path.GetFullPath(Path.Combine(dir ?? string.Empty, relativeAssetPath, fileName));
+
+            return ImageSupport.GetImage(path);
         }
 
         private static void SingleColorFontWork()
@@ -77,10 +88,10 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
             byte[] senseHatInverseGammaTable = GammaCalc.Get5To8BitInvertedGamma(senseHatGamma).ToArray();
             string senseHatInverseGammaTableAsCode = ToCSharp(senseHatInverseGammaTable);
 
-            var initalPixels = LedBufferSupport.BufferToPixels(LedBufferSupport.GetInitialLedBuffer(), senseHatGamma);
+            var initalPixels = LedBufferSupport.BufferToImage(LedBufferSupport.GetInitialLedBuffer(), senseHatGamma);
             string initalPixelsAsCode = ToCSharp(initalPixels);
 
-            byte[] initialBufferRecreated = LedBufferSupport.PixelsToBuffer(initalPixels, senseHatGamma);
+            byte[] initialBufferRecreated = LedBufferSupport.ImageToBuffer(initalPixels, senseHatGamma);
             string initialBufferRecreatedAsCode = ToCSharp(initialBufferRecreated);
             string originalInitialBufferAsCode = ToCSharp(LedBufferSupport.GetInitialLedBuffer());
 
@@ -96,7 +107,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
             //return String.Join("  ", bytes.Select(g => g.ToString("x2")));
         }
 
-        private static string ToCSharp(Color[,] pixels, bool compact = true)
+        private static string ToCSharp(Image image, bool compact = true)
         {
             var text = new StringBuilder();
 
@@ -111,7 +122,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
 
                     for (int x = 0; x < 8; x++)
                     {
-                        int argb = pixels[x, y].ToArgb();
+                        int argb = image[x, y].ToArgb();
                         int rgb = argb & 0x00FFFFFF;
                         text.Append("0x" + rgb.ToString("X6"));
 
@@ -138,7 +149,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
                     text.Append("\t{ ");
                     for (int x = 0; x < 8; x++)
                     {
-                        Color color = pixels[x, y];
+                        Color color = image[x, y];
 
                         if (x > 0)
                         {
