@@ -24,7 +24,6 @@
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
 using System.Linq;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {

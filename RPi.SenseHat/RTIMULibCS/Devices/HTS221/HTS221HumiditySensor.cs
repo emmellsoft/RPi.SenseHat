@@ -21,12 +21,10 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using RTIMULibCS;
 using System;
 using System.Threading.Tasks;
-using Unosquare.RaspberryIO.Abstractions;
 
-namespace RichardsTech.Sensors.Devices.HTS221
+namespace RTIMULibCS.Devices.HTS221
 {
     /// <summary>
     /// The HTS221 humidity-sensor.
@@ -35,7 +33,7 @@ namespace RichardsTech.Sensors.Devices.HTS221
     {
         private readonly byte _i2CAddress;
 
-        private II2CDevice _i2CDevice;
+        private II2C _i2CDevice;
 
         private Func<Int16, double> _temperatureConversionFunc;
         private Func<Int16, double> _humidityConversionFunc;

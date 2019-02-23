@@ -21,13 +21,11 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using RichardsTech.Sensors;
-using RichardsTech.Sensors.Devices.HTS221;
-using RichardsTech.Sensors.Devices.LPS25H;
-using RichardsTech.Sensors.Devices.LSM9DS1;
 using RTIMULibCS;
+using RTIMULibCS.Devices.HTS221;
+using RTIMULibCS.Devices.LPS25H;
+using RTIMULibCS.Devices.LSM9DS1;
 using System.Threading.Tasks;
-using Unosquare.RaspberryIO.Abstractions;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
@@ -63,7 +61,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
 
         private static async Task<MainI2CDevice> CreateDisplayJoystickI2CDevice()
         {
-            II2CDevice device = await I2CDeviceFactory.Singleton.Create(DeviceAddress);
+            II2C device = await I2CDeviceFactory.Singleton.Create(DeviceAddress);
             return new MainI2CDevice(device);
         }
 

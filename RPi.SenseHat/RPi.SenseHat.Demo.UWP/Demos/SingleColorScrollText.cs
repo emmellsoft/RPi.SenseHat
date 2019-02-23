@@ -26,8 +26,6 @@ using Emmellsoft.IoT.Rpi.SenseHat.Fonts;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 using System;
 using System.Collections.Generic;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
-using Colors = Windows.UI.Colors;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
@@ -122,7 +120,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             switch (_currentMode)
             {
                 case RenderMode.YellowOnBlue:
-                    SenseHat.Display.Fill(Colors.Blue.ToSenseColor());
+                    SenseHat.Display.Fill(Color.FromRgb(0, 0, 255));
                     break;
 
                 case RenderMode.BlackOnStaticRainbow:
@@ -136,11 +134,11 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                     break;
 
                 case RenderMode.StaticRainbowOnBlack:
-                    SenseHat.Display.Fill(Colors.Black.ToSenseColor());
+                    SenseHat.Display.Fill(Color.FromRgb(0, 0, 0));
                     break;
 
                 case RenderMode.MovingRainbowOnBlack:
-                    SenseHat.Display.Fill(Colors.Black.ToSenseColor());
+                    SenseHat.Display.Fill(Color.FromRgb(0, 0, 0));
                     break;
 
                 default:
@@ -153,13 +151,13 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             switch (_currentMode)
             {
                 case RenderMode.YellowOnBlue:
-                    return Colors.Yellow.ToSenseColor();
+                    return Color.FromRgb(255, 255, 0);
 
                 case RenderMode.BlackOnStaticRainbow:
-                    return Colors.Black.ToSenseColor();
+                    return Color.FromRgb(0, 0, 0);
 
                 case RenderMode.BlackOnMovingRainbow:
-                    return Colors.Black.ToSenseColor();
+                    return Color.FromRgb(0, 0, 0);
 
                 case RenderMode.StaticRainbowOnBlack:
                     // Let the rainbow colors be "pinned" to the display.

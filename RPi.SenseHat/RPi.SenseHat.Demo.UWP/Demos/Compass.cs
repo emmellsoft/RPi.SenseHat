@@ -24,8 +24,6 @@
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
 using Windows.Foundation;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
-using Colors = Windows.UI.Colors;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
@@ -47,9 +45,9 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             const double halfCircle = Math.PI;
             const double fullCircle = Math.PI * 2;
 
-            Color northColor = Colors.Red.ToSenseColor();
-            Color southColor = Colors.White.ToSenseColor();
-            Color centerColor = Colors.DarkBlue.ToSenseColor();
+            Color northColor = Color.FromRgb(255, 0, 0);
+            Color southColor = Color.FromRgb(255, 0255, 255);
+            Color centerColor = Color.FromRgb(0, 0, 80);
 
             TimeSpan mainPageUpdateRate = TimeSpan.FromSeconds(0.5);
             DateTime nextMainPageUpdate = DateTime.Now.Add(mainPageUpdateRate);

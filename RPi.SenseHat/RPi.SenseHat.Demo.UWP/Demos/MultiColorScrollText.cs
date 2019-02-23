@@ -26,7 +26,6 @@ using Emmellsoft.IoT.Rpi.SenseHat.Fonts;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor;
 using System;
 using System.Collections.Generic;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {

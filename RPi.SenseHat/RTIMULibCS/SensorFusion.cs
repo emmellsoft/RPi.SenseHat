@@ -23,7 +23,7 @@
 
 using System;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     public abstract class SensorFusion
     {

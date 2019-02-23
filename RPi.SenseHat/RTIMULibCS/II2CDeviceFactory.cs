@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Unosquare.RaspberryIO.Abstractions;
 
 namespace RTIMULibCS
 {
@@ -12,6 +11,6 @@ namespace RTIMULibCS
             Singleton = singleton;
         }
 
-        public abstract Task<II2CDevice> Create(byte deviceId);
+        public abstract Task<II2C> Create(byte deviceAddress);
     }
 }

@@ -4,9 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Unosquare.Raspberry.Abstractions" Version="0.2.1" />
-    <PackageReference Include="Unosquare.Raspberry.IO" Version="0.18.0" />
-  </ItemGroup>
-
 </Project>

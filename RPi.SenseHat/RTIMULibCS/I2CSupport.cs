@@ -22,13 +22,12 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using Unosquare.RaspberryIO.Abstractions;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     internal static class I2CSupport
     {
-        public static void Write(II2CDevice device, byte reg, byte command, string exceptionMessage)
+        public static void Write(II2C device, byte reg, byte command, string exceptionMessage)
         {
             try
             {
@@ -42,7 +41,7 @@ namespace RichardsTech.Sensors
             }
         }
 
-        public static byte Read8Bits(II2CDevice device, byte reg, string exceptionMessage)
+        public static byte Read8Bits(II2C device, byte reg, string exceptionMessage)
         {
             try
             {
@@ -57,7 +56,7 @@ namespace RichardsTech.Sensors
             }
         }
 
-        public static UInt16 Read16Bits(II2CDevice device, byte reg, ByteOrder byteOrder, string exceptionMessage)
+        public static UInt16 Read16Bits(II2C device, byte reg, ByteOrder byteOrder, string exceptionMessage)
         {
             try
             {
@@ -84,7 +83,7 @@ namespace RichardsTech.Sensors
             }
         }
 
-        public static UInt32 Read24Bits(II2CDevice device, byte reg, ByteOrder byteOrder, string exceptionMessage)
+        public static UInt32 Read24Bits(II2C device, byte reg, ByteOrder byteOrder, string exceptionMessage)
         {
             try
             {
@@ -111,7 +110,7 @@ namespace RichardsTech.Sensors
             }
         }
 
-        public static UInt32 Read32Bits(II2CDevice device, byte reg, ByteOrder byteOrder, string exceptionMessage)
+        public static UInt32 Read32Bits(II2C device, byte reg, ByteOrder byteOrder, string exceptionMessage)
         {
             try
             {
@@ -138,7 +137,7 @@ namespace RichardsTech.Sensors
             }
         }
 
-        public static byte[] ReadBytes(II2CDevice device, byte reg, int count, string exceptionMessage)
+        public static byte[] ReadBytes(II2C device, byte reg, int count, string exceptionMessage)
         {
             try
             {

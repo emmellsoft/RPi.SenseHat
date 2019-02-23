@@ -21,12 +21,10 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using RTIMULibCS;
 using System;
 using System.Threading.Tasks;
-using Unosquare.RaspberryIO.Abstractions;
 
-namespace RichardsTech.Sensors.Devices.LPS25H
+namespace RTIMULibCS.Devices.LPS25H
 {
     /// <summary>
     /// The LPS25H pressure-sensor
@@ -34,7 +32,7 @@ namespace RichardsTech.Sensors.Devices.LPS25H
     public class LPS25HPressureSensor : PressureSensor
     {
         private readonly byte _i2CAddress;
-        private II2CDevice _i2CDevice;
+        private II2C _i2CDevice;
 
         private bool _pressureValid;
         private double _pressure;

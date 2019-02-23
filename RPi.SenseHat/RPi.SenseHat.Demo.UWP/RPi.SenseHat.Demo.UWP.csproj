@@ -149,9 +149,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.3</Version>
     </PackageReference>
-    <PackageReference Include="Unosquare.Raspberry.Abstractions">
-      <Version>0.2.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RPi.SenseHat\RPi.SenseHat.csproj">

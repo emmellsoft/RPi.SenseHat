@@ -23,8 +23,6 @@
 
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
-using Colors = Windows.UI.Colors;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
@@ -157,7 +155,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                     if (sparkle)
                     {
                         // This pixel should start a new sparkle.
-                        pixel = Colors.White.ToSenseColor();
+                        pixel = Color.FromRgb(255, 255, 255);
                     }
                     else
                     {
@@ -166,7 +164,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                         if (lastIntensity <= 10)
                         {
                             // Quite dark -- be pitch black.
-                            pixel = Colors.Black.ToSenseColor();
+                            pixel = Color.FromRgb(0, 0, 0);
                         }
                         else
                         {

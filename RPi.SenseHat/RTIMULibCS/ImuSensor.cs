@@ -23,7 +23,7 @@
 
 using System;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     /// <summary>
     /// A generic IMU sensor.

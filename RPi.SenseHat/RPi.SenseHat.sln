@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPi.SenseHat.Demo", "RPi.SenseHat.Demo\RPi.SenseHat.Demo.csproj", "{C9396C90-A80F-4672-A1E4-711421AC590A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPi.SenseHat.Demo.UWP", "RPi.SenseHat.Demo.UWP\RPi.SenseHat.Demo.UWP.csproj", "{C9396C90-A80F-4672-A1E4-711421AC590A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPi.SenseHat.Tools", "RPi.SenseHat.Tools\RPi.SenseHat.Tools.csproj", "{4C15DA49-FDD7-456B-ABDF-0E6D135AAD75}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPi.SenseHat", "RPi.SenseHat\RPi.SenseHat.csproj", "{F5C43428-288F-4696-93CD-1088E77DB5BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTIMULibCS", "RTIMULibCS\RTIMULibCS.csproj", "{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPi.SenseHat.Demo.Core", "RPi.SenseHat.Demo.Core\RPi.SenseHat.Demo.Core.csproj", "{2CB30372-F434-4F19-8493-7ED7789956C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,22 @@ Global
 		{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}.Release|x64.Build.0 = Release|Any CPU
 		{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}.Release|x86.ActiveCfg = Release|Any CPU
 		{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}.Release|x86.Build.0 = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|x64.Build.0 = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Debug|x86.Build.0 = Debug|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|ARM.Build.0 = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|x64.Build.0 = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|x86.ActiveCfg = Release|Any CPU
+		{2CB30372-F434-4F19-8493-7ED7789956C5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

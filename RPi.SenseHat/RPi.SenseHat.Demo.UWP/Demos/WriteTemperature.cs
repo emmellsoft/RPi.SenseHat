@@ -24,7 +24,6 @@
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
 using System;
-using Colors = Windows.UI.Colors;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
@@ -73,7 +72,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
                     }
 
                     display.Clear();
-                    tinyFont.Write(display, text, Colors.White.ToSenseColor());
+                    tinyFont.Write(display, text, Color.FromRgb(255, 255, 255));
                     display.Update();
 
                     SetScreenText?.Invoke($"{temperatureValue:0.0} {unitText}"); // Update the MainPage (if it's utilized; i.e. not null).

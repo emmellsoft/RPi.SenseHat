@@ -25,8 +25,6 @@
 
 using Emmellsoft.IoT.Rpi.SenseHat;
 using System;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
-using Colors = Windows.UI.Colors;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {
@@ -37,13 +35,13 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
     {
         private readonly Color[] _colors =
         {
-            Colors.Red.ToSenseColor(),
-            Colors.Green.ToSenseColor(),
-            Colors.Blue.ToSenseColor(),
-            Colors.Cyan.ToSenseColor(),
-            Colors.Magenta.ToSenseColor(),
-            Colors.Yellow.ToSenseColor(),
-            Colors.White.ToSenseColor()
+            Color.FromRgb(255,0,0),
+            Color.FromRgb(0,255,0),
+            Color.FromRgb(0,0,255),
+            Color.FromRgb(0,255,255),
+            Color.FromRgb(255,0,255),
+            Color.FromRgb(255,255,0),
+            Color.FromRgb(255,255,255)
         };
 
         private bool _lastPressingEnter;

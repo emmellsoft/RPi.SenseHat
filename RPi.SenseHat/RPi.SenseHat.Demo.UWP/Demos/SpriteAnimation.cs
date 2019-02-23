@@ -24,7 +24,6 @@
 using Emmellsoft.IoT.Rpi.SenseHat;
 using Emmellsoft.IoT.Rpi.SenseHat.Sprites;
 using System;
-using Color = Emmellsoft.IoT.Rpi.SenseHat.Color;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
 {

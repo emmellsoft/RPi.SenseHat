@@ -23,7 +23,7 @@
 
 using System;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     /// <summary>
     /// This class allow the IMU to be virtually repositioned if it is in a non-standard configuration

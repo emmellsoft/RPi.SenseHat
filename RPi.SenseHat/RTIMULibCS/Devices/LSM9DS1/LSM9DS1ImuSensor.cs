@@ -21,12 +21,10 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using RTIMULibCS;
 using System;
 using System.Threading.Tasks;
-using Unosquare.RaspberryIO.Abstractions;
 
-namespace RichardsTech.Sensors.Devices.LSM9DS1
+namespace RTIMULibCS.Devices.LSM9DS1
 {
     /// <summary>
     /// The LSM9DS1 IMU-sensor.
@@ -36,8 +34,8 @@ namespace RichardsTech.Sensors.Devices.LSM9DS1
         private readonly byte _accelGyroI2CAddress;
         private readonly byte _magI2CAddress;
         private readonly LSM9DS1Config _config;
-        private II2CDevice _accelGyroI2CDevice;
-        private II2CDevice _magI2CDevice;
+        private II2C _accelGyroI2CDevice;
+        private II2C _magI2CDevice;
         private double _gyroScale;
         private double _accelerationScale;
         private double _magneticFieldScale;

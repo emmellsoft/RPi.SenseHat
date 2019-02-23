@@ -21,16 +21,16 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using RTIMULibCS;
 using System;
-using Unosquare.RaspberryIO.Abstractions;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
     internal sealed class MainI2CDevice
     {
-        private readonly II2CDevice _device;
+        private readonly II2C _device;
 
-        public MainI2CDevice(II2CDevice device)
+        public MainI2CDevice(II2C device)
         {
             _device = device;
         }

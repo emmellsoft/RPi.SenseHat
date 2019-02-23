@@ -24,7 +24,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     /// <summary>
     /// A generic sensor.

@@ -22,7 +22,7 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Emmellsoft.IoT.Rpi.SenseHat;
-using RichardsTech.Sensors;
+using RTIMULibCS;
 using System;
 
 namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos

@@ -23,7 +23,7 @@
 
 using System;
 
-namespace RichardsTech.Sensors
+namespace RTIMULibCS
 {
     /// <summary>
     /// Math support for the sensors
