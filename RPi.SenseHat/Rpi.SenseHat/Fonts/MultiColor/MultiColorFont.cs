@@ -2,120 +2,104 @@
 //
 //  This file is part of Rpi.SenseHat
 //
-//  Copyright (c) 2017, Mattias Larsson
+//  Copyright (c) 2019, Mattias Larsson
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy of 
-//  this software and associated documentation files (the "Software"), to deal in 
-//  the Software without restriction, including without limitation the rights to use, 
-//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
-//  Software, and to permit persons to whom the Software is furnished to do so, 
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to use,
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+//  Software, and to permit persons to whom the Software is furnished to do so,
 //  subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in all 
+//  The above copyright notice and this permission notice shall be included in all
 //  copies or substantial portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
-//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-#if NETFX_CORE
-using Windows.UI;
-#else
-using System.Drawing;
-#endif
 
 namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 {
-	public class MultiColorFont : Font<MultiColorCharacter>
-	{
-		public MultiColorFont(IEnumerable<MultiColorCharacter> chars)
-			: base(chars)
-		{
-		}
+    public class MultiColorFont : Font<MultiColorCharacter>
+    {
+        public MultiColorFont(IEnumerable<MultiColorCharacter> chars)
+            : base(chars)
+        {
+        }
 
-		public static async Task<MultiColorFont> LoadFromImage(
-			Uri fontImageUri,
-			string symbols,
-			Color? transparencyColor = null)
-		{
-			Color[,] pixels = await PixelSupport.GetPixels(fontImageUri).ConfigureAwait(false);
+        public static MultiColorFont LoadFromImage(
+            Color[,] pixels,
+            string symbols,
+            Color? transparencyColor = null)
+        {
+            int bitmapWidth = pixels.GetLength(0);
+            int bitmapHeight = pixels.GetLength(1);
 
-			return LoadFromImage(pixels, symbols, transparencyColor);
-		}
+            if (bitmapHeight > 9)
+            {
+                throw new ArgumentException("The image must not be taller than 9 pixels high!");
+            }
 
-		public static MultiColorFont LoadFromImage(
-			Color[,] pixels,
-			string symbols,
-			Color? transparencyColor = null)
-		{
-			int bitmapWidth = pixels.GetLength(0);
-			int bitmapHeight = pixels.GetLength(1);
+            var chars = new List<MultiColorCharacter>();
 
-			if (bitmapHeight > 9)
-			{
-				throw new ArgumentException("The image must not be taller than 9 pixels high!");
-			}
+            int symbolIndex = 0;
 
-			var chars = new List<MultiColorCharacter>();
+            int bitmapX = 0;
+            char currentSymbol = ' ';
+            int charStartX = 0;
 
-			int symbolIndex = 0;
+            int charHeight = bitmapHeight - 1;
 
-			int bitmapX = 0;
-			char currentSymbol = ' ';
-			int charStartX = 0;
+            while (bitmapX < bitmapWidth)
+            {
+                bool isBeginningOfChar = (pixels[bitmapX, 0].A > 128);
+                bool isLastX = (bitmapX == bitmapWidth - 1);
 
-			int charHeight = bitmapHeight - 1;
+                if (isBeginningOfChar || isLastX)
+                {
+                    if ((bitmapX > 0) || isLastX)
+                    {
+                        int charWidth = bitmapX - charStartX;
 
-			while (bitmapX < bitmapWidth)
-			{
-				bool isBeginningOfChar = (pixels[bitmapX, 0].A > 128);
-				bool isLastX = (bitmapX == bitmapWidth - 1);
+                        if (isLastX)
+                        {
+                            charWidth++;
+                        }
 
-				if (isBeginningOfChar || isLastX)
-				{
-					if ((bitmapX > 0) || isLastX)
-					{
-						int charWidth = bitmapX - charStartX;
+                        Color[,] charPixels = new Color[charWidth, charHeight];
+                        for (int y = 0; y < charHeight; y++)
+                        {
+                            for (int x = 0; x < charWidth; x++)
+                            {
+                                charPixels[x, y] = pixels[charStartX + x, 1 + y];
+                            }
+                        }
 
-						if (isLastX)
-						{
-							charWidth++;
-						}
+                        var c = new MultiColorCharacter(currentSymbol, charPixels, transparencyColor);
+                        chars.Add(c);
+                    }
 
-						Color[,] charPixels = new Color[charWidth, charHeight];
-						for (int y = 0; y < charHeight; y++)
-						{
-							for (int x = 0; x < charWidth; x++)
-							{
-								charPixels[x, y] = pixels[charStartX + x, 1 + y];
-							}
-						}
+                    if (symbolIndex < symbols.Length)
+                    {
+                        currentSymbol = symbols[symbolIndex++];
+                        charStartX = bitmapX;
+                    }
+                    else if (bitmapX < bitmapWidth - 1)
+                    {
+                        throw new ArgumentException("Too few chars in the symbols-string!");
+                    }
+                }
 
-						var c = new MultiColorCharacter(currentSymbol, charPixels, transparencyColor);
-						chars.Add(c);
-					}
+                bitmapX++;
+            }
 
-					if (symbolIndex < symbols.Length)
-					{
-						currentSymbol = symbols[symbolIndex++];
-						charStartX = bitmapX;
-					}
-					else if (bitmapX < bitmapWidth - 1)
-					{
-						throw new ArgumentException("Too few chars in the symbols-string!");
-					}
-				}
-
-				bitmapX++;
-			}
-
-			return new MultiColorFont(chars);
-		}
-	}
+            return new MultiColorFont(chars);
+        }
+    }
 }

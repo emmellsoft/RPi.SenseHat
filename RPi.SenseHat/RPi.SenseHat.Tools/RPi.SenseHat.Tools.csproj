@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Emmellsoft.IoT.Rpi.SenseHat.Tools</RootNamespace>
     <AssemblyName>Emmellsoft.IoT.Rpi.SenseHat.Tools</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Rpi.SenseHat\Color.cs">
+      <Link>Linked\Color.cs</Link>
+    </Compile>
     <Compile Include="..\Rpi.SenseHat\DisplayDirection.cs">
       <Link>Linked\DisplayDirection.cs</Link>
     </Compile>
@@ -92,6 +96,7 @@
     <Compile Include="..\Rpi.SenseHat\KeyState.cs">
       <Link>Linked\KeyState.cs</Link>
     </Compile>
+    <Compile Include="ColorExtension.cs" />
     <Compile Include="Dummies\ISenseHatSensors.cs" />
     <Compile Include="Dummies\PixelSupport.cs" />
     <Compile Include="Font\SingleColorFontBuilder.cs" />

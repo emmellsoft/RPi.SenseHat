@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Emmellsoft")]
 [assembly: AssemblyProduct("Emmellsoft.IoT.Rpi.SenseHat.Demo")]
-[assembly: AssemblyCopyright("Copyright © Emmellsoft 2015")]
+[assembly: AssemblyCopyright("Copyright © Emmellsoft 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="23b009f2-e98e-4f5e-ba33-ce83db5ae9b9"
+    Name="a4dda98d-56c2-4aca-8dd1-1a0379d9ba34"
     Publisher="CN=Mattias"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="23b009f2-e98e-4f5e-ba33-ce83db5ae9b9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="a4dda98d-56c2-4aca-8dd1-1a0379d9ba34" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>RPi.SenseHat.Demo</DisplayName>
