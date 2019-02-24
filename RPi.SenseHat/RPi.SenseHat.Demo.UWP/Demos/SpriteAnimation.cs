@@ -42,13 +42,46 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Demos
             // A big thanks to Johan Vinet, pixel artist and animator, for the Mario animation! :-)
             // http://johanvinet.tumblr.com/
             // Twitter handle: @johanvinet
-            var imageUri = new Uri("ms-appx:///Assets/MiniMario.png");
 
             // Get the pixels of the animation frames.
-            Image pixels = ImageSupport.GetImage(imageUri);
+#if WINDOWS_UWP
+            Image image = ImageSupport.GetImage(new Uri("ms-appx:///Assets/MiniMario.png"));
+#else
+
+            #region Serialized Image
+
+            // The image below is serialized using the ImageSerializer.Serialize() method.
+            // Please see the "SerializeImages" method in the RPi.SenseHat.Tools project.
+            const string serializedImage =
+                "ATAAAAAIAAAAAP///wD///8A//////8ATf//AE3//wBN///x6AD///8A////AP///wD//////wBN//8ATf//8ej//wBNAP///wD/" +
+                "//8A////AP//////AE3//wBN///x6P//AE0A////AP///wD///8A//////8ATf//AE3//wBN///x6AD///8A////AP///wD/////" +
+                "/wBN//8ATf//AE3//wBNAP///wD///8A////AP//////AE3//wBN//8ATf//AE0A////AP///wD///8A//////8ATf//AE3//wBN" +
+                "//8ATf//AE0A////AP///wD//////wBN//8ATf//AE3//wBN//8ATQD///8A////AP//////AE3//wBN//8ATf//AE3//wBNAP//" +
+                "/wD///8A//////8ATf//AE3//wBN//8ATf//AE0A////AP///wD//////wBN//8ATf//AE3//wBN//8ATQD///8A////AP//////" +
+                "AE3//wBN//8ATf//AE3//wBNAP///wD/////q1I2///Mqv+rUjb/AAAA///MqgD///8A////AP//////zKr/q1I2/wAAAP//zKoA" +
+                "////AP///wD///8A///////Mqv+rUjb/AAAA///MqgD///8A////AP///wD/////q1I2///Mqv+rUjb/AAAA///MqgD///8A////" +
+                "AP////+rUjb/q1I2///Mqv+rUjb/AAAAAP///wD///8A/////6tSNv+rUjb//8yq/6tSNv8AAAAA////AP///wD/////q1I2///M" +
+                "qv//zKr/q1I2/6tSNv//zKoA////AP//////zKr//8yq/6tSNv+rUjb//8yq/6tSNgD///8A///////Mqv//zKr/q1I2/6tSNv//" +
+                "zKr/q1I2AP///wD/////q1I2///Mqv//zKr/q1I2/6tSNv//zKoA////AP////+rUjb/q1I2///Mqv//zKr/q1I2/6tSNgD///8A" +
+                "/////6tSNv+rUjb//8yq///Mqv+rUjb/q1I2AP///wD///8A/////6tSNv//zKr//8yq///MqgD///8A////AP///wD//////8yq" +
+                "///Mqv//zKr//8yqAP///wD//////wBN//8ATf//zKr//8yq///Mqv//zKoA////AP///wD///8A/////6tSNv//zKr//8yq///M" +
+                "qgD///8A////AP///wD/////q1I2/6tSNv//zKr//8yqAP///wD///8A////AP////+rUjb/q1I2///Mqv//zKoA////AP///wD/" +
+                "/////wBN//8ATf///yf/Ka3//x0rUwD///8A//////8ATf//AE3///8n/ymt//8prf///6MAAP//////8egA//////8ATf///yf/" +
+                "Ka3//ymt////owD///HoAP///wD//////wBN//8ATf///yf/Ka3//x0rUwD///8A////AP////8prf///wBN//8ATf///yf/HStT" +
+                "AP///wD///8A/////ymt////AE3//wBN////J/8dK1P///HoAP///wD//////wBN///x6P8prf//Ka3//x0rUwD///////HoAP//" +
+                "//8prf//Ka3//ymt//8prf//HStT/4N2nAD/////fiVT/ymt//8prf//Ka3//ymt//8dK1MA////AP///wD//////wBN///x6P8p" +
+                "rf//Ka3//x0rUwD///8A////AP////8prf//Ka3///8ATf//AE3///HoAP///wD/////q1I2/ymt//8prf//Ka3///8ATf//AE0A" +
+                "////AP///wD///8A/////6tSNv+rUjb/fiVTAP///wD///8A////AP////9+JVMA////AP////+rUjYA////AP///wD///8A////" +
+                "AP///wD///8A////AP////+rUjYA////AP///wD///8A/////6tSNv+rUjb/fiVTAP///wD///8A////AP////+rUjYA////AP//" +
+                "//9+JVMA////AP///wD///8A////AP///wD///8A////AP////9+JVMA////";
+
+            #endregion Serialized Image
+
+            Image image = ImageSerializer.Deserialize(serializedImage);
+#endif
 
             // Create a sprite map from the pixels.
-            var spriteMap = new SpriteMap(pixels);
+            var spriteMap = new SpriteMap(image);
 
             // Keep track of the animation frame...
             int animationIndex = 0;

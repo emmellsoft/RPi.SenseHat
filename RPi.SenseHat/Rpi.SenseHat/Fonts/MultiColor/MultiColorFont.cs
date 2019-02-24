@@ -55,7 +55,7 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Fonts.MultiColor
 
             while (bitmapX < image.Width)
             {
-                bool isBeginningOfChar = (image[bitmapX, 0].A > 128);
+                bool isBeginningOfChar = (image[bitmapX, 0].R < 128);
                 bool isLastX = (bitmapX == image.Width - 1);
 
                 if (isBeginningOfChar || isLastX)

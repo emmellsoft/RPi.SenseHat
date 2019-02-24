@@ -15,8 +15,10 @@
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\GammaTest.cs" Link="Demos\GammaTest.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\GravityBlob.cs" Link="Demos\GravityBlob.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\JoystickPixel.cs" Link="Demos\JoystickPixel.cs" />
+    <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\MultiColorScrollText.cs" Link="Demos\MultiColorScrollText.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\ReadAllSensors.cs" Link="Demos\ReadAllSensors.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\SingleColorScrollText.cs" Link="Demos\SingleColorScrollText.cs" />
+    <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\SpriteAnimation.cs" Link="Demos\SpriteAnimation.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\WriteTemperature.cs" Link="Demos\WriteTemperature.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\SenseHatDemo.cs" Link="SenseHatDemo.cs" />
   </ItemGroup>

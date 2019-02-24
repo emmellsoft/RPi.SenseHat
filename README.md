@@ -1,16 +1,17 @@
 # RPi.SenseHat
 A complete Windows IoT class library for the Raspberry Pi "Sense HAT" (C#)
 
-The solution contains the following projects:
-*) Rpi.SenseHat
-*) RPi.SenseHat.Demo
-*) RPi.SenseHat.Tools
-*) RT.IoT.Sensors
+The solution contains the following projects:</br>
+*) Rpi.SenseHat</br>
+*) RPi.SenseHat.Demo.Core</br>
+*) RPi.SenseHat.Demo.UWP</br>
+*) RPi.SenseHat.Tools</br>
+*) RTIMULibCS</br>
 
 The Rpi.SenseHat is the main library. It contains a nice API to the Raspberry Sense HAT in C#.
-The Rpi.SenseHat is dependent on the RT.IoT.Sensors project, which is a library for managing the sensor readings from the Sense HAT. That project is currently a copy of another github repository until no NuGet of it is available.
+The Rpi.SenseHat is dependent on the RTIMULibCS project, which is a library for managing the sensor readings from the Sense HAT. That project is currently a copy of another github repository until no NuGet of it is available.
 
-The RPi.SenseHat.Demo project is an application that you can run on the Raspberry Pi 2. It doesn't utilize the regular UI, so there is no need to connect it to a monitor using the HDMI port.
+The RPi.SenseHat.Demo.* projects are applications that you can run on the Raspberry Pi. It doesn't utilize the regular UI, so there is no need to connect it to a monitor using the HDMI port.
 The application comes with a number of demos.
 You must choose what demo to run by modifying the code in the "DemoSelector" class. It should be fairly obvious what to do there. :-)
 
@@ -20,11 +21,11 @@ It also contains the process of converting a bitmap holding a font image into a 
 
 
 ************************
-To get started:
+To get started with the UWP demo (running on a Raspberry Pi with Windows 10 IoT Core):
 
-*) Open the solution in Visual Studio 2015.
+*) Open the solution in Visual Studio.
 
-*) Make sure the "RPi.SenseHat.Demo" project is the start-up project.
+*) Make sure the "RPi.SenseHat.Demo.UWP" project is the start-up project.
 
 *) Choose "ARM" as the solution platform.
 

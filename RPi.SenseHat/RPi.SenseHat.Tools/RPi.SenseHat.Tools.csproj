@@ -87,6 +87,9 @@
     <Compile Include="..\Rpi.SenseHat\Image.cs">
       <Link>Linked\Image.cs</Link>
     </Compile>
+    <Compile Include="..\Rpi.SenseHat\ImageSerializer.cs">
+      <Link>Linked\ImageSerializer.cs</Link>
+    </Compile>
     <Compile Include="..\Rpi.SenseHat\ISenseHat.cs">
       <Link>Linked\ISenseHat.cs</Link>
     </Compile>

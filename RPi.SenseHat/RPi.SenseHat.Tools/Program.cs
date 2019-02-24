@@ -19,12 +19,51 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
             LedBufferWork();
             SingleColorFontWork();
             SingleColorTinyFontWork();
-            ConvertImagesToCode();
+            ValidateImageSerializer();
+            SerializeImages();
         }
 
-        private static void ConvertImagesToCode()
+        private static bool ImagesEqual(Image a, Image b, bool ignoreAlpha)
         {
-            Image colorFontImage = LoadUwpAssetImage("ColorFont.png");
+            if (a.Width != b.Width)
+            {
+                return false;
+            }
+
+            if (a.Height != b.Height)
+            {
+                return false;
+            }
+
+            for (int y = 0; y < a.Height; y++)
+            {
+                for (int x = 0; x < a.Width; x++)
+                {
+                    if (ignoreAlpha)
+                    {
+                        if (a[x, y].R != b[x, y].R)
+                        {
+                            return false;
+                        }
+
+                        if (a[x, y].G != b[x, y].G)
+                        {
+                            return false;
+                        }
+
+                        if (a[x, y].B != b[x, y].B)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (a[x, y] != b[x, y])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private static void ColorFontWork()
@@ -172,6 +211,31 @@ namespace Emmellsoft.IoT.Rpi.SenseHat.Tools
         private static string ByteToCSharp(byte value)
         {
             return "0x" + value.ToString("X2");
+        }
+
+        private static void ValidateImageSerializer()
+        {
+            Image originalImage = LoadUwpAssetImage("ColorFont.png");
+
+            string serializedImage1 = ImageSerializer.Serialize(originalImage);
+            string serializedImage2 = ImageSerializer.Serialize(originalImage, true);
+            var deserializedImage1 = ImageSerializer.Deserialize(serializedImage1);
+            var deserializedImage2 = ImageSerializer.Deserialize(serializedImage2);
+
+            if (!ImagesEqual(originalImage, deserializedImage1, true) ||
+                !ImagesEqual(originalImage, deserializedImage2, false))
+            {
+                throw new Exception("Image serialized failed.");
+            }
+        }
+
+        private static void SerializeImages()
+        {
+            Image colorFontImage = LoadUwpAssetImage("ColorFont.png");
+            string colorFontImageSerialized = ImageSerializer.Serialize(colorFontImage);
+
+            Image miniMarioImage = LoadUwpAssetImage("MiniMario.png");
+            string miniMarioImageSerialized = ImageSerializer.Serialize(miniMarioImage, true);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 
             //return new WriteTemperature(senseHat, setScreenText); // Is it only me or does it show some unusual high temperature? :-S
 
-            return new GravityBlob(senseHat, setScreenText); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
+            //return new GravityBlob(senseHat, setScreenText); // The green blob is drawn to the center of the earth! If you hold it upside down it gets angry and turns red. :-O
 
             //return new Compass(senseHat, setScreenText); // Note! You must calibrate the magnetic sensor by moving the Raspberry Pi device around in an 'eight' figure a few seconds at startup!
 
@@ -53,7 +53,7 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 
             //return new MultiColorScrollText(senseHat, "Hello Raspberry Pi 3 Sense HAT!");
 
-            //return new SpriteAnimation(senseHat); // Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
+            return new SpriteAnimation(senseHat); // Use the joystick to move Mario. The middle button switches orientation and flipping of the drawing.
 
             //return new GammaTest(senseHat); // Tries out different gamma settings for the LED display. Use the joystick to play around.
 
