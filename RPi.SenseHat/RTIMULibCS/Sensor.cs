@@ -22,7 +22,6 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Threading.Tasks;
 
 namespace RTIMULibCS
 {
@@ -50,24 +49,21 @@ namespace RTIMULibCS
         /// Initiates the sensor.
         /// If failing, an exception is thrown.
         /// </summary>
-        public async Task InitAsync()
+        public void Init()
         {
             if (Initiated)
             {
                 return;
             }
 
-            bool initiated = await InitDeviceAsync();
-
-            if (initiated)
+            if (InitDevice())
             {
                 AfterInitDevice();
+                Initiated = true;
             }
-
-            Initiated = initiated;
         }
 
-        protected abstract Task<bool> InitDeviceAsync();
+        protected abstract bool InitDevice();
 
         protected virtual void AfterInitDevice()
         {

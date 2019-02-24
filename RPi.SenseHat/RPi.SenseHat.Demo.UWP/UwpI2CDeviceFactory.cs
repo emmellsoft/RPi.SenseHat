@@ -13,7 +13,12 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
             Init(new UwpI2CDeviceFactory());
         }
 
-        public override async Task<II2C> Create(byte deviceId)
+        public override II2C Create(byte deviceId)
+        {
+            return CreateAsync(deviceId).Result;
+        }
+
+        private static async Task<II2C> CreateAsync(byte deviceId)
         {
             string aqsFilter = I2cDevice.GetDeviceSelector("I2C1");
 

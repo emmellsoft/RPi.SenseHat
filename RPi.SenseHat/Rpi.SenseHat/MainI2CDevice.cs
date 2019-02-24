@@ -30,9 +30,9 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
     {
         private readonly II2C _device;
 
-        public MainI2CDevice(II2C device)
+        public MainI2CDevice(byte address)
         {
-            _device = device;
+            _device = I2CDeviceFactory.Singleton.Create(address);
         }
 
         internal byte ReadByte(byte address)

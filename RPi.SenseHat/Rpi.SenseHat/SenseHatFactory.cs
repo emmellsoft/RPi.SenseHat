@@ -25,7 +25,7 @@ using RTIMULibCS;
 using RTIMULibCS.Devices.HTS221;
 using RTIMULibCS.Devices.LPS25H;
 using RTIMULibCS.Devices.LSM9DS1;
-using System.Threading.Tasks;
+using System;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
@@ -36,61 +36,34 @@ namespace Emmellsoft.IoT.Rpi.SenseHat
     {
         private const byte DeviceAddress = 0x46;
 
-        private static readonly Task<ISenseHat> _getSenseHatTask = GetSenseHatTask();
+        private static readonly Lazy<ISenseHat> _getSenseHatTask = new Lazy<ISenseHat>(GetSenseHatTask);
 
         /// <summary>
         /// Creates the SenseHat object.
         /// </summary>
-        public static Task<ISenseHat> GetSenseHat()
+        public static ISenseHat GetSenseHat()
         {
-            return _getSenseHatTask;
+            return _getSenseHatTask.Value;
         }
 
-        private static async Task<ISenseHat> GetSenseHatTask()
+        private static ISenseHat GetSenseHatTask()
         {
-            MainI2CDevice mainI2CDevice = await CreateDisplayJoystickI2CDevice();
+            MainI2CDevice mainI2CDevice = new MainI2CDevice(DeviceAddress);
 
-            ImuSensor imuSensor = await CreateImuSensor().ConfigureAwait(false);
-
-            PressureSensor pressureSensor = await CreatePressureSensor().ConfigureAwait(false);
-
-            HumiditySensor humiditySensor = await CreateHumiditySensor().ConfigureAwait(false);
-
-            return new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
-        }
-
-        private static async Task<MainI2CDevice> CreateDisplayJoystickI2CDevice()
-        {
-            II2C device = await I2CDeviceFactory.Singleton.Create(DeviceAddress);
-            return new MainI2CDevice(device);
-        }
-
-        private static async Task<ImuSensor> CreateImuSensor()
-        {
-            var lsm9Ds1Config = new LSM9DS1Config();
-
-            var imuSensor = new LSM9DS1ImuSensor(
+            ImuSensor imuSensor = new LSM9DS1ImuSensor(
                 LSM9DS1Defines.ADDRESS0,
                 LSM9DS1Defines.MAG_ADDRESS0,
-                lsm9Ds1Config,
+                new LSM9DS1Config(),
                 new SensorFusionRTQF());
+            imuSensor.Init();
 
-            await imuSensor.InitAsync().ConfigureAwait(false);
-            return imuSensor;
-        }
+            PressureSensor pressureSensor = new LPS25HPressureSensor(LPS25HDefines.ADDRESS0);
+            pressureSensor.Init();
 
-        private static async Task<PressureSensor> CreatePressureSensor()
-        {
-            var pressureSensor = new LPS25HPressureSensor(LPS25HDefines.ADDRESS0);
-            await pressureSensor.InitAsync().ConfigureAwait(false);
-            return pressureSensor;
-        }
+            HumiditySensor humiditySensor = new HTS221HumiditySensor(HTS221Defines.ADDRESS);
+            humiditySensor.Init();
 
-        private static async Task<HumiditySensor> CreateHumiditySensor()
-        {
-            var humiditySensor = new HTS221HumiditySensor(HTS221Defines.ADDRESS);
-            await humiditySensor.InitAsync().ConfigureAwait(false);
-            return humiditySensor;
+            return new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
         }
     }
 }

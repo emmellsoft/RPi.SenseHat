@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Emmellsoft.IoT.Rpi.SenseHat;
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -18,7 +20,12 @@ namespace Emmellsoft.IoT.RPi.SenseHat.Demo
 
             UwpI2CDeviceFactory.Init();
 
-            DemoRunner.Run(senseHat => DemoSelector.GetDemo(senseHat, SetScreenText));
+            Task.Factory.StartNew(() =>
+            {
+                ISenseHat senseHat = SenseHatFactory.GetSenseHat();
+                SenseHatDemo demo = DemoSelector.GetDemo(senseHat, SetScreenText);
+                demo.Run();
+            });
         }
 
         private async void SetScreenText(string text)

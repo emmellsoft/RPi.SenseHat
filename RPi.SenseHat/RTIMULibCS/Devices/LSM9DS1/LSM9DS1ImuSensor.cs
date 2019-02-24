@@ -22,7 +22,7 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace RTIMULibCS.Devices.LSM9DS1
 {
@@ -53,11 +53,11 @@ namespace RTIMULibCS.Devices.LSM9DS1
             SampleRate = 100;
         }
 
-        protected override async Task<bool> InitDeviceAsync()
+        protected override bool InitDevice()
         {
-            await ConnectToI2CDevices();
+            ConnectToI2CDevices();
 
-            await BootDevice();
+            BootDevice();
 
             VerifyDeviceAccelGyroId();
             SetGyroSampleRate();
@@ -72,12 +72,12 @@ namespace RTIMULibCS.Devices.LSM9DS1
             return true;
         }
 
-        private async Task ConnectToI2CDevices()
+        private void ConnectToI2CDevices()
         {
             try
             {
-                _accelGyroI2CDevice = await I2CDeviceFactory.Singleton.Create(_accelGyroI2CAddress);
-                _magI2CDevice = await I2CDeviceFactory.Singleton.Create(_magI2CAddress);
+                _accelGyroI2CDevice = I2CDeviceFactory.Singleton.Create(_accelGyroI2CAddress);
+                _magI2CDevice = I2CDeviceFactory.Singleton.Create(_magI2CAddress);
             }
             catch (Exception exception)
             {
@@ -85,11 +85,11 @@ namespace RTIMULibCS.Devices.LSM9DS1
             }
         }
 
-        private async Task BootDevice()
+        private void BootDevice()
         {
             I2CSupport.Write(_accelGyroI2CDevice, LSM9DS1Defines.CTRL8, 0x81, "Failed to boot LSM9DS1");
 
-            await Task.Delay(100);
+            Thread.Sleep(100);
         }
 
         private void VerifyDeviceAccelGyroId()

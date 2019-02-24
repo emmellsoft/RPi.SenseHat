@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\RPi.SenseHat.Demo.UWP\DemoRunner.cs" Link="DemoRunner.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\DemoSelector.cs" Link="DemoSelector.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\BinaryClock.cs" Link="Demos\BinaryClock.cs" />
     <Compile Include="..\RPi.SenseHat.Demo.UWP\Demos\Compass.cs" Link="Demos\Compass.cs" />

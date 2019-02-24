@@ -22,7 +22,6 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Threading.Tasks;
 
 namespace RTIMULibCS.Devices.HTS221
 {
@@ -48,9 +47,9 @@ namespace RTIMULibCS.Devices.HTS221
             _i2CAddress = i2CAddress;
         }
 
-        protected override async Task<bool> InitDeviceAsync()
+        protected override bool InitDevice()
         {
-            await ConnectToI2CDevices();
+            ConnectToI2CDevices();
 
             I2CSupport.Write(_i2CDevice, HTS221Defines.CTRL1, 0x87, "Failed to set HTS221 CTRL_REG_1");
 
@@ -111,11 +110,11 @@ namespace RTIMULibCS.Devices.HTS221
             return rawHumidity => rawHumidity * m + b;
         }
 
-        private async Task ConnectToI2CDevices()
+        private void ConnectToI2CDevices()
         {
             try
             {
-                _i2CDevice = await I2CDeviceFactory.Singleton.Create(_i2CAddress);
+                _i2CDevice = I2CDeviceFactory.Singleton.Create(_i2CAddress);
             }
             catch (Exception exception)
             {

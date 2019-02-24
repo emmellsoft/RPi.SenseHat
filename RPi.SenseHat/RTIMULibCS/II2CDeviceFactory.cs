@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace RTIMULibCS
+﻿namespace RTIMULibCS
 {
     public abstract class I2CDeviceFactory
     {
@@ -11,6 +9,6 @@ namespace RTIMULibCS
             Singleton = singleton;
         }
 
-        public abstract Task<II2C> Create(byte deviceAddress);
+        public abstract II2C Create(byte deviceAddress);
     }
 }

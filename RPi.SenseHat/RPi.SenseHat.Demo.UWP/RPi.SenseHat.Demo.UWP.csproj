@@ -95,8 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ColorExtension.cs" />
-    <Compile Include="DemoRunner.cs" />
     <Compile Include="DemoSelector.cs" />
     <Compile Include="Demos\BinaryClock.cs" />
     <Compile Include="Demos\Compass.cs" />

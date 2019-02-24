@@ -22,7 +22,6 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Threading.Tasks;
 
 namespace RTIMULibCS.Devices.LPS25H
 {
@@ -44,9 +43,9 @@ namespace RTIMULibCS.Devices.LPS25H
             _i2CAddress = i2CAddress;
         }
 
-        protected override async Task<bool> InitDeviceAsync()
+        protected override bool InitDevice()
         {
-            await ConnectToI2CDevices();
+            ConnectToI2CDevices();
 
             I2CSupport.Write(_i2CDevice, LPS25HDefines.CTRL_REG_1, 0xc4, "Failed to set LPS25H CTRL_REG_1");
 
@@ -59,11 +58,11 @@ namespace RTIMULibCS.Devices.LPS25H
             return true;
         }
 
-        private async Task ConnectToI2CDevices()
+        private void ConnectToI2CDevices()
         {
             try
             {
-                _i2CDevice = await I2CDeviceFactory.Singleton.Create(_i2CAddress);
+                _i2CDevice = I2CDeviceFactory.Singleton.Create(_i2CAddress);
             }
             catch (Exception exception)
             {

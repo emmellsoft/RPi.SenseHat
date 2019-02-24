@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPi.SenseHat", "RPi.SenseHa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTIMULibCS", "RTIMULibCS\RTIMULibCS.csproj", "{C91BBCDD-0775-43FD-AB8D-E46FC1B07E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPi.SenseHat.Demo.Core", "RPi.SenseHat.Demo.Core\RPi.SenseHat.Demo.Core.csproj", "{2CB30372-F434-4F19-8493-7ED7789956C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPi.SenseHat.Demo.Core", "RPi.SenseHat.Demo.Core\RPi.SenseHat.Demo.Core.csproj", "{2CB30372-F434-4F19-8493-7ED7789956C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,7 +25,9 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|Any CPU.ActiveCfg = Debug|ARM
+		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|Any CPU.Build.0 = Debug|ARM
+		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|Any CPU.Deploy.0 = Debug|ARM
 		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|ARM.ActiveCfg = Debug|ARM
 		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|ARM.Build.0 = Debug|ARM
 		{C9396C90-A80F-4672-A1E4-711421AC590A}.Debug|ARM.Deploy.0 = Debug|ARM
