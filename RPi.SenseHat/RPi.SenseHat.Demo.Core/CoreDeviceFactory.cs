@@ -1,6 +1,7 @@
 using RTIMULibCS;
 using System.Device.I2c;
 using System.Device.I2c.Drivers;
+using System.Runtime.InteropServices;
 
 namespace RPi.SenseHat.Demo.Core
 {
@@ -13,8 +14,18 @@ namespace RPi.SenseHat.Demo.Core
 
         public override II2C Create(byte deviceAddress)
         {
-            I2cDevice device = new Windows10I2cDevice(new I2cConnectionSettings(1, deviceAddress));
+            I2cDevice device = CreateI2CDevice(new I2cConnectionSettings(1, deviceAddress));
             return new UwpI2C(device);
+        }
+
+        private static I2cDevice CreateI2CDevice(I2cConnectionSettings settings)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return new Windows10I2cDevice(settings);
+            }
+
+            return new UnixI2cDevice(settings);
         }
 
         private class UwpI2C : II2C

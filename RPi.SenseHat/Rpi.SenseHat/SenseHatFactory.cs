@@ -29,41 +29,41 @@ using System;
 
 namespace Emmellsoft.IoT.Rpi.SenseHat
 {
-    /// <summary>
-    /// Factory for creating the ISenseHat object.
-    /// </summary>
-    public static class SenseHatFactory
-    {
-        private const byte DeviceAddress = 0x46;
+	/// <summary>
+	/// Factory for creating the ISenseHat object.
+	/// </summary>
+	public static class SenseHatFactory
+	{
+		private const byte DeviceAddress = 0x46;
 
-        private static readonly Lazy<ISenseHat> _getSenseHatTask = new Lazy<ISenseHat>(GetSenseHatTask);
+		private static readonly Lazy<ISenseHat> _lazySenseHat = new Lazy<ISenseHat>(CreateSenseHat);
 
-        /// <summary>
-        /// Creates the SenseHat object.
-        /// </summary>
-        public static ISenseHat GetSenseHat()
-        {
-            return _getSenseHatTask.Value;
-        }
+		/// <summary>
+		/// Creates the SenseHat object.
+		/// </summary>
+		public static ISenseHat GetSenseHat()
+		{
+			return _lazySenseHat.Value;
+		}
 
-        private static ISenseHat GetSenseHatTask()
-        {
-            MainI2CDevice mainI2CDevice = new MainI2CDevice(DeviceAddress);
+		private static ISenseHat CreateSenseHat()
+		{
+			MainI2CDevice mainI2CDevice = new MainI2CDevice(DeviceAddress);
 
-            ImuSensor imuSensor = new LSM9DS1ImuSensor(
-                LSM9DS1Defines.ADDRESS0,
-                LSM9DS1Defines.MAG_ADDRESS0,
-                new LSM9DS1Config(),
-                new SensorFusionRTQF());
-            imuSensor.Init();
+			ImuSensor imuSensor = new LSM9DS1ImuSensor(
+				LSM9DS1Defines.ADDRESS0,
+				LSM9DS1Defines.MAG_ADDRESS0,
+				new LSM9DS1Config(),
+				new SensorFusionRTQF());
+			imuSensor.Init();
 
-            PressureSensor pressureSensor = new LPS25HPressureSensor(LPS25HDefines.ADDRESS0);
-            pressureSensor.Init();
+			PressureSensor pressureSensor = new LPS25HPressureSensor(LPS25HDefines.ADDRESS0);
+			pressureSensor.Init();
 
-            HumiditySensor humiditySensor = new HTS221HumiditySensor(HTS221Defines.ADDRESS);
-            humiditySensor.Init();
+			HumiditySensor humiditySensor = new HTS221HumiditySensor(HTS221Defines.ADDRESS);
+			humiditySensor.Init();
 
-            return new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
-        }
-    }
+			return new SenseHat(mainI2CDevice, imuSensor, pressureSensor, humiditySensor);
+		}
+	}
 }
