@@ -2,14 +2,14 @@
 A complete Windows IoT class library for the Raspberry Pi "Sense HAT" (C#)
 
 The solution contains the following projects:</br>
-*) Rpi.SenseHat</br>
+*) RPi.SenseHat</br>
 *) RPi.SenseHat.Demo.Core</br>
 *) RPi.SenseHat.Demo.UWP</br>
 *) RPi.SenseHat.Tools</br>
 *) RTIMULibCS</br>
 
-The Rpi.SenseHat is the main library. It contains a nice API to the Raspberry Sense HAT in C#.
-The Rpi.SenseHat is dependent on the RTIMULibCS project, which is a library for managing the sensor readings from the Sense HAT. That project is currently a copy of another github repository until no NuGet of it is available.
+The RPi.SenseHat is the main library. It contains a nice API to the Raspberry Sense HAT in C#.
+The RPi.SenseHat is dependent on the RTIMULibCS project, which is a library for managing the sensor readings from the Sense HAT. That project is currently a copy of another github repository until no NuGet of it is available.
 
 The RPi.SenseHat.Demo.* projects are applications that you can run on the Raspberry Pi. It doesn't utilize the regular UI, so there is no need to connect it to a monitor using the HDMI port.
 The application comes with a number of demos.

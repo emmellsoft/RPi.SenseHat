@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Tools
+//  This file is part of RPi.SenseHat.Tools
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.LedBuffer
+namespace Emmellsoft.IoT.RPi.SenseHat.Tools.LedBuffer
 {
 	public class GammaCalc
 	{

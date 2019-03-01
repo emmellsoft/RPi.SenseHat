@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,33 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
+using RTIMULibCS;
+
 namespace Emmellsoft.IoT.RPi.SenseHat
 {
-    public interface ISenseHatSensors
+    internal sealed class SenseHat : ISenseHat
     {
+        private readonly MainI2CDevice _mainI2CDevice;
+
+        public SenseHat(
+            MainI2CDevice mainI2CDevice,
+            ImuSensor imuSensor,
+            PressureSensor pressureSensor,
+            HumiditySensor humiditySensor)
+        {
+            _mainI2CDevice = mainI2CDevice;
+
+            Display = new SenseHatDisplay(_mainI2CDevice);
+            Joystick = new SenseHatJoystick(_mainI2CDevice);
+            Sensors = new SenseHatSensors(imuSensor, pressureSensor, humiditySensor);
+        }
+
+        public byte FirmwareVersion => _mainI2CDevice.ReadByte(0xf1);
+
+        public ISenseHatDisplay Display { get; }
+
+        public ISenseHatJoystick Joystick { get; }
+
+        public ISenseHatSensors Sensors { get; }
     }
 }

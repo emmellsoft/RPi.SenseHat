@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of Rpi.SenseHat.Tools
+//  This file is part of RPi.SenseHat.Tools
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,14 +21,14 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Emmellsoft.IoT.Rpi.SenseHat.Fonts.SingleColor;
+using Emmellsoft.IoT.RPi.SenseHat.Fonts.SingleColor;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace Emmellsoft.IoT.Rpi.SenseHat.Tools.Font
+namespace Emmellsoft.IoT.RPi.SenseHat.Tools.Font
 {
     public static class SingleColorFontBuilder
     {

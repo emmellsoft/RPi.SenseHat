@@ -1,6 +1,6 @@
-﻿////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,29 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
-namespace Emmellsoft.IoT.RPi.SenseHat
+namespace Emmellsoft.IoT.RPi.SenseHat.Fonts.SingleColor
 {
-    public interface ISenseHatSensors
+    /// <summary>
+    /// A single color font character.
+    /// </summary>
+    public class SingleColorCharacter : Character
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="symbol">The unicode character.</param>
+        /// <param name="columns">The pixel columns. One column=one byte where each bit represents a pixel (on=1 or off=0) where the LSB is the topmost pixel.</param>
+        public SingleColorCharacter(char symbol, byte[] columns)
+            : base(symbol, columns.Length)
+        {
+            Columns = columns;
+        }
+
+        /// <summary>
+        /// The pixel columns.
+        /// One column=one byte where each bit represents a pixel (on=1 or off=0)
+        /// where the LSB is the topmost pixel.
+        /// </summary>
+        public byte[] Columns { get; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,42 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
 namespace Emmellsoft.IoT.RPi.SenseHat
 {
-    public interface ISenseHatSensors
+    /// <summary>
+    /// Interface to the Sense HAT joystick.
+    /// </summary>
+    public interface ISenseHatJoystick
     {
+        /// <summary>
+        /// Reads the current status of the joystick and updates the properties of this interface.
+        /// Returns true if it was changed since the last time.
+        /// </summary>
+        bool Update();
+
+        /// <summary>
+        /// The state of the LEFT joystick key.
+        /// </summary>
+        KeyState LeftKey { get; }
+
+        /// <summary>
+        /// The state of the RIGHT joystick key.
+        /// </summary>
+        KeyState RightKey { get; }
+
+        /// <summary>
+        /// The state of the UP joystick key.
+        /// </summary>
+        KeyState UpKey { get; }
+
+        /// <summary>
+        /// The state of the DOWN joystick key.
+        /// </summary>
+        KeyState DownKey { get; }
+
+        /// <summary>
+        /// The state of the MIDDLE joystick key.
+        /// </summary>
+        KeyState EnterKey { get; }
     }
 }

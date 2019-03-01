@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,16 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
 namespace Emmellsoft.IoT.RPi.SenseHat
 {
-    public interface ISenseHatSensors
+    public interface ISenseHat
     {
+        byte FirmwareVersion { get; }
+
+        ISenseHatDisplay Display { get; }
+
+        ISenseHatJoystick Joystick { get; }
+
+        ISenseHatSensors Sensors { get; }
     }
 }

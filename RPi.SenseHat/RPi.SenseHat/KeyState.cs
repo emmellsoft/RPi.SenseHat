@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,31 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
 namespace Emmellsoft.IoT.RPi.SenseHat
 {
-    public interface ISenseHatSensors
+    /// <summary>
+    /// The state of a joystick key.
+    /// </summary>
+    public enum KeyState
     {
+        /// <summary>
+        /// The key is idling.
+        /// </summary>
+        Released,
+
+        /// <summary>
+        /// The key is just pressed.
+        /// </summary>
+        Pressing,
+
+        /// <summary>
+        /// The key is held pressed.
+        /// </summary>
+        Pressed,
+
+        /// <summary>
+        /// The key is just released.
+        /// </summary>
+        Releasing,
     }
 }

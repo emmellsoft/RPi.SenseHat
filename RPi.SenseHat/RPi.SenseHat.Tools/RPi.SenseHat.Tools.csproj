@@ -7,8 +7,8 @@
     <ProjectGuid>{4C15DA49-FDD7-456B-ABDF-0E6D135AAD75}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Emmellsoft.IoT.Rpi.SenseHat.Tools</RootNamespace>
-    <AssemblyName>Emmellsoft.IoT.Rpi.SenseHat.Tools</AssemblyName>
+    <RootNamespace>Emmellsoft.IoT.RPi.SenseHat.Tools</RootNamespace>
+    <AssemblyName>Emmellsoft.IoT.RPi.SenseHat.Tools</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,61 +45,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Rpi.SenseHat\Color.cs">
+    <Compile Include="..\RPi.SenseHat\Color.cs">
       <Link>Linked\Color.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\DisplayDirection.cs">
+    <Compile Include="..\RPi.SenseHat\DisplayDirection.cs">
       <Link>Linked\DisplayDirection.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\Character.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\Character.cs">
       <Link>Linked\Font\Character.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\CharacterRenderer.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\CharacterRenderer.cs">
       <Link>Linked\Font\CharacterRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\Font.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\Font.cs">
       <Link>Linked\Font\Font.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorCharacter.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\MultiColor\MultiColorCharacter.cs">
       <Link>Linked\Font\MultiColor\MultiColorCharacter.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorCharacterRenderer.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\MultiColor\MultiColorCharacterRenderer.cs">
       <Link>Linked\Font\MultiColor\MultiColorCharacterRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\MultiColor\MultiColorFont.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\MultiColor\MultiColorFont.cs">
       <Link>Linked\Font\MultiColor\MultiColorFont.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacter.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\SingleColor\SingleColorCharacter.cs">
       <Link>Linked\Font\SingleColor\SingleColorCharacter.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacterRenderer.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\SingleColor\SingleColorCharacterRenderer.cs">
       <Link>Linked\Font\SingleColor\SingleColorCharacterRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorCharacterRendererPixelMap.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\SingleColor\SingleColorCharacterRendererPixelMap.cs">
       <Link>Linked\Font\SingleColor\SingleColorCharacterRendererPixelMap.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\SingleColorFont.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\SingleColor\SingleColorFont.cs">
       <Link>Linked\Font\SingleColor\SingleColorFont.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Fonts\SingleColor\TinyFont.cs">
+    <Compile Include="..\RPi.SenseHat\Fonts\SingleColor\TinyFont.cs">
       <Link>Linked\Font\SingleColor\TinyFont.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\Image.cs">
+    <Compile Include="..\RPi.SenseHat\Image.cs">
       <Link>Linked\Image.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\ImageSerializer.cs">
+    <Compile Include="..\RPi.SenseHat\ImageSerializer.cs">
       <Link>Linked\ImageSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\ISenseHat.cs">
+    <Compile Include="..\RPi.SenseHat\ISenseHat.cs">
       <Link>Linked\ISenseHat.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\ISenseHatDisplay.cs">
+    <Compile Include="..\RPi.SenseHat\ISenseHatDisplay.cs">
       <Link>Linked\ISenseHatDisplay.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\ISenseHatJoystick.cs">
+    <Compile Include="..\RPi.SenseHat\ISenseHatJoystick.cs">
       <Link>Linked\ISenseHatJoystick.cs</Link>
     </Compile>
-    <Compile Include="..\Rpi.SenseHat\KeyState.cs">
+    <Compile Include="..\RPi.SenseHat\KeyState.cs">
       <Link>Linked\KeyState.cs</Link>
     </Compile>
     <Compile Include="ColorExtension.cs" />

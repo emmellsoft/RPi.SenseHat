@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,41 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
-namespace Emmellsoft.IoT.RPi.SenseHat
+using System;
+
+namespace Emmellsoft.IoT.RPi.SenseHat.Fonts.MultiColor
 {
-    public interface ISenseHatSensors
+    /// <summary>
+    /// A color font character.
+    /// </summary>
+    public class MultiColorCharacter : Character
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="symbol">The unicode character.</param>
+        /// <param name="image">The pixels array. Must not be larger than 8x8 pixels.</param>
+        /// <param name="transparencyColor">The color that represents transparency.</param>
+        public MultiColorCharacter(char symbol, Image image, Color? transparencyColor = null)
+            : base(symbol, image.Width)
+        {
+            if (image.Height > 8)
+            {
+                throw new ArgumentException("The pixels array must not be taller than 8 pixels!");
+            }
+
+            Image = image;
+            TransparencyColor = transparencyColor;
+        }
+
+        /// <summary>
+        /// The pixels array.
+        /// </summary>
+        public Image Image { get; }
+
+        /// <summary>
+        /// The color that represents transparency.
+        /// </summary>
+        public Color? TransparencyColor { get; }
     }
 }

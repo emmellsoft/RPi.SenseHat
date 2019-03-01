@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,33 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
-namespace Emmellsoft.IoT.RPi.SenseHat
+namespace Emmellsoft.IoT.RPi.SenseHat.Fonts
 {
-    public interface ISenseHatSensors
+    /// <summary>
+    /// An abstract character.
+    /// </summary>
+    public abstract class Character
     {
+        protected Character(char symbol, int width)
+        {
+            Symbol = symbol;
+            Width = width;
+        }
+
+        /// <summary>
+        /// The unicode char representing this character.
+        /// </summary>
+        public char Symbol { get; }
+
+        /// <summary>
+        /// The width in pixels of this character.
+        /// </summary>
+        public int Width { get; }
+
+        /// <summary>
+        /// As string.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString() => $"\"{Symbol}\"";
     }
 }

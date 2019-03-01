@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,48 +21,20 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
-
-namespace Emmellsoft.IoT.RPi.SenseHat.Tools.LedBuffer
+namespace Emmellsoft.IoT.RPi.SenseHat.Fonts
 {
-	public static class FindBestGammaMatch
+	/// <summary>
+	/// Renderer of a Character.
+	/// </summary>
+	public abstract class CharacterRenderer<TChar> where TChar : Character
 	{
-		public static double Best5BitGammaMatch(byte[] wantedGammaTable, double start, double stop, double step)
-		{
-			var gammaValue = start;
-
-			double bestMatchGammaValue = 0;
-			int bestMatchGammaFailCount = int.MaxValue;
-
-			do
-			{
-				byte[] myGamma = GammaCalc.Get5BitGamma(gammaValue).ToArray();
-
-				int failCount = 0;
-				for (int i = 0; i < myGamma.Length; i++)
-				{
-					if (myGamma[i] != wantedGammaTable[i])
-					{
-						failCount++;
-					}
-				}
-				
-				if (failCount < bestMatchGammaFailCount)
-				{
-					bestMatchGammaValue = gammaValue;
-					bestMatchGammaFailCount = failCount;
-
-					if (failCount == 0)
-					{
-						break;
-					}
-				}
-
-				gammaValue += step;
-			}
-			while (gammaValue < stop);
-
-			return bestMatchGammaValue;
-		}
+		/// <summary>
+		/// Renders a character on the display at the specified offset.
+		/// </summary>
+		/// <param name="display">The display to render to.</param>
+		/// <param name="character">The character to render.</param>
+		/// <param name="offsetX">The X-position of the left-most edge of the character.</param>
+		/// <param name="offsetY">The Y-position of the top-most edge of the character.</param>
+		public abstract void Render(ISenseHatDisplay display, TChar character, int offsetX, int offsetY);
 	}
 }

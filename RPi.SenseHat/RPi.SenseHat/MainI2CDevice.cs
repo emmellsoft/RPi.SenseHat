@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,43 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
+using RTIMULibCS;
+using System;
+
 namespace Emmellsoft.IoT.RPi.SenseHat
 {
-    public interface ISenseHatSensors
+    internal sealed class MainI2CDevice
     {
+        private readonly II2C _device;
+
+        public MainI2CDevice(byte address)
+        {
+            _device = I2CDeviceFactory.Singleton.Create(address);
+        }
+
+        internal byte ReadByte(byte address)
+        {
+            byte[] buffer = { address };
+            _device.Write(buffer);
+
+            return _device.Read(1)[0];
+        }
+
+        internal byte[] ReadBytes(byte address, int length)
+        {
+            byte[] buffer = { address };
+            _device.Write(buffer);
+
+            return _device.Read(length);
+        }
+
+        internal void WriteBytes(byte address, byte[] values)
+        {
+            byte[] buffer = new byte[1 + values.Length];
+            buffer[0] = address;
+            Array.Copy(values, 0, buffer, 1, values.Length);
+
+            _device.Write(buffer);
+        }
     }
 }

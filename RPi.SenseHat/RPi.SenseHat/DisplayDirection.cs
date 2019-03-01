@@ -1,6 +1,6 @@
-﻿////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,48 +21,31 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
-
-namespace Emmellsoft.IoT.RPi.SenseHat.Tools.LedBuffer
+namespace Emmellsoft.IoT.RPi.SenseHat
 {
-	public static class FindBestGammaMatch
+	/// <summary>
+	/// The direction of the display.
+	/// </summary>
+	public enum DisplayDirection
 	{
-		public static double Best5BitGammaMatch(byte[] wantedGammaTable, double start, double stop, double step)
-		{
-			var gammaValue = start;
+		/// <summary>
+		/// Default. No rotation.
+		/// </summary>
+		Deg0,
 
-			double bestMatchGammaValue = 0;
-			int bestMatchGammaFailCount = int.MaxValue;
+		/// <summary>
+		/// Rotated 90 degrees clockwise.
+		/// </summary>
+		Deg90,
 
-			do
-			{
-				byte[] myGamma = GammaCalc.Get5BitGamma(gammaValue).ToArray();
+		/// <summary>
+		/// Rotated 180 degrees.
+		/// </summary>
+		Deg180,
 
-				int failCount = 0;
-				for (int i = 0; i < myGamma.Length; i++)
-				{
-					if (myGamma[i] != wantedGammaTable[i])
-					{
-						failCount++;
-					}
-				}
-				
-				if (failCount < bestMatchGammaFailCount)
-				{
-					bestMatchGammaValue = gammaValue;
-					bestMatchGammaFailCount = failCount;
-
-					if (failCount == 0)
-					{
-						break;
-					}
-				}
-
-				gammaValue += step;
-			}
-			while (gammaValue < stop);
-
-			return bestMatchGammaValue;
-		}
+		/// <summary>
+		/// Rotated 90 degrees counterclockwise.
+		/// </summary>
+		Deg270,
 	}
 }

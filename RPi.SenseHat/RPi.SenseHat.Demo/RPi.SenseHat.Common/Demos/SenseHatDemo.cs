@@ -1,6 +1,6 @@
-﻿////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
-//  This file is part of RPi.SenseHat.Tools
+//  This file is part of RPi.SenseHat.Demo
 //
 //  Copyright (c) 2019, Mattias Larsson
 //
@@ -21,10 +21,31 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// ReSharper disable once CheckNamespace
-namespace Emmellsoft.IoT.RPi.SenseHat
+using Emmellsoft.IoT.RPi.SenseHat;
+using System;
+using System.Threading;
+
+namespace Emmellsoft.IoT.RPi.SenseHat.Demo.Common.Demos
 {
-    public interface ISenseHatSensors
+    public abstract class SenseHatDemo
     {
+        private readonly ManualResetEventSlim _waitEvent = new ManualResetEventSlim(false);
+
+        protected SenseHatDemo(ISenseHat senseHat, Action<string> setScreenText = null)
+        {
+            SetScreenText = setScreenText;
+            SenseHat = senseHat;
+        }
+
+        protected Action<string> SetScreenText { get; }
+
+        protected ISenseHat SenseHat { get; }
+
+        public abstract void Run();
+
+        protected void Sleep(TimeSpan duration)
+        {
+            _waitEvent.Wait(duration);
+        }
     }
 }
